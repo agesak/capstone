@@ -3,30 +3,36 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2561BB539D3D8EF229CF9783 /* Pods_gymbuddies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */; };
 		3C28744325C28C3B002708DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744225C28C3B002708DE /* AppDelegate.swift */; };
 		3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744425C28C3B002708DE /* SceneDelegate.swift */; };
-		3C28744725C28C3B002708DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744625C28C3B002708DE /* ContentView.swift */; };
+		3C28744725C28C3B002708DE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744625C28C3B002708DE /* HomeView.swift */; };
 		3C28744925C28C42002708DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744825C28C42002708DE /* Assets.xcassets */; };
 		3C28744C25C28C42002708DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744B25C28C42002708DE /* Preview Assets.xcassets */; };
 		3C28744F25C28C42002708DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744D25C28C42002708DE /* LaunchScreen.storyboard */; };
 		3C28745825C28CA2002708DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C28745725C28CA2002708DE /* GoogleService-Info.plist */; };
+		3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749525C291C3002708DE /* CreateAccountView.swift */; };
+		3C28749925C291DE002708DE /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749825C291DE002708DE /* UserView.swift */; };
+		3C28749C25C291FB002708DE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749B25C291FB002708DE /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3C28743F25C28C3B002708DE /* gymbuddies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gymbuddies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C28744225C28C3B002708DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C28744425C28C3B002708DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3C28744625C28C3B002708DE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3C28744625C28C3B002708DE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3C28744825C28C42002708DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C28744B25C28C42002708DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3C28744E25C28C42002708DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C28745025C28C42002708DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C28745725C28CA2002708DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3C28749525C291C3002708DE /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		3C28749825C291DE002708DE /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		3C28749B25C291FB002708DE /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.release.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.release.xcconfig"; sourceTree = "<group>"; };
 		BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gymbuddies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.debug.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.debug.xcconfig"; sourceTree = "<group>"; };
@@ -50,7 +56,6 @@
 				EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */,
 				7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -77,7 +82,10 @@
 			children = (
 				3C28744225C28C3B002708DE /* AppDelegate.swift */,
 				3C28744425C28C3B002708DE /* SceneDelegate.swift */,
-				3C28744625C28C3B002708DE /* ContentView.swift */,
+				3C28749525C291C3002708DE /* CreateAccountView.swift */,
+				3C28749825C291DE002708DE /* UserView.swift */,
+				3C28749B25C291FB002708DE /* MenuView.swift */,
+				3C28744625C28C3B002708DE /* HomeView.swift */,
 				3C28744825C28C42002708DE /* Assets.xcassets */,
 				3C28744D25C28C42002708DE /* LaunchScreen.storyboard */,
 				3C28745025C28C42002708DE /* Info.plist */,
@@ -237,8 +245,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C28744325C28C3B002708DE /* AppDelegate.swift in Sources */,
+				3C28749C25C291FB002708DE /* MenuView.swift in Sources */,
 				3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */,
-				3C28744725C28C3B002708DE /* ContentView.swift in Sources */,
+				3C28749925C291DE002708DE /* UserView.swift in Sources */,
+				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
+				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
