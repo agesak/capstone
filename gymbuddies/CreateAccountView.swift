@@ -32,18 +32,10 @@ struct CreateAccountView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.leading)
-    //                    .multilineTextAlignment(.leading)
-                
                 
                 Spacer().frame(height: 90)
                 
                 VStack(alignment: .leading){
-//                    VStack(alignment: .leading){
-//                        Text("Username").font(.headline).fontWeight(.light)
-//                        TextField("Enter your Username", text: $username)
-//                        .autocapitalization(.none)
-//                        Divider()
-//                    }
                     VStack(alignment: .leading){
                         Text("Email").font(.headline).fontWeight(.light)
                         TextField("Enter your Email Address", text: $email)

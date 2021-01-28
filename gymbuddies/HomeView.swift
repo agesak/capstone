@@ -36,7 +36,7 @@ struct HomeView : View {
                     })
                 
             NavigationLink(
-               destination: CreateAccountView(),
+               destination: SignInView(),
                label: {
                    Text("Sign In")
                    .font(.title)
