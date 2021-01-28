@@ -8,6 +8,7 @@ target 'gymbuddies' do
   # Pods for gymbuddies
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
 
   pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '7.4.0'
 end

@@ -11,7 +11,7 @@ import Firebase
 struct CreateAccountView: View {
     
 //    @ObservedObject var users = getUsersData()
-    @State var username : String = ""
+//    @State var username : String = ""
     @State var password : String = ""
     @State var email : String = ""
     
@@ -38,12 +38,12 @@ struct CreateAccountView: View {
                 Spacer().frame(height: 90)
                 
                 VStack(alignment: .leading){
-                    VStack(alignment: .leading){
-                        Text("Username").font(.headline).fontWeight(.light)
-                        TextField("Enter your Username", text: $username)
-                        .autocapitalization(.none)
-                        Divider()
-                    }
+//                    VStack(alignment: .leading){
+//                        Text("Username").font(.headline).fontWeight(.light)
+//                        TextField("Enter your Username", text: $username)
+//                        .autocapitalization(.none)
+//                        Divider()
+//                    }
                     VStack(alignment: .leading){
                         Text("Email").font(.headline).fontWeight(.light)
                         TextField("Enter your Email Address", text: $email)
@@ -72,24 +72,35 @@ struct CreateAccountView: View {
                        .background(Color.purple)
                      .cornerRadius(10.0)
                    }).simultaneousGesture(TapGesture().onEnded{
-                    let userDictionary = [
-                        "username": self.username,
-                        "email": self.email,
-                        "password": self.password
-                    ]
-                    
-                    let docRef = Firestore.firestore().document("users/\(UUID().uuidString)")
-                    print("setting data")
-                    docRef.setData(userDictionary){ (error) in
+                    Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
                         if let error = error {
-                            print("error = \(error)")
+                            print(error.localizedDescription)
                         } else {
                             print("it worked bihhhhh!!!!")
-                            self.username = ""
+//                            self.username = ""
                             self.email = ""
                             self.password = ""
                         }
-                    }
+                    })
+                    
+//                    let userDictionary = [
+//                        "username": self.username,
+//                        "email": self.email,
+//                        "password": self.password
+//                    ]
+//
+//                    let docRef = Firestore.firestore().document("users/\(UUID().uuidString)")
+//                    print("setting data")
+//                    docRef.setData(userDictionary){ (error) in
+//                        if let error = error {
+//                            print("error = \(error)")
+//                        } else {
+//                            print("it worked bihhhhh!!!!")
+//                            self.username = ""
+//                            self.email = ""
+//                            self.password = ""
+//                        }
+//                    }
                     
                 })
                 
