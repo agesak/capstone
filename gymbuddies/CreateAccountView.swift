@@ -10,13 +10,13 @@ import Firebase
 
 struct CreateAccountView: View {
     
-    @ObservedObject var users = getUsersData()
+//    @ObservedObject var users = getUsersData()
     @State var username : String = ""
     @State var password : String = ""
     @State var email : String = ""
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack{
                 
                 
@@ -85,7 +85,7 @@ struct CreateAccountView: View {
             
         }
         
-    }
+//    }
 }
 
 struct CreateAccount_Previews: PreviewProvider {
@@ -118,33 +118,33 @@ struct CreateAccount_Previews: PreviewProvider {
 //}
 
 //displaying the data
-class getUsersData : ObservableObject {
-    @Published var data = [user]()
-    
-    init() {
-        let db = Firestore.firestore()
-        
-        db.collection("users").addSnapshotListener { (snap, err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
-            }
-            for i in snap!.documentChanges{
-                let id = i.document.documentID
-                let username = i.document.get("username") as! String
-                let password = i.document.get("password") as! String
-                let email = i.document.get("email") as! String
-                
-                self.data.append(user(id: id, username: username, email: email, password: password))
-            }
-        }
-    }
-}
-
-struct user : Identifiable {
-    
-    var id : String
-    var username : String
-    var email : String
-    var password : String
-}
+//class getUsersData : ObservableObject {
+//    @Published var data = [user]()
+//    
+//    init() {
+//        let db = Firestore.firestore()
+//        
+//        db.collection("users").addSnapshotListener { (snap, err) in
+//            if err != nil {
+//                print((err?.localizedDescription)!)
+//                return
+//            }
+//            for i in snap!.documentChanges{
+//                let id = i.document.documentID
+//                let username = i.document.get("username") as! String
+//                let password = i.document.get("password") as! String
+//                let email = i.document.get("email") as! String
+//                
+//                self.data.append(user(id: id, username: username, email: email, password: password))
+//            }
+//        }
+//    }
+//}
+//
+//struct user : Identifiable {
+//    
+//    var id : String
+//    var username : String
+//    var email : String
+//    var password : String
+//}
