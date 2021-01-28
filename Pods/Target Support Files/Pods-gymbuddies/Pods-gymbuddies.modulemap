@@ -1,0 +1,6 @@
+framework module Pods_gymbuddies {
+  umbrella header "Pods-gymbuddies-umbrella.h"
+
+  export *
+  module * { export * }
+}

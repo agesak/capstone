@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2561BB539D3D8EF229CF9783 /* Pods_gymbuddies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */; };
 		3C28744325C28C3B002708DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744225C28C3B002708DE /* AppDelegate.swift */; };
 		3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744425C28C3B002708DE /* SceneDelegate.swift */; };
 		3C28744725C28C3B002708DE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744625C28C3B002708DE /* ContentView.swift */; };
 		3C28744925C28C42002708DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744825C28C42002708DE /* Assets.xcassets */; };
 		3C28744C25C28C42002708DE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744B25C28C42002708DE /* Preview Assets.xcassets */; };
 		3C28744F25C28C42002708DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C28744D25C28C42002708DE /* LaunchScreen.storyboard */; };
+		3C28745825C28CA2002708DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C28745725C28CA2002708DE /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		3C28744B25C28C42002708DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3C28744E25C28C42002708DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C28745025C28C42002708DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C28745725C28CA2002708DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.release.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.release.xcconfig"; sourceTree = "<group>"; };
+		BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gymbuddies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.debug.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +37,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2561BB539D3D8EF229CF9783 /* Pods_gymbuddies.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17DD42792FEEB8CC8896B86E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */,
+				7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3C28743625C28C3B002708DE = {
 			isa = PBXGroup;
 			children = (
 				3C28744125C28C3B002708DE /* gymbuddies */,
 				3C28744025C28C3B002708DE /* Products */,
+				17DD42792FEEB8CC8896B86E /* Pods */,
+				5FF2F452492E53AD565792BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +81,7 @@
 				3C28744825C28C42002708DE /* Assets.xcassets */,
 				3C28744D25C28C42002708DE /* LaunchScreen.storyboard */,
 				3C28745025C28C42002708DE /* Info.plist */,
+				3C28745725C28CA2002708DE /* GoogleService-Info.plist */,
 				3C28744A25C28C42002708DE /* Preview Content */,
 			);
 			path = gymbuddies;
@@ -75,6 +95,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		5FF2F452492E53AD565792BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3C28745325C28C42002708DE /* Build configuration list for PBXNativeTarget "gymbuddies" */;
 			buildPhases = (
+				0F86AC31663E80231124A1A3 /* [CP] Check Pods Manifest.lock */,
 				3C28743B25C28C3B002708DE /* Sources */,
 				3C28743C25C28C3B002708DE /* Frameworks */,
 				3C28743D25C28C3B002708DE /* Resources */,
+				FBDA342F92F17FA021AAF51B /* [CP] Embed Pods Frameworks */,
+				349DC52759582967DB43BC43 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,12 +164,72 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C28744F25C28C42002708DE /* LaunchScreen.storyboard in Resources */,
+				3C28745825C28CA2002708DE /* GoogleService-Info.plist in Resources */,
 				3C28744C25C28C42002708DE /* Preview Assets.xcassets in Resources */,
 				3C28744925C28C42002708DE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F86AC31663E80231124A1A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-gymbuddies-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		349DC52759582967DB43BC43 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBDA342F92F17FA021AAF51B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-gymbuddies/Pods-gymbuddies-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3C28743B25C28C3B002708DE /* Sources */ = {
@@ -283,6 +374,7 @@
 		};
 		3C28745425C28C42002708DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -304,6 +396,7 @@
 		};
 		3C28745525C28C42002708DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
