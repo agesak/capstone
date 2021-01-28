@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2561BB539D3D8EF229CF9783 /* Pods_gymbuddies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */; };
 		3C1289D825C3556F00621EB1 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1289D725C3556F00621EB1 /* SignInView.swift */; };
+		3C1289DB25C35A2C00621EB1 /* CreatePreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */; };
 		3C28744325C28C3B002708DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744225C28C3B002708DE /* AppDelegate.swift */; };
 		3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744425C28C3B002708DE /* SceneDelegate.swift */; };
 		3C28744725C28C3B002708DE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28744625C28C3B002708DE /* HomeView.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		3C1289D725C3556F00621EB1 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePreferencesView.swift; sourceTree = "<group>"; };
 		3C28743F25C28C3B002708DE /* gymbuddies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gymbuddies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C28744225C28C3B002708DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C28744425C28C3B002708DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				3C28744225C28C3B002708DE /* AppDelegate.swift */,
 				3C28744425C28C3B002708DE /* SceneDelegate.swift */,
 				3C28749525C291C3002708DE /* CreateAccountView.swift */,
+				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
 				3C1289D725C3556F00621EB1 /* SignInView.swift */,
@@ -254,6 +257,7 @@
 				3C28749925C291DE002708DE /* UserView.swift in Sources */,
 				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
 				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
+				3C1289DB25C35A2C00621EB1 /* CreatePreferencesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

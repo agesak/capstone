@@ -53,7 +53,7 @@ struct CreateAccountView: View {
                 Spacer()
                 
                 NavigationLink(
-                   destination: UserView(),
+                   destination: CreatePreferencesView(),
                    label: {
                        Text("Continue")
                        .font(.title)
