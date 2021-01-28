@@ -49,7 +49,7 @@ struct CreateAccountView: View {
                         TextField("Enter your Email Address", text: $email)
                         .autocapitalization(.none)
                         Divider()
-                    }it
+                    }
                     VStack(alignment: .leading){
                         Text("Password").font(.headline).fontWeight(.light)
                         SecureField("Enter your Password", text: $password)
