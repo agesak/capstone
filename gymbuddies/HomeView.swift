@@ -50,7 +50,7 @@ struct HomeView : View {
                    .background(Color.purple)
                  .cornerRadius(10.0)
                })
-           }
+            }
         }
     }
 }
