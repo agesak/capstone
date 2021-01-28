@@ -6,10 +6,29 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct CreatePreferencesView: View {
+    
+    let user = Auth.auth().currentUser
+    @State var name : String = ""
+    
+    private var db = Firestore.firestore()
+    
     var body: some View {
-        Text("Girl you need to make a profile page")
+        VStack {
+                if user != nil {
+                Text(user!.email!)
+            }
+            VStack(alignment: .leading){
+                Text("Name").font(.headline).fontWeight(.light)
+                TextField("Enter your Name", text: $name)
+                .autocapitalization(.none)
+                Divider()
+            }
+            
+        }
+
     }
 }
 
