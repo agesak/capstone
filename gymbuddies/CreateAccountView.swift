@@ -16,7 +16,6 @@ struct CreateAccountView: View {
     @State var email : String = ""
     
     var body: some View {
-//        NavigationView{
             VStack{
                 
                 
@@ -24,8 +23,8 @@ struct CreateAccountView: View {
                     Text("Gym Buddies")
                         .font(.headline)
                         .fontWeight(.heavy)
-                        .multilineTextAlignment(.trailing)
-    //                    .multilineTextAlignment(.leading)
+//                        idk why this doesn't work
+                        .multilineTextAlignment(.leading)
 
                         
                         
@@ -34,7 +33,6 @@ struct CreateAccountView: View {
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.leading)
     //                    .multilineTextAlignment(.leading)
-    //            }
                 
                 
                 Spacer().frame(height: 90)
@@ -43,16 +41,19 @@ struct CreateAccountView: View {
                     VStack(alignment: .leading){
                         Text("Username").font(.headline).fontWeight(.light)
                         TextField("Enter your Username", text: $username)
+                        .autocapitalization(.none)
                         Divider()
                     }
                     VStack(alignment: .leading){
                         Text("Email").font(.headline).fontWeight(.light)
                         TextField("Enter your Email Address", text: $email)
+                        .autocapitalization(.none)
                         Divider()
-                    }
+                    }it
                     VStack(alignment: .leading){
                         Text("Password").font(.headline).fontWeight(.light)
                         SecureField("Enter your Password", text: $password)
+                        .autocapitalization(.none)
                         Divider()
                     }
                 }.padding(.horizontal, 6)
@@ -68,10 +69,29 @@ struct CreateAccountView: View {
                        .foregroundColor(.white)
                        .padding()
                      .frame(width: 250, height: 50)
-       //                for custom divide rbg by 255
                        .background(Color.purple)
                      .cornerRadius(10.0)
-                   })
+                   }).simultaneousGesture(TapGesture().onEnded{
+                    let userDictionary = [
+                        "username": self.username,
+                        "email": self.email,
+                        "password": self.password
+                    ]
+                    
+                    let docRef = Firestore.firestore().document("users/\(UUID().uuidString)")
+                    print("setting data")
+                    docRef.setData(userDictionary){ (error) in
+                        if let error = error {
+                            print("error = \(error)")
+                        } else {
+                            print("it worked bihhhhh!!!!")
+                            self.username = ""
+                            self.email = ""
+                            self.password = ""
+                        }
+                    }
+                    
+                })
                 
                 Spacer()
                 

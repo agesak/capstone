@@ -35,8 +35,6 @@ struct HomeView : View {
                       .cornerRadius(10.0)
                     })
                 
-            
-            
             NavigationLink(
                destination: CreateAccountView(),
                label: {
@@ -50,6 +48,8 @@ struct HomeView : View {
                    .background(Color.purple)
                  .cornerRadius(10.0)
                })
+                
+                Spacer()
             }
         }
     }
