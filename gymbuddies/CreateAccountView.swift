@@ -14,6 +14,8 @@ struct CreateAccountView: View {
 //    @State var username : String = ""
     @State var password : String = ""
     @State var email : String = ""
+    @State private var isLoginValid: Bool = false
+    @State private var shouldShowLoginAlert: Bool = false
     
     var body: some View {
             VStack{
@@ -52,28 +54,102 @@ struct CreateAccountView: View {
                 
                 Spacer()
                 
+//                Button(action: {
+//                    NavigationLink(
+//                       destination: CreatePreferencesView(),
+//                        label
+//                    )
+//                }) { Text("")
+//
+//                }.disabled(email.isEmpty || password.isEmpty)
+                
+//                NavigationLink(
+//                    destination: CreatePreferencesView(),
+//                    isActive: disabled(self.email == "" || self.password == ""),
+//                    label: {
+//                        Text("Continue")
+//                        .font(.title)
+//                        .fontWeight(.bold)
+//                        .foregroundColor(.white)
+//                        .padding()
+//                      .frame(width: 250, height: 50)
+//                        .background(Color.purple)
+//                      .cornerRadius(10.0)
+//                    }).simultaneousGesture(TapGesture().onEnded{
+//                        Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
+//                            if let error = error {
+//                                print(error.localizedDescription)
+//                            } else {
+//                                print("it worked bihhhhh!!!!")
+//    //                            self.username = ""
+//                                self.email = ""
+//                                self.password = ""
+//                            }
+//                        })
+                
+                
+
+                
                 NavigationLink(
-                   destination: CreatePreferencesView(),
-                   label: {
-                       Text("Continue")
-                       .font(.title)
-                       .fontWeight(.bold)
-                       .foregroundColor(.white)
-                       .padding()
-                     .frame(width: 250, height: 50)
-                       .background(Color.purple)
-                     .cornerRadius(10.0)
-                   }).simultaneousGesture(TapGesture().onEnded{
-                    Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        } else {
-                            print("it worked bihhhhh!!!!")
-//                            self.username = ""
-                            self.email = ""
-                            self.password = ""
-                        }
-                    })
+                    destination: CreatePreferencesView(),
+                    isActive: self.$isLoginValid) {
+                        Text("Continue")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 250, height: 50)
+                            .background(Color.purple)
+                            .cornerRadius(10.0)
+                            .onTapGesture {
+//                                let isLoginValid = self.email != "" && self.password != ""
+                                var isLoginValid = false
+                                        
+                                Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
+                                         if let error = error {
+                                             print(error.localizedDescription)
+                                            isLoginValid = true
+                                         } else {
+                                             print("it worked bihhhhh!!!!")
+                                             self.email = ""
+                                             self.password = ""
+                                            isLoginValid = true
+                                         }
+                                     })
+                                        
+                                if isLoginValid {
+                                  self.isLoginValid = true //trigger NavigationLink
+                                }
+                                else {
+                                  self.shouldShowLoginAlert = true //trigger Alert
+                                }
+                            }
+                    }
+                
+
+
+                
+//                NavigationLink(
+//                   destination: CreatePreferencesView(),
+//                   label: {
+//                       Text("Continue")
+//                       .font(.title)
+//                       .fontWeight(.bold)
+//                       .foregroundColor(.white)
+//                       .padding()
+//                     .frame(width: 250, height: 50)
+//                       .background(Color.purple)
+//                     .cornerRadius(10.0)
+//                   }).simultaneousGesture(TapGesture().onEnded{
+//                    Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
+//                        if let error = error {
+//                            print(error.localizedDescription)
+//                        } else {
+//                            print("it worked bihhhhh!!!!")
+//                            self.email = ""
+//                            self.password = ""
+//                        }
+//                    })
                     
 //                    let userDictionary = [
 //                        "username": self.username,
@@ -94,7 +170,7 @@ struct CreateAccountView: View {
 //                        }
 //                    }
                     
-                })
+//                })
                 
                 Spacer()
                 
@@ -104,11 +180,13 @@ struct CreateAccountView: View {
     //
     //
     //            }
-            }.padding()
+            }.navigationBarTitle("Login Screen")
+            .alert(isPresented: $shouldShowLoginAlert) {
+            Alert(title: Text("Email/Password incorrect"))
             
         }
         
-//    }
+    }
 }
 
 struct CreateAccount_Previews: PreviewProvider {

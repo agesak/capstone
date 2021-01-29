@@ -12,23 +12,27 @@ struct CreatePreferencesView: View {
     
     let user = Auth.auth().currentUser
     @State var name : String = ""
+    @State var age : String = ""
+    @State var gender : String = ""
     
     private var db = Firestore.firestore()
     
     var body: some View {
-        VStack {
-                if user != nil {
-                Text(user!.email!)
-            }
-            VStack(alignment: .leading){
-                Text("Name").font(.headline).fontWeight(.light)
-                TextField("Enter your Name", text: $name)
-                .autocapitalization(.none)
-                Divider()
-            }
-            
+        NavigationView{
+            VStack {
+                    if user != nil {
+                    Text(user!.email!)
+                        Text(user!.uid)
+                }
+                Form {
+                    Section(header: Text("Demographic Information")) {
+                        TextField("Name", text: $name)
+                        TextField("Age", text: $age)
+                        TextField("Location", text: $gender)
+                    }
+                }
+            }.navigationBarTitle("Profile Information")
         }
-
     }
 }
 
