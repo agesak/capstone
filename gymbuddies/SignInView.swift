@@ -12,25 +12,18 @@ struct SignInView: View {
     
     @State var password : String = ""
     @State var email : String = ""
+    @State var isLoginValid: Bool = false
+    @State var shouldShowLoginAlert: Bool = false
     
     var body: some View {
         VStack {
             
             Spacer()
             
-            Text("Gym Buddies")
-                .font(.headline)
-                .fontWeight(.heavy)
-//                        idk why this doesn't work
-//                .multilineTextAlignment(.leading)
+//            Text("Gym Buddies")
+//                .font(.headline)
+//                .fontWeight(.heavy)
 
-                
-                
-            Text("Sign In")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-                .multilineTextAlignment(.leading)
-//                    .multilineTextAlignment(.leading)
             
             Spacer()
             
@@ -52,32 +45,42 @@ struct SignInView: View {
             Spacer()
             
             NavigationLink(
-               destination: UserView(),
-               label: {
-                   Text("Continue")
-                   .font(.title)
-                   .fontWeight(.bold)
-                   .foregroundColor(.white)
-                   .padding()
-                 .frame(width: 250, height: 50)
-                   .background(Color.purple)
-                 .cornerRadius(10.0)
-               }).simultaneousGesture(TapGesture().onEnded{
-                Auth.auth().signIn(withEmail: self.email, password: self.password, completion: { (result, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("it worked bihhhhh!!!!")
-//                            self.username = ""
-                        self.email = ""
-                        self.password = ""
-                    }
-                    })
-               })
+                destination: UserView(),
+                isActive: self.$isLoginValid) {
+                    Text("Continue")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 250, height: 50)
+                        .background(Color.purple)
+                        .cornerRadius(10.0)
+                        .onTapGesture {
+                                    
+                            Auth.auth().signIn(withEmail: self.email, password: self.password, completion: { (result, error) in
+                                     if let error = error {
+                                         print(error.localizedDescription)
+                                        self.isLoginValid = false
+                                        self.shouldShowLoginAlert = true
+                                     } else {
+                                         print("it worked!!!!")
+                                         self.email = ""
+                                         self.password = ""
+                                        self.isLoginValid = true
+                                        self.shouldShowLoginAlert = false
+                                        print(self.isLoginValid)
+                                     }
+                                 })
+                        }
+                }
             
             Spacer()
-        }
+        }.navigationBarTitle("Sign In")
+        .alert(isPresented: $shouldShowLoginAlert) {
+            Alert(title: Text("Error Accessing Account"))}
+        
     }
+
 }
 
 struct SignInView_Previews: PreviewProvider {

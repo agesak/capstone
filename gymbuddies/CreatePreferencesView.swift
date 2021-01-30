@@ -31,6 +31,11 @@ struct CreatePreferencesView: View {
                         TextField("Location", text: $gender)
                     }
                 }
+                
+                Form {
+                    Section(header: Text("Workout Preferences")) {
+                    }
+                }
             }.navigationBarTitle("Profile Information")
         }
     }
