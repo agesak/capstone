@@ -13,32 +13,93 @@ struct CreatePreferencesView: View {
     let user = Auth.auth().currentUser
     @State var name : String = ""
     @State var age : String = ""
-    @State var gender : String = ""
+    @State var location : String = ""
+    
+    @State var times = ["Morning", "Afternoon", "Evening"]
+    @State private var timesIndex = 0
+    
+    @State var style = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State private var styleIndex = 0
+    
+    @State private var isprofileValid: Bool = false
+    @State private var shouldShowProfileAlert: Bool = false
     
     private var db = Firestore.firestore()
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack {
-                    if user != nil {
-                    Text(user!.email!)
-                        Text(user!.uid)
-                }
+//                    if user != nil {
+//                    Text(user!.email!)
+//                        Text(user!.uid)
+//                }
                 Form {
-                    Section(header: Text("Demographic Information")) {
-                        TextField("Name", text: $name)
-                        TextField("Age", text: $age)
-                        TextField("Location", text: $gender)
-                    }
-                }
+                        Section(header: Text("Demographic Information")) {
+                            TextField("Name", text: $name)
+                            TextField("Age", text: $age)
+                            TextField("Location", text: $location)
+                        }
+
+                    
+                        Section(header: Text("Workout Preferences")) {
+                                Picker(selection: $timesIndex, label: Text("Time of Day")) {
+                                    ForEach(0 ..< times.count) {
+                                        Text(self.times[$0])
+                                    }
+                                }
+                            
+                            Picker(selection: $styleIndex, label: Text("Preferred Workout Style")) {
+                                ForEach(0 ..< style.count) {
+                                    Text(self.style[$0])
+                                }
+                            }
+                        }.padding()
+                        
+                    
+                }.navigationBarTitle("Profile Information")
+        
                 
-                Form {
-                    Section(header: Text("Workout Preferences")) {
+                NavigationLink(
+//                    will likely go to photo upload view
+                    destination: UserView(),
+                    isActive: self.$isprofileValid) {
+                        Text("Continue")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 250, height: 50)
+                            .background(Color.purple)
+                            .cornerRadius(10.0)
+                            .onTapGesture {
+                                let userDictionary = [
+                                    "name": self.name,
+                                    "age": self.age,
+                                    "location": self.location
+                                ]
+                                
+                                let docRef = Firestore.firestore().document("users/\(user!.uid)")
+                                    print("setting data")
+                                    docRef.setData(userDictionary){ (error) in
+                                        if let error = error {
+                                            print("error = \(error)")
+                                            self.isprofileValid = false
+                                        } else {
+//                                            self.name = ""
+//                                            self.age = ""
+//                                            self.location = ""
+                                            self.isprofileValid = true
+                                        }
+                                    }
+                                
+                            }
                     }
-                }
-            }.navigationBarTitle("Profile Information")
+                Spacer()
+                
+            }.alert(isPresented: $shouldShowProfileAlert) {
+                Alert(title: Text("Error Creating Profile"))}
         }
-    }
+//    }
 }
 
 struct CreatePreferencesView_Previews: PreviewProvider {
