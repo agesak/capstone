@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct OtherUserView: View {
+    
+    var user:User
+    
     var body: some View {
         VStack{
-            Text("YAY")
+            Text(user.name)
         }
     }
 }
 
-struct OtherUserView_Previews: PreviewProvider {
-    static var previews: some View {
-        OtherUserView()
-    }
-}
+//struct OtherUserView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OtherUserView(user: user.name)
+//    }
+//}

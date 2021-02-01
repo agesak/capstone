@@ -22,32 +22,22 @@ struct UsersView: View {
     var body: some View {
         
         VStack{
-//            NavigationView {
                 List(userData.users) { user in
                     VStack(alignment: .leading) {
                         NavigationLink(
-                            destination : OtherUserView()) {
+                            destination : OtherUserView(user: user)) {
                             HStack {
                                 Image(systemName: "person")
                                 Text(user.name).font(.title)
                                 //                        Text(user.age).font(.subheadline)
                                 }
                             }
-                            
-
-//                            )
-//                        }
-
-                        
-
                     }
-                } .onAppear() {
+                }.onAppear() {
                     self.userData.getData()
-                }
-        
+                    }
             }
         }
-//    }
 }
 
 
