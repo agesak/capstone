@@ -5,6 +5,7 @@
 //  Created by Kareha on 1/27/21.
 //
 
+//current user's profile
 import SwiftUI
 import Firebase
 

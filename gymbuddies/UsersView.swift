@@ -22,11 +22,24 @@ struct UsersView: View {
     var body: some View {
         
         VStack{
-            NavigationView {
+//            NavigationView {
                 List(userData.users) { user in
                     VStack(alignment: .leading) {
-                        Text(user.name).font(.title)
-                        Text(user.age).font(.subheadline)
+                        NavigationLink(
+                            destination : OtherUserView()) {
+                            HStack {
+                                Image(systemName: "person")
+                                Text(user.name).font(.title)
+                                //                        Text(user.age).font(.subheadline)
+                                }
+                            }
+                            
+
+//                            )
+//                        }
+
+                        
+
                     }
                 } .onAppear() {
                     self.userData.getData()
@@ -34,8 +47,7 @@ struct UsersView: View {
         
             }
         }
-//        UserRow()
-    }
+//    }
 }
 
 
@@ -47,7 +59,7 @@ class getUserData: ObservableObject {
         
         db.collection("users").addSnapshotListener( {querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
-                print("error fetching documents: \(error)")
+                print("error fetching documents: \(error!)")
                 return
             }
             print(documents)
@@ -67,40 +79,9 @@ class getUserData: ObservableObject {
 }
 
 
-//class getUsersData : ObservableObject {
-//    @Published var data = [user]()
-//
-//    init() {
-//        let db = Firestore.firestore()
-//
-//        db.collection("users").addSnapshotListener { (snap, err) in
-//            if err != nil {
-//                print((err?.localizedDescription)!)
-//                return
-//            }
-//            for i in snap!.documentChanges{
-//                let id = i.document.documentID
-//                let username = i.document.get("username") as! String
-//                let password = i.document.get("password") as! String
-//                let email = i.document.get("email") as! String
-//
-//                self.data.append(user(id: id, username: username, email: email, password: password))
-//            }
-//        }
-//    }
-//}
+
 struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
         UsersView()
     }
 }
-
-
-struct UserRow: View {
-    var body: some View {
-        HStack{
-            Image(systemName: "person")
-        }
-    }
-}
-
