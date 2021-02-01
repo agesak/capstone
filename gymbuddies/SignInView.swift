@@ -45,7 +45,7 @@ struct SignInView: View {
             Spacer()
             
             NavigationLink(
-                destination: UserView(),
+                destination: UsersView(),
                 isActive: self.$isLoginValid) {
                     Text("Continue")
                         .font(.title)
