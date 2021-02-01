@@ -75,7 +75,9 @@ struct CreatePreferencesView: View {
                                 let userDictionary = [
                                     "name": self.name,
                                     "age": self.age,
-                                    "location": self.location
+                                    "location": self.location,
+                                    "times": self.times[self.timesIndex],
+                                    "style": self.style[self.styleIndex]
                                 ]
                                 
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
