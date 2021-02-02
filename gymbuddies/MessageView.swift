@@ -14,6 +14,7 @@ struct MessageView: View {
     @ObservedObject var viewModel = MessagesViewModel()
     
     var toUser:User?
+    var currentUser = [User]()
     
     @State var messageField : String = ""
     var body: some View {
@@ -35,15 +36,15 @@ struct MessageView: View {
     }
     
     func completeViewModelSetUp() {
-        viewModel.setToUser(user: toUser!)
+        viewModel.setUsers(user1: toUser!, user2: currentUser[0])
     }
 }
 
-struct MessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessageView()
-    }
-}
+//struct MessageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MessageView()
+//    }
+//}
 
 struct Message: Codable, Identifiable{
     var id: String?
@@ -59,25 +60,28 @@ class MessagesViewModel: ObservableObject {
     private let user = Auth.auth().currentUser
     
     var toUser:User?
+    var currentUser:User?
     
     func sendMessage(messageContent: String) {
         if (user != nil) {
             db.collection("chat").addDocument(data: [
                                                     "timeStamp": Date(),
                                                     "msg": messageContent,
-                                                    "from": user!.uid,
+                                                "from": currentUser!.id,
                                                 "to": toUser!.id])
         }
     }
     
-    func setToUser(user: User){
-        toUser = user
+    func setUsers(user1: User, user2: User){
+        toUser = user1
+        currentUser = user2
         fetchData()
     }
+
     
     func fetchData(){
         if (user != nil) {
-            db.collection("chat").whereField("from", in: [user!.uid, toUser!.id]).addSnapshotListener({(snapshot, error) in
+            db.collection("chat").whereField("from", in: [currentUser!.id, toUser!.id]).addSnapshotListener({(snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("no documents")
                     return

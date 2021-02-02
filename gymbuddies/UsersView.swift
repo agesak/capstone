@@ -26,7 +26,7 @@ struct UsersView: View {
                 List(userData.users) { user in
                     VStack(alignment: .leading) {
                         NavigationLink(
-                            destination : OtherUserView(user: user)) {
+                            destination : OtherUserView(toUser: user, currentUser: userData.currentUser)) {
                             HStack {
                                 Image(systemName: "person")
                                 Text(user.name).font(.title)
@@ -44,11 +44,12 @@ struct UsersView: View {
 
 class getUserData: ObservableObject {
     @Published var users = [User]()
+    @Published var currentUser = [User]()
 
     func getCurrentUser() -> String {
-        let currentUser = Auth.auth().currentUser
-        print("current user's email: \(currentUser!.email!)")
-        return currentUser!.email!
+        let currentUserData = Auth.auth().currentUser
+        print("current user's email: \(currentUserData!.email!)")
+        return currentUserData!.email!
     }
  
     func getData(){
@@ -85,14 +86,11 @@ class getUserData: ObservableObject {
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
                 let email = data["email"] as? String ?? ""
-                print(email)
-                print(location)
-//                if email != currentUserEmail {
                 return User(id: id, age: age, name: name, location: location, email: email)
-//                }
             }
             
             self.users = allUsers.filter{user in return user.email != currentUserEmail}
+            self.currentUser = allUsers.filter{user in return user.email == currentUserEmail}
         })
         
     }
