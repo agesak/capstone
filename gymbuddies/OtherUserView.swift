@@ -14,6 +14,11 @@ struct OtherUserView: View {
     var body: some View {
         VStack{
             Text(user.name)
+            
+            NavigationLink(
+                destination: MessageView(),
+                label: {Text("Message")}
+            )
         }
     }
 }

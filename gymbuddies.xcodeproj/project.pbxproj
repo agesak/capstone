@@ -22,6 +22,7 @@
 		3C28749925C291DE002708DE /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749825C291DE002708DE /* UserView.swift */; };
 		3C28749C25C291FB002708DE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749B25C291FB002708DE /* MenuView.swift */; };
 		3C2B819625C79E8900DE443B /* OtherUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B819525C79E8900DE443B /* OtherUserView.swift */; };
+		3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B821025C8BD0C00DE443B /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		3C28749825C291DE002708DE /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		3C28749B25C291FB002708DE /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		3C2B819525C79E8900DE443B /* OtherUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserView.swift; sourceTree = "<group>"; };
+		3C2B821025C8BD0C00DE443B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.release.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.release.xcconfig"; sourceTree = "<group>"; };
 		BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gymbuddies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.debug.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				3C28749825C291DE002708DE /* UserView.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
+				3C2B821025C8BD0C00DE443B /* MessageView.swift */,
 				3C1289D725C3556F00621EB1 /* SignInView.swift */,
 				3C128A2825C4B99200621EB1 /* UsersView.swift */,
 				3C28744625C28C3B002708DE /* HomeView.swift */,
@@ -262,6 +265,7 @@
 				3C28749C25C291FB002708DE /* MenuView.swift in Sources */,
 				3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */,
 				3C28749925C291DE002708DE /* UserView.swift in Sources */,
+				3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */,
 				3C128A2925C4B99200621EB1 /* UsersView.swift in Sources */,
 				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
 				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
