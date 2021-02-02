@@ -14,6 +14,7 @@ struct User: Identifiable{
     var age:String
     var name:String
     var location:String
+    var email:String
 }
 
 struct UsersView: View {
@@ -43,26 +44,55 @@ struct UsersView: View {
 
 class getUserData: ObservableObject {
     @Published var users = [User]()
+
+    func getCurrentUser() -> String {
+        let currentUser = Auth.auth().currentUser
+        print("current user's email: \(currentUser!.email!)")
+        return currentUser!.email!
+    }
  
     func getData(){
         let db = Firestore.firestore()
+        let currentUserEmail = getCurrentUser()
         
         db.collection("users").addSnapshotListener( {querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
                 print("error fetching documents: \(error!)")
                 return
             }
-            print(documents)
+//            print(documents)
+
+//            for document in documents {
+//                let data = document.data()
+//                let id = document.documentID
+//                let name = data["name"] as? String ?? ""
+//                let age = data["age"] as? String ?? ""
+//                let location = data["location"] as? String ?? ""
+//                let email = data["email"] as? String ?? ""
+//                let newUser = User(id: id, age: age, name: name, location: location, email: email)
+//                print(email)
+//                if email != currentUserEmail {
+//                    self.users.append(newUser)
+//                }
+//
+//            }
             
-            
-            self.users = documents.map { (queryDocumentSnapshot) -> User in
+     
+            let allUsers = documents.map { (queryDocumentSnapshot) -> User in
                 let data = queryDocumentSnapshot.data()
                 let id = queryDocumentSnapshot.documentID
                 let name = data["name"] as? String ?? ""
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
-                return User(id: id, age: age, name: name, location: location)
+                let email = data["email"] as? String ?? ""
+                print(email)
+                print(location)
+//                if email != currentUserEmail {
+                return User(id: id, age: age, name: name, location: location, email: email)
+//                }
             }
+            
+            self.users = allUsers.filter{user in return user.email != currentUserEmail}
         })
         
     }

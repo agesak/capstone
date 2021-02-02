@@ -77,12 +77,13 @@ struct CreatePreferencesView: View {
                                     "age": self.age,
                                     "location": self.location,
                                     "times": self.times[self.timesIndex],
-                                    "style": self.style[self.styleIndex]
+                                    "style": self.style[self.styleIndex],
+                                    "email": user?.email!
                                 ]
                                 
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
                                     print("setting data")
-                                    docRef.setData(userDictionary){ (error) in
+                                docRef.setData(userDictionary as [String : Any]){ (error) in
                                         if let error = error {
                                             print("error = \(error)")
                                             self.isprofileValid = false

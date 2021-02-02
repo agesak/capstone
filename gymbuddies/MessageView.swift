@@ -60,10 +60,6 @@ class MessagesViewModel: ObservableObject {
     
     var toUser:User?
     
-//    init(user: User){
-//        self.toUser = user
-//    }
-    
     func sendMessage(messageContent: String) {
         if (user != nil) {
             db.collection("chat").addDocument(data: [
@@ -81,7 +77,7 @@ class MessagesViewModel: ObservableObject {
     
     func fetchData(){
         if (user != nil) {
-            db.collection("chat").addSnapshotListener({(snapshot, error) in
+            db.collection("chat").whereField("from", in: [user!.uid, toUser!.id]).addSnapshotListener({(snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("no documents")
                     return
