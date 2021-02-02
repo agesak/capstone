@@ -16,7 +16,7 @@ struct OtherUserView: View {
             Text(user.name)
             
             NavigationLink(
-                destination: MessageView(),
+                destination: MessageView(toUser: user),
                 label: {Text("Message")}
             )
         }

@@ -57,10 +57,11 @@ class getUserData: ObservableObject {
             
             self.users = documents.map { (queryDocumentSnapshot) -> User in
                 let data = queryDocumentSnapshot.data()
+                let id = queryDocumentSnapshot.documentID
                 let name = data["name"] as? String ?? ""
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
-                return User(age: age, name: name, location: location)
+                return User(id: id, age: age, name: name, location: location)
             }
         })
         
