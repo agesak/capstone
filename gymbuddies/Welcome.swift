@@ -25,7 +25,7 @@ struct Welcome: View {
                         .background(Color.purple)
                         .cornerRadius(10.0)
                     })
-            }
+            }.navigationBarBackButtonHidden(true)
     }
 }
 

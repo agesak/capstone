@@ -25,7 +25,7 @@ struct CreateAccountView: View {
 //                        idk why this doesn't work
 //                        .multilineTextAlignment(.leading)
                 
-                Spacer().frame(height: 90)
+                Spacer().frame(height: 150)
                 
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
@@ -47,7 +47,7 @@ struct CreateAccountView: View {
                 NavigationLink(
                     destination: Welcome(),
                     isActive: self.$isLoginValid) {
-                        Text("Continue")
+                        Text("Sign Up")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -74,15 +74,11 @@ struct CreateAccountView: View {
                                      })
                             }
                     }
-                
                 Spacer()
-
             }.navigationBarTitle("Sign Up")
             .alert(isPresented: $shouldShowLoginAlert) {
             Alert(title: Text("Email/Password invalid"))
-            
         }
-        
     }
 }
 
