@@ -25,6 +25,7 @@
 		3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B821025C8BD0C00DE443B /* MessageView.swift */; };
 		3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B83E725CA27DE00DE443B /* MessagesView.swift */; };
 		3C2B840C25CA639B00DE443B /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B840B25CA639B00DE443B /* Welcome.swift */; };
+		3C2B844225CA72F100DE443B /* KavSoftContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B844125CA72F100DE443B /* KavSoftContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		3C2B821025C8BD0C00DE443B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		3C2B83E725CA27DE00DE443B /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		3C2B840B25CA639B00DE443B /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
+		3C2B844125CA72F100DE443B /* KavSoftContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavSoftContentView.swift; sourceTree = "<group>"; };
 		7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.release.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.release.xcconfig"; sourceTree = "<group>"; };
 		BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gymbuddies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA4AC301D9D09C52D933652 /* Pods-gymbuddies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.debug.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.debug.xcconfig"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				3C2B840B25CA639B00DE443B /* Welcome.swift */,
 				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
+				3C2B844125CA72F100DE443B /* KavSoftContentView.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
 				3C2B83E725CA27DE00DE443B /* MessagesView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
@@ -275,6 +278,7 @@
 				3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */,
 				3C128A2925C4B99200621EB1 /* UsersView.swift in Sources */,
 				3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */,
+				3C2B844225CA72F100DE443B /* KavSoftContentView.swift in Sources */,
 				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
 				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
 				3C1289DB25C35A2C00621EB1 /* CreatePreferencesView.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Firebase
-import Foundation
+//import Foundation
 
 struct User: Identifiable{
     var id: String = UUID().uuidString
@@ -53,12 +53,12 @@ class getUserData: ObservableObject {
     @Published var users = [User]()
 //    @Published var currentUser = [User]()
 
-    func getCurrentUser() -> String {
-        let currentUserData = Auth.auth().currentUser
-        print("current user's email: \(currentUserData!.email!)")
-        return currentUserData!.email!
-    }
- 
+//    func getCurrentUser() -> String {
+//        let currentUserData = Auth.auth().currentUser
+//        print("current user's email: \(currentUserData!.email!)")
+//        return currentUserData!.email!
+//    }
+//
     func getData(){
         let db = Firestore.firestore()
 //        let currentUserEmail = getCurrentUser()
