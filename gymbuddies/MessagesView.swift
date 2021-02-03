@@ -21,46 +21,54 @@ struct MessagesView: View {
     
     
     var body: some View {
-        
-        VStack{
-//            if self.datas.recents.count == 0 {
-//                Indicator()
-//            }
-//            else {
+        ZStack{
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 12) {
-                    ForEach(datas.recents) { i in
-                        RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
+                
+                Text("")
+                
+                
+                VStack{
+        //            if self.datas.recents.count == 0 {
+        //                Indicator()
+        //            }
+        //            else {
+                    
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 12) {
+                            ForEach(datas.recents) { i in
+                                RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                            }
+                        }
                     }
-                }
-            }
-        }.navigationBarTitle("Home",displayMode: .inline)
-        .navigationBarItems(leading:
-        
-            Button(action: {
-              
-            }, label: {
+                }.navigationBarTitle("Home",displayMode: .inline)
+                .navigationBarItems(leading:
                 
-                Text("Sign Out")
-            })
+                    Button(action: {
+                      
+                    }, label: {
+                        
+                        Text("Sign Out")
+                    })
+                    
+                    , trailing:
+                
+                    Button(action: {
+                       
+                        self.show.toggle()
+                      
+                    }, label: {
+                        
+                        Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)
+                    }
+                )
+                
+              )
             
-            , trailing:
-        
-            Button(action: {
-               
-                self.show.toggle()
-              
-            }, label: {
-                
-                Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)
-            }
-        )
-        
-      ).sheet(isPresented: self.$show) {
-        
-        newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)
+        }.sheet(isPresented: self.$show) {
+            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)
     }
+        }
 }
 
 struct MessagesView_Previews: PreviewProvider {
@@ -261,4 +269,20 @@ struct UserCellView : View {
             }
         }
     }
+}
+
+
+struct ChatView : View {
+    
+    var name : String
+    var uid : String
+    @Binding var chat : Bool
+    
+    var body : some View{
+        
+        VStack{
+            Text("Hello").navigationBarTitle("\(name)", displayMode: .inline)
+        }
+    }
+    
 }
