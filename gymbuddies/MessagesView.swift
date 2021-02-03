@@ -83,8 +83,9 @@ struct RecentCellView : View {
         
         HStack{
             
-            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
-            
+            Image(systemName: "person")
+//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
+//
             VStack{
                 
                 HStack{
