@@ -34,7 +34,10 @@ struct UsersView: View {
 //                                }
 //                            }
             
-            MessagesView().environmentObject(MainObservable())
+//            NavigationView{
+                MessagesView().environmentObject(MainObservable())
+                
+//            }
                         
 //                        MessagesView().environmentObject(MainObservable())
 
@@ -112,4 +115,62 @@ struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
         UsersView()
     }
+}
+
+
+class MainObservable : ObservableObject{
+    
+    @Published var recents = [Recent]()
+    @Published var norecetns = false
+    @ObservedObject private var userData = getUserData()
+    
+    init() {
+        
+        let db = Firestore.firestore()
+        let uid = Auth.auth().currentUser?.uid
+        
+        db.collection("users").document(uid!).collection("recents").order(by: "date", descending: true).addSnapshotListener { (snap, err) in
+            
+            if err != nil{
+                
+                print((err?.localizedDescription)!)
+                self.norecetns = true
+                return
+            }
+            
+            for i in snap!.documentChanges{
+                
+                let id = i.document.documentID
+                let name = i.document.get("name") as! String
+                let pic = i.document.get("pic") as! String
+                let lastmsg = i.document.get("lastmsg") as! String
+                let stamp = i.document.get("date") as! Timestamp
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd/MM/yy"
+                let date = formatter.string(from: stamp.dateValue())
+                
+                formatter.dateFormat = "hh:mm a"
+                let time = formatter.string(from: stamp.dateValue())
+                
+                self.recents.append(Recent(id: id, name: name, pic: pic, lastmsg: lastmsg, time: time, date: date, stamp: stamp.dateValue()))
+                
+            }
+            
+            
+        }
+    }
+    
+}
+
+
+struct Recent : Identifiable {
+    
+    var id : String
+    var name : String
+    var pic : String
+    var lastmsg : String
+    var time : String
+    var date : String
+    var stamp : Date
 }
