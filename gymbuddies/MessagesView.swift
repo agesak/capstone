@@ -285,11 +285,57 @@ struct ChatView : View {
     var name : String
     var uid : String
     @Binding var chat : Bool
+    @State var msgs = [Msg]()
+    @State var txt = ""
+    @State var nomsgs = false
     
     var body : some View{
         
         VStack{
-            Text("Hello")
+            
+
+//            if msgs.count == 0{
+//                Spacer()
+//                Indicator()
+//                Spacer()
+//            } else {
+            
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                
+                VStack(spacing: 8){
+                    
+                    ForEach(self.msgs){i in
+                        
+                        Text(i.msg)
+                        
+                    }
+                }
+                
+            }
+            
+            HStack{
+                
+                TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button(action: {
+                    
+//                    sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
+//
+//                    self.txt = ""
+                    
+                }) {
+                    
+                    Text("Send")
+                }
+                
+            }
+            
+//
+            }
+        
+            
+            
                 .navigationBarTitle("\(name)", displayMode: .inline)
                 .navigationBarItems(leading: Button(action: {
                     self.chat.toggle()
@@ -298,6 +344,55 @@ struct ChatView : View {
                 }
                 ))
         }
+//    }
+    
+    func getMsgs(){
+        
+        let db = Firestore.firestore()
+        
+        let uid = Auth.auth().currentUser?.uid
+        
+        
+        db.collection("msgs").document(uid!).collection(self.uid).getDocuments { (snap, err) in
+            
+            if err != nil{
+                
+                print((err?.localizedDescription)!)
+//                self.nomsgs = true
+                return
+            }
+            
+//            if snap!.isEmpty{
+//
+//                self.nomsgs = true
+//            }
+            
+            for i in snap!.documents{
+                
+                let id = i.documentID
+                let msg = i.get("msg") as! String
+                let user = i.get("user") as! String
+                
+                self.msgs.append(Msg(id: id, msg: msg, user: user))
+            }
+
+            
+            
+            
+            
+            
+        }
+        
+        
     }
     
+    
+}
+
+
+struct Msg : Identifiable {
+    
+    var id : String
+    var msg : String
+    var user : String
 }
