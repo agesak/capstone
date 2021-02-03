@@ -14,12 +14,16 @@ struct CreatePreferencesView: View {
     @State var name : String = ""
     @State var age : String = ""
     @State var location : String = ""
+//    @State var pronouns : String = ""
     
     @State var times = ["Morning", "Afternoon", "Evening"]
     @State private var timesIndex = 0
     
     @State var style = ["HIIT", "Crossfit", "Running", "Yoga"]
     @State private var styleIndex = 0
+    
+    @State var frequency = ["1x/week", "2x/week", "3x/week", "4x/week", "5-6x/week"]
+    @State private var frequencyIndex = 0
     
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
@@ -29,15 +33,19 @@ struct CreatePreferencesView: View {
     var body: some View {
 //        NavigationView{
             VStack {
-                    if user != nil {
-                    Text(user!.email!)
-                    Text(user!.uid)
-                }
+//                    if user != nil {
+//                    Text(user!.email!)
+//                    Text(user!.uid)
+//                }
+                
+                
                 Form {
+                    
                         Section(header: Text("Demographic Information")) {
                             TextField("Name", text: $name)
                             TextField("Age", text: $age)
                             TextField("Location", text: $location)
+//                            TextField("Pronouns", text: $pronouns)
                         }
 
                     
@@ -53,11 +61,16 @@ struct CreatePreferencesView: View {
                                     Text(self.style[$0])
                                 }
                             }
+                            
+                            Picker(selection: $frequencyIndex, label: Text("Workout Frequency")) {
+                                ForEach(0 ..< frequency.count) {
+                                    Text(self.frequency[$0])
+                                }
+                            }
                         }.padding()
                         
                     
                 }.navigationBarTitle("Profile Information")
-        
                 
                 NavigationLink(
 //                    will likely go to photo upload view
@@ -78,6 +91,7 @@ struct CreatePreferencesView: View {
                                     "location": self.location,
                                     "times": self.times[self.timesIndex],
                                     "style": self.style[self.styleIndex],
+                                    "frequency": self.frequency[self.frequencyIndex],
                                     "email": user?.email!
                                 ]
                                 
@@ -106,6 +120,7 @@ struct CreatePreferencesView: View {
                 
             }.alert(isPresented: $shouldShowProfileAlert) {
                 Alert(title: Text("Error Creating Profile"))}
+            .navigationBarBackButtonHidden(true)
         }
 //    }
 }

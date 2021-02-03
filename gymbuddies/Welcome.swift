@@ -10,10 +10,7 @@ import SwiftUI
 struct Welcome: View {
     var body: some View {
         
-        
-        
         VStack {
-            
             Spacer().frame(height: 200)
             
             HStack{
@@ -23,9 +20,6 @@ struct Welcome: View {
                     .fontWeight(.semibold)
             }
             
-            
-            
-//            Spacer()
             Text("Let's learn some more about you!")
             Spacer().frame(height: 90)
             
@@ -41,7 +35,6 @@ struct Welcome: View {
                         .background(Color.purple)
                         .cornerRadius(10.0)
                     })
-            
             Spacer()
             }.navigationBarBackButtonHidden(true)
     }
