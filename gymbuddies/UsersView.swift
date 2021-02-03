@@ -86,6 +86,7 @@ class getUserData: ObservableObject {
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
                 let email = data["email"] as? String ?? ""
+                print(email)
                 return User(id: id, age: age, name: name, location: location, email: email)
             }
             

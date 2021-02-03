@@ -81,7 +81,7 @@ class MessagesViewModel: ObservableObject {
     
     func fetchData(){
         if (user != nil) {
-            db.collection("chat").whereField("from", in: [currentUser!.id, toUser!.id]).addSnapshotListener({(snapshot, error) in
+            db.collection("chat").whereField("from", in: [currentUser!.id, toUser!.id]).whereField("to", in: [currentUser!.id, toUser!.id]).addSnapshotListener({(snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("no documents")
                     return
