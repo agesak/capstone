@@ -75,12 +75,18 @@ PODS:
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
+  - SDWebImageSwiftUI (1.5.0):
+    - SDWebImage (~> 5.7)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `7.4.0`)
+  - SDWebImageSwiftUI
 
 SPEC REPOS:
   trunk:
@@ -96,6 +102,8 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
+    - SDWebImage
+    - SDWebImageSwiftUI
 
 EXTERNAL SOURCES:
   FirebaseFirestore:
@@ -121,7 +129,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SDWebImageSwiftUI: 43687ffe232ddd33fe0659498b7ca9884fdd6b35
 
-PODFILE CHECKSUM: d9e60164797e105c891486c6a4f2368f87dc7078
+PODFILE CHECKSUM: f00b3ced12db5d60f309be5a0fd9948f57e597c5
 
 COCOAPODS: 1.10.1

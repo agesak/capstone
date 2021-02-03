@@ -25,20 +25,24 @@ struct UsersView: View {
         VStack{
                 List(userData.users) { user in
                     VStack(alignment: .leading) {
-                        NavigationLink(
-                            destination : OtherUserView(toUser: user, currentUser: userData.currentUser)) {
-                            HStack {
-                                Image(systemName: "person")
-                                Text(user.name).font(.title)
-                                //                        Text(user.age).font(.subheadline)
-                                }
+//                        NavigationLink(
+//                            destination : OtherUserView(toUser: user, currentUser: userData.currentUser)) {
+//                            HStack {
+//                                Image(systemName: "person")
+//                                Text(user.name).font(.title)
+//                                //                        Text(user.age).font(.subheadline)
+//                                }
+//                            }
+                        
+                        MessagesView().environmentObject(MainObservable())
+
                             }
                     }
                 }.onAppear() {
                     self.userData.getData()
                     }
             }
-        }
+//        }
 }
 
 
