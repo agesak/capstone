@@ -138,6 +138,11 @@ class MainObservable : ObservableObject{
                 return
             }
             
+            if snap!.isEmpty{
+                
+                self.norecetns = true
+            }
+            
             for i in snap!.documentChanges{
                 
                 let id = i.document.documentID

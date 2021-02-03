@@ -25,59 +25,46 @@ struct MessagesView: View {
             
             NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
                 
-                Text("")
+                Text("")}
                 
                 
                 VStack{
-        //            if self.datas.recents.count == 0 {
-        //                Indicator()
-        //            }
-        //            else {
+                    if self.datas.recents.count == 0 {
+//                        Indicator()
+                        if self.datas.norecetns{
+                            Text("No Chat History")
+                        }
+                    }
+                    else {
                     
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack(spacing: 12) {
-                            ForEach(datas.recents) { i in
-                                Button(action: {
-                                    
-                                        self.uid = i.id
-                                        self.name = i.name
-                                        self.chat.toggle()
-                                }) {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack(spacing: 12) {
+                                ForEach(datas.recents) { i in
+                                    Button(action: {
                                         
-                                RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                            self.uid = i.id
+                                            self.name = i.name
+                                            self.chat.toggle()
+                                    }) {
+                                            
+                                    RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                    }
                                 }
                             }
                         }
                     }
                 }.navigationBarTitle("Home",displayMode: .inline)
-                .navigationBarItems(leading:
-                
-                    Button(action: {
-                      
-                    }, label: {
-                        
-                        Text("Sign Out")
-                    })
-                    
-                    , trailing:
-                
-                    Button(action: {
-                       
-                        self.show.toggle()
-                      
-                    }, label: {
-                        
-                        Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)
-                    }
+                .navigationBarItems(
+                    leading: Button(action: {}, label: {
+                                    Text("Sign Out")}),
+                    trailing: Button(action: {self.show.toggle()},
+                                     label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
                 )
-                
-              )
-            
         }.sheet(isPresented: self.$show) {
-            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)
-    }
-        }
+            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
 }
+
+
 
 struct MessagesView_Previews: PreviewProvider {
     static var previews: some View {
