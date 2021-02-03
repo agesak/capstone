@@ -37,7 +37,15 @@ struct MessagesView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 12) {
                             ForEach(datas.recents) { i in
+                                Button(action: {
+                                    
+                                        self.uid = i.id
+                                        self.name = i.name
+                                        self.chat.toggle()
+                                }) {
+                                        
                                 RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                }
                             }
                         }
                     }
@@ -281,7 +289,14 @@ struct ChatView : View {
     var body : some View{
         
         VStack{
-            Text("Hello").navigationBarTitle("\(name)", displayMode: .inline)
+            Text("Hello")
+                .navigationBarTitle("\(name)", displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {
+                    self.chat.toggle()
+                }, label: {
+                    Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
+                }
+                ))
         }
     }
     
