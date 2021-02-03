@@ -10,13 +10,29 @@ import SwiftUI
 struct Welcome: View {
     var body: some View {
         
+        
+        
         VStack {
-            Text("Welcome")
+            
+            Spacer().frame(height: 200)
+            
+            HStack{
+                Image(systemName: "hand.wave")
+                Text("Welcome")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+            }
+            
+            
+            
+//            Spacer()
+            Text("Let's learn some more about you!")
+            Spacer().frame(height: 90)
             
             NavigationLink(
                 destination: CreatePreferencesView(),
                 label: {
-                    Text("Continue")
+                    Text("Let's go!")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -25,6 +41,8 @@ struct Welcome: View {
                         .background(Color.purple)
                         .cornerRadius(10.0)
                     })
+            
+            Spacer()
             }.navigationBarBackButtonHidden(true)
     }
 }
