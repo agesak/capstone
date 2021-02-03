@@ -39,7 +39,7 @@ struct MessagesView: View {
                     
                         ScrollView(.vertical, showsIndicators: false) {
                             VStack(spacing: 12) {
-                                ForEach(datas.recents) { i in
+                                ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
                                     Button(action: {
                                         
                                             self.uid = i.id
@@ -350,8 +350,7 @@ struct ChatView : View {
         
         let uid = Auth.auth().currentUser?.uid
         
-        
-        db.collection("msgs").document(uid!).collection(self.uid).order(by: "date", descending: false).getDocuments { (snap, err) in
+        db.collection("msgs").document(uid!).collection(self.uid).order(by: "date", descending: false).addSnapshotListener { (snap, err) in
             
             if err != nil{
                 
@@ -361,17 +360,22 @@ struct ChatView : View {
             }
             
             if snap!.isEmpty{
-
+                
                 self.nomsgs = true
             }
             
-            for i in snap!.documents{
+            for i in snap!.documentChanges{
                 
-                let id = i.documentID
-                let msg = i.get("msg") as! String
-                let user = i.get("user") as! String
-                
-                self.msgs.append(Msg(id: id, msg: msg, user: user))
+                if i.type == .added{
+                    
+                    
+                    let id = i.document.documentID
+                    let msg = i.document.get("msg") as! String
+                    let user = i.document.get("user") as! String
+                    
+                    self.msgs.append(Msg(id: id, msg: msg, user: user))
+                }
+
             }
         }
     }
@@ -411,7 +415,7 @@ func sendMsg(user: String, uid: String, date: Date, msg: String){
             print((err?.localizedDescription)!)
             // if there is no recents records....
             
-//            setRecents(user: user, uid: uid, pic: pic, msg: msg, date: date)
+            setRecents(user: user, uid: uid, msg: msg, date: date)
             return
         }
         
