@@ -302,17 +302,23 @@ struct ChatView : View {
                     VStack(spacing: 8){
                         ForEach(self.msgs){i in
                             HStack{
-                                if i.user == uid {
+                                if i.user != uid {
                                     
                                     Spacer()
-                                    Text(i.msg).padding().clipShape(ChatBubble(mymsg: true)).foregroundColor(.white)
+                                    Text(i.msg)
+                                        .padding()
                                         .background(Color.blue)
-                                    
+                                        .clipShape(ChatBubble(mymsg: true))
+                                        .foregroundColor(.white)
+                                        
                                 } else {
                                     
-                                    Text(i.msg).padding().clipShape(ChatBubble(mymsg: true)).foregroundColor(.white)
+                                    Text(i.msg)
+                                        .padding()
                                         .background(Color.green)
-                                    
+                                        .clipShape(ChatBubble(mymsg: true))
+                                        .foregroundColor(.white)
+                                        
                                     Spacer()
                                     
                                 }
