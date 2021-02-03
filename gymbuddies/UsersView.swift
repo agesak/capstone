@@ -23,32 +23,35 @@ struct UsersView: View {
     var body: some View {
         
         VStack{
-                List(userData.users) { user in
-                    VStack(alignment: .leading) {
+//                List(userData.users) { user in
+//                    VStack(alignment: .leading) {
 //                        NavigationLink(
-//                            destination : OtherUserView(toUser: user, currentUser: userData.currentUser)) {
+//                            destination : OtherUserView(toUser: user)) {
 //                            HStack {
 //                                Image(systemName: "person")
 //                                Text(user.name).font(.title)
 //                                //                        Text(user.age).font(.subheadline)
 //                                }
 //                            }
+            
+            MessagesView().environmentObject(MainObservable())
                         
-                        MessagesView().environmentObject(MainObservable())
+//                        MessagesView().environmentObject(MainObservable())
 
                             }
+    }
+//    .onAppear() {
+//                        self.userData.getData()
+//                }
                     }
-                }.onAppear() {
-                    self.userData.getData()
-                    }
-            }
+//            }
 //        }
-}
+//}
 
 
 class getUserData: ObservableObject {
     @Published var users = [User]()
-    @Published var currentUser = [User]()
+//    @Published var currentUser = [User]()
 
     func getCurrentUser() -> String {
         let currentUserData = Auth.auth().currentUser
@@ -58,7 +61,7 @@ class getUserData: ObservableObject {
  
     func getData(){
         let db = Firestore.firestore()
-        let currentUserEmail = getCurrentUser()
+//        let currentUserEmail = getCurrentUser()
         
         db.collection("users").addSnapshotListener( {querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
@@ -94,8 +97,9 @@ class getUserData: ObservableObject {
                 return User(id: id, age: age, name: name, location: location, email: email)
             }
             
-            self.users = allUsers.filter{user in return user.email != currentUserEmail}
-            self.currentUser = allUsers.filter{user in return user.email == currentUserEmail}
+            self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
+//            self.users = allUsers.filter{user in return user.email != currentUserEmail}
+//            self.currentUser = allUsers.filter{user in return user.email == currentUserEmail}
         })
         
     }

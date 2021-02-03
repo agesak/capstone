@@ -36,7 +36,7 @@ struct MessageView: View {
     }
     
     func completeViewModelSetUp() {
-        viewModel.setUsers(user1: toUser!, user2: currentUser[0])
+        viewModel.setUsers(user: toUser!)
     }
 }
 
@@ -60,28 +60,29 @@ class MessagesViewModel: ObservableObject {
     private let user = Auth.auth().currentUser
     
     var toUser:User?
-    var currentUser:User?
+//    var currentUser:User?
     
     func sendMessage(messageContent: String) {
         if (user != nil) {
             db.collection("chat").addDocument(data: [
                                                     "timeStamp": Date(),
                                                     "msg": messageContent,
-                                                "from": currentUser!.id,
+                                                "from": user!.uid,
                                                 "to": toUser!.id])
         }
     }
     
-    func setUsers(user1: User, user2: User){
-        toUser = user1
-        currentUser = user2
+    func setUsers(user: User){
+        toUser = user
+//        currentUser = user2
         fetchData()
     }
 
+//    .whereField("to", in: [currentUser!.id, toUser!.id])
     
     func fetchData(){
         if (user != nil) {
-            db.collection("chat").whereField("from", in: [currentUser!.id, toUser!.id]).whereField("to", in: [currentUser!.id, toUser!.id]).addSnapshotListener({(snapshot, error) in
+            db.collection("chat").whereField("from", in: [user!.uid, toUser!.id]).addSnapshotListener({(snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("no documents")
                     return

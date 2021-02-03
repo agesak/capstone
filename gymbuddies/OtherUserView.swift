@@ -10,14 +10,14 @@ import SwiftUI
 struct OtherUserView: View {
     
     var toUser:User
-    var currentUser = [User]()
+//    var currentUser = [User]()
     
     var body: some View {
         VStack{
             Text(toUser.name)
             
             NavigationLink(
-                destination: MessageView(toUser: toUser, currentUser: currentUser),
+                destination: MessageView(toUser: toUser),
                 label: {Text("Message")}
             )
         }

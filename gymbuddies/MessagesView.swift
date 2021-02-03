@@ -49,9 +49,9 @@ class MainObservable : ObservableObject{
     init() {
         
         let db = Firestore.firestore()
-//        let uid = Auth.auth().currentUser?.uid
+        let uid = Auth.auth().currentUser?.uid
         
-        db.collection("users").document(userData.currentUser[0].id).collection("recents").order(by: "date", descending: true).addSnapshotListener { (snap, err) in
+        db.collection("users").document(uid!).collection("recents").order(by: "date", descending: true).addSnapshotListener { (snap, err) in
             
             if err != nil{
                 

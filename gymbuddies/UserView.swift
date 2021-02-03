@@ -61,7 +61,7 @@ struct UserView: View {
         do {
             try Auth.auth().signOut()
             print("signed out")
-            print(Auth.auth().currentUser!)
+//            print(Auth.auth().currentUser!)
 //            self.session = nil
 //            self.users = []
 //            self.messages = [Message]()
