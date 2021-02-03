@@ -47,7 +47,7 @@ struct MessagesView: View {
                                             self.chat.toggle()
                                     }) {
                                             
-                                    RecentCellView(url: i.pic, name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
                                     }
                                 }
                             }
@@ -76,7 +76,7 @@ struct MessagesView_Previews: PreviewProvider {
 
 
 struct RecentCellView : View {
-    var url : String
+//    var url : String
     var name : String
     var time : String
     var date : String
@@ -207,6 +207,8 @@ class getAllUsers : ObservableObject{
                 let location = i.get("location") as! String
                 let email = i.get("email") as! String
                 
+                
+//                MARK - maybe this breaks?
                 if id != self.user?.uid {
                     
                     self.users.append(User(id: id, age: age, name: name, location: location, email: email))
@@ -323,8 +325,8 @@ struct ChatView : View {
                 HStack{
                     TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-    //                    sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
-    //                    self.txt = ""
+                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt)
+                        self.txt = ""
                     }) {
                         Text("Send")
                     }
@@ -393,5 +395,91 @@ struct ChatBubble : Shape {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight,mymsg ? .bottomLeft : .bottomRight], cornerRadii: CGSize(width: 16, height: 16))
         
         return Path(path.cgPath)
+    }
+}
+
+
+func sendMsg(user: String, uid: String, date: Date, msg: String){
+    let db = Firestore.firestore()
+    
+    let myuid = Auth.auth().currentUser?.uid
+    
+    db.collection("users").document(uid).collection("recents").document(myuid!).getDocument { (snap, err) in
+     
+        if err != nil{
+            
+            print((err?.localizedDescription)!)
+            // if there is no recents records....
+            
+//            setRecents(user: user, uid: uid, pic: pic, msg: msg, date: date)
+            return
+        }
+        
+        if !snap!.exists{
+            setRecents(user: user, uid: uid, msg: msg, date: date)
+        } else {
+            updateRecents(uid: uid, lastmsg: msg, date: date)
+        }
+        
+    }
+    updateDB(uid: uid, msg: msg, date: date)
+}
+
+func setRecents(user: String, uid: String, msg: String, date: Date){
+    
+    
+    let db = Firestore.firestore()
+    
+    let myuid = Auth.auth().currentUser?.uid
+    
+    
+//    MARK - this should prbly be name
+    let name = Auth.auth().currentUser?.email
+    
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":name!, "lastmsg":msg, "date":date]) { (err) in
+        if err != nil{
+            
+            print((err?.localizedDescription)!)
+            return
+        }
+    }
+    
+    db.collection("users").document(myuid!).collection("recents").document(uid).setData(["name":user, "lastmsg":msg, "date":date]) { (err) in
+        
+        if err != nil{
+            
+            print((err?.localizedDescription)!)
+            return
+        }
+    }
+}
+
+func updateRecents(uid: String, lastmsg: String, date: Date){
+    let db = Firestore.firestore()
+    let myuid = Auth.auth().currentUser?.uid
+    db.collection("users").document(uid).collection("recents").document(myuid!).updateData(["lastmsg":lastmsg,"date":date])
+    db.collection("users").document(myuid!).collection("recents").document(uid).updateData(["lastmsg":lastmsg,"date":date])
+}
+
+
+func updateDB(uid: String, msg: String, date: Date){
+    
+    let db = Firestore.firestore()
+    let myuid = Auth.auth().currentUser?.uid
+    
+    db.collection("msgs").document(uid).collection(myuid!).document().setData(["msg":msg, "user":myuid!, "date":date]) { (err) in
+        
+        if err != nil{
+            print((err?.localizedDescription)!)
+            return
+        }
+    }
+    
+    db.collection("msgs").document(myuid!).collection(uid).document().setData(["msg":msg, "user":myuid!, "date":date]) { (err) in
+        
+        if err != nil{
+            print((err?.localizedDescription)!)
+            return
+        }
     }
 }
