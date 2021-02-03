@@ -47,7 +47,7 @@ struct SignInView: View {
             NavigationLink(
                 destination: UsersView(),
                 isActive: self.$isLoginValid) {
-                    Text("Continue")
+                    Text("Sign In")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)

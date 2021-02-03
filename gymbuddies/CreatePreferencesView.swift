@@ -99,17 +99,13 @@ struct CreatePreferencesView: View {
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
                                 
 //                                let docRef = Firestore.firestore().document("users/\(user!.uid)")
-                                    print("setting data")
-                                print(user!.email!)
+                                print("setting data")
                                 docRef.setData(userDictionary as [String : Any]){ (error) in
                                         if let error = error {
                                             print("error = \(error)")
                                             self.isprofileValid = false
                                         } else {
                                             print("it ran")
-//                                            self.name = ""
-//                                            self.age = ""
-//                                            self.location = ""
                                             self.isprofileValid = true
                                         }
                                     }
@@ -122,7 +118,6 @@ struct CreatePreferencesView: View {
                 Alert(title: Text("Error Creating Profile"))}
             .navigationBarBackButtonHidden(true)
         }
-//    }
 }
 
 struct CreatePreferencesView_Previews: PreviewProvider {
