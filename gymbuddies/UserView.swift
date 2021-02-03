@@ -31,12 +31,13 @@ struct UserView: View {
                 .autocapitalization(.none)
                 Divider()
             }
-                
+  
+
             Button(action: {
                 let userDictionary = [
                     "name": self.name,
                 ]
-                
+
                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
                     print("setting data")
                     docRef.setData(userDictionary){ (error) in
@@ -47,8 +48,27 @@ struct UserView: View {
                         }
                     }
             }) { Text("Update Profile")}
-            
+                
+                
+                Button(action: signOut) { Text("Sign Out")}
+
                 }
+            }
+        }
+    
+    
+    func signOut(){
+        do {
+            try Auth.auth().signOut()
+            print("signed out")
+//            print(Auth.auth().currentUser!)
+//            self.session = nil
+//            self.users = []
+//            self.messages = [Message]()
+//            self.messagesDictionary = [String:Message]()
+        } catch {
+            print("Error signing out")
+            print(Auth.auth().currentUser!)
         }
     }
 }

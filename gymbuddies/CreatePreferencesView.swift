@@ -29,10 +29,10 @@ struct CreatePreferencesView: View {
     var body: some View {
 //        NavigationView{
             VStack {
-//                    if user != nil {
-//                    Text(user!.email!)
-//                        Text(user!.uid)
-//                }
+                    if user != nil {
+                    Text(user!.email!)
+                    Text(user!.uid)
+                }
                 Form {
                         Section(header: Text("Demographic Information")) {
                             TextField("Name", text: $name)
@@ -77,16 +77,22 @@ struct CreatePreferencesView: View {
                                     "age": self.age,
                                     "location": self.location,
                                     "times": self.times[self.timesIndex],
-                                    "style": self.style[self.styleIndex]
+                                    "style": self.style[self.styleIndex],
+                                    "email": user?.email!
                                 ]
                                 
+//                                let docRef = db.collection("users").document("\(user!.uid)")
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
+                                
+//                                let docRef = Firestore.firestore().document("users/\(user!.uid)")
                                     print("setting data")
-                                    docRef.setData(userDictionary){ (error) in
+                                print(user!.email!)
+                                docRef.setData(userDictionary as [String : Any]){ (error) in
                                         if let error = error {
                                             print("error = \(error)")
                                             self.isprofileValid = false
                                         } else {
+                                            print("it ran")
 //                                            self.name = ""
 //                                            self.age = ""
 //                                            self.location = ""

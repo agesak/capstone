@@ -45,7 +45,7 @@ struct CreateAccountView: View {
                 Spacer()
  
                 NavigationLink(
-                    destination: CreatePreferencesView(),
+                    destination: Welcome(),
                     isActive: self.$isLoginValid) {
                         Text("Continue")
                             .font(.title)
@@ -64,11 +64,12 @@ struct CreateAccountView: View {
                                             self.shouldShowLoginAlert = true
                                          } else {
                                              print("it worked!!!!")
+                                            print(self.email)
                                              self.email = ""
                                              self.password = ""
                                             self.isLoginValid = true
                                             self.shouldShowLoginAlert = false
-                                            print(self.isLoginValid)
+//                                            print(self.isLoginValid)
                                          }
                                      })
                             }
