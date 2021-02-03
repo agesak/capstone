@@ -294,56 +294,65 @@ struct ChatView : View {
         VStack{
             
 
-//            if msgs.count == 0{
-//                Spacer()
-//                Indicator()
-//                Spacer()
-//            } else {
+    //            if msgs.count == 0{
+    //                Spacer()
+    //                Indicator()
+    //                Spacer()
+    //            } else {
             
-            
-            ScrollView(.vertical, showsIndicators: false) {
-                
-                VStack(spacing: 8){
+            if msgs.count == 0{
+                if self.nomsgs{
+                    Text("Start New Conversation !!!").foregroundColor(Color.black.opacity(0.5)).padding(.top)
                     
-                    ForEach(self.msgs){i in
-                        
-                        Text(i.msg)
-                        
+                    Spacer()
+                }
+            } else {
+                
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 8){
+                        ForEach(self.msgs){i in
+                            HStack{
+                                if i.user == uid {
+                                    
+                                    Spacer()
+                                    Text(i.msg).padding().clipShape(ChatBubble(mymsg: true)).foregroundColor(.white)
+                                        .background(Color.blue)
+                                    
+                                } else {
+                                    
+                                    Text(i.msg).padding().clipShape(ChatBubble(mymsg: true)).foregroundColor(.white)
+                                        .background(Color.green)
+                                    
+                                    Spacer()
+                                    
+                                }
+                            }
+                        }
                     }
                 }
-                
             }
-            
-            HStack{
                 
-                TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button(action: {
-                    
-//                    sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
-//
-//                    self.txt = ""
-                    
-                }) {
-                    
-                    Text("Send")
-                }
-                
-            }
-            
-//
-            }
-        
-            
-            
-                .navigationBarTitle("\(name)", displayMode: .inline)
+                HStack{
+                    TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+    //                    sendMsg(user: self.name, uid: self.uid, pic: self.pic, date: Date(), msg: self.txt)
+    //                    self.txt = ""
+                    }) {
+                        Text("Send")
+                    }
+                }.navigationBarTitle("\(name)", displayMode: .inline)
                 .navigationBarItems(leading: Button(action: {
-                    self.chat.toggle()
-                }, label: {
-                    Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
-                }
-                ))
-        }
+                        self.chat.toggle()
+                    }, label: {
+                        Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
+                    }))
+            
+            }.onAppear {
+                self.getMsgs()
+            }
+    }
+    
 //    }
     
     func getMsgs(){
@@ -353,19 +362,19 @@ struct ChatView : View {
         let uid = Auth.auth().currentUser?.uid
         
         
-        db.collection("msgs").document(uid!).collection(self.uid).getDocuments { (snap, err) in
+        db.collection("msgs").document(uid!).collection(self.uid).order(by: "date", descending: false).getDocuments { (snap, err) in
             
             if err != nil{
                 
                 print((err?.localizedDescription)!)
-//                self.nomsgs = true
+                self.nomsgs = true
                 return
             }
             
-//            if snap!.isEmpty{
-//
-//                self.nomsgs = true
-//            }
+            if snap!.isEmpty{
+
+                self.nomsgs = true
+            }
             
             for i in snap!.documents{
                 
@@ -375,18 +384,8 @@ struct ChatView : View {
                 
                 self.msgs.append(Msg(id: id, msg: msg, user: user))
             }
-
-            
-            
-            
-            
-            
         }
-        
-        
     }
-    
-    
 }
 
 
@@ -395,4 +394,17 @@ struct Msg : Identifiable {
     var id : String
     var msg : String
     var user : String
+}
+
+
+struct ChatBubble : Shape {
+    
+    var mymsg : Bool
+    
+    func path(in rect: CGRect) -> Path {
+            
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft,.topRight,mymsg ? .bottomLeft : .bottomRight], cornerRadii: CGSize(width: 16, height: 16))
+        
+        return Path(path.cgPath)
+    }
 }
