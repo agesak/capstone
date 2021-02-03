@@ -48,10 +48,29 @@ struct UserView: View {
                         }
                     }
             }) { Text("Update Profile")}
+                
+                
+                Button(action: signOut) { Text("Sign Out")}
 
                 }
             }
         }
+    
+    
+    func signOut(){
+        do {
+            try Auth.auth().signOut()
+            print("signed out")
+            print(Auth.auth().currentUser!)
+//            self.session = nil
+//            self.users = []
+//            self.messages = [Message]()
+//            self.messagesDictionary = [String:Message]()
+        } catch {
+            print("Error signing out")
+            print(Auth.auth().currentUser!)
+        }
+    }
 }
 
 

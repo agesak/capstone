@@ -29,10 +29,10 @@ struct CreatePreferencesView: View {
     var body: some View {
 //        NavigationView{
             VStack {
-//                    if user != nil {
-//                    Text(user!.email!)
-//                        Text(user!.uid)
-//                }
+                    if user != nil {
+                    Text(user!.email!)
+                    Text(user!.uid)
+                }
                 Form {
                         Section(header: Text("Demographic Information")) {
                             TextField("Name", text: $name)
@@ -81,13 +81,18 @@ struct CreatePreferencesView: View {
                                     "email": user?.email!
                                 ]
                                 
+//                                let docRef = db.collection("users").document("\(user!.uid)")
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
+                                
+//                                let docRef = Firestore.firestore().document("users/\(user!.uid)")
                                     print("setting data")
+                                print(user!.email!)
                                 docRef.setData(userDictionary as [String : Any]){ (error) in
                                         if let error = error {
                                             print("error = \(error)")
                                             self.isprofileValid = false
                                         } else {
+                                            print("it ran")
 //                                            self.name = ""
 //                                            self.age = ""
 //                                            self.location = ""
