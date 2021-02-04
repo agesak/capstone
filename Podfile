@@ -7,6 +7,7 @@ target 'gymbuddies' do
 
 #  pod 'SDWebImage', '~>3.7'
   pod 'SDWebImageSwiftUI'
+  pod 'URLImage'
   
   # Pods for gymbuddies
   pod 'Firebase/Analytics'

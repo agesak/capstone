@@ -66,8 +66,7 @@ struct CreatePreferencesView: View {
                             }
                     }
                 Spacer()
-                
-//            }
+
     .alert(isPresented: $shouldShowProfileAlert) {
     Alert(title: Text("Error Creating Profile"))}
 //    .navigationBarBackButtonHidden(true)
