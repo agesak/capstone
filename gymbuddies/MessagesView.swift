@@ -27,7 +27,7 @@ struct MessagesView: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
 //                    showMenu: self.$showMenu
-                MainView()
+                MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, location: self.$location)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
                     .disabled(self.showMenu ? true : false)
@@ -108,12 +108,12 @@ struct MessagesView_Previews: PreviewProvider {
 struct MainView: View {
     
     @EnvironmentObject var datas : MainObservable
-    @State var show = false
-    @State var chat = false
-    @State var uid = ""
-    @State var name = ""
-    @State var pic = ""
-    @State var location = ""
+    @Binding var show : Bool
+    @Binding var chat : Bool
+    @Binding var uid : String
+    @Binding var name : String
+//    @Binding var pic :String
+    @Binding var location : String
     
     var body: some View {
         
