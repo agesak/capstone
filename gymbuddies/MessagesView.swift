@@ -18,50 +18,80 @@ struct MessagesView: View {
     @State var name = ""
     @State var pic = ""
     @State var location = ""
+    @State var showMenu = false
     
     
     var body: some View {
-        ZStack{
-            
-            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
-                
-                Text("")}
-                
-                
-                VStack{
-                    if self.datas.recents.count == 0 {
-//                        Indicator()
-                        if self.datas.norecetns{
-                            Text("No Chat History")
-                        }
-                    }
-                    else {
-                    
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack(spacing: 12) {
-                                ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
-                                    Button(action: {
-                                        
-                                            self.uid = i.id
-                                            self.name = i.name
-                                            self.chat.toggle()
-                                    }) {
-                                            
-                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }.navigationBarTitle("Home",displayMode: .inline)
-                .navigationBarItems(
-                    leading: Button(action: {}, label: {
-                                    Text("Sign Out")}),
-                    trailing: Button(action: {self.show.toggle()},
-                                     label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
-                )
-        }.sheet(isPresented: self.$show) {
-            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
+        
+        
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+//                    showMenu: self.$showMenu
+                MainView()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .offset(x: self.showMenu ? geometry.size.width/2 : 0)
+                    .disabled(self.showMenu ? true : false)
+                if self.showMenu {
+                    MenuView()
+                        .frame(width: geometry.size.width/2)
+                        .transition(.move(edge: .leading))
+                }
+            }
+        }.navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: (Button(
+            action: {withAnimation {self.showMenu.toggle()}
+            }) {Image(systemName: "line.horizontal.3")
+            .imageScale(.large)}),
+            trailing: Button(action: {self.show.toggle()},
+                             label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
+        
+//        .navigationBarBackButtonHidden(true)
+//        .navigationBarTitle("Messages")
+//        .navigationBarItems(
+//            trailing: Button(action: {self.show.toggle()},
+//                             label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
+//            )
+//        ZStack{
+//            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
+//
+//                Text("")}
+//
+//            Spacer()
+//
+//                VStack{
+//                    Spacer()
+//                    if self.datas.recents.count == 0 {
+////                        Indicator()
+//                        if self.datas.norecetns{
+//                            Text("No Chat History")
+//                        }
+//                    }
+//                    else {
+//                        Spacer()
+//                        ScrollView(.vertical, showsIndicators: false) {
+//                            VStack(spacing: 12) {
+//                                ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
+//                                    Button(action: {
+//
+//                                            self.uid = i.id
+//                                            self.name = i.name
+//                                            self.chat.toggle()
+//                                    }) {
+//
+//                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }.navigationBarBackButtonHidden(true)
+//                .navigationBarTitle("Messages")
+//                .navigationBarItems(
+//                    trailing: Button(action: {self.show.toggle()},
+//                                     label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
+//                )
+//        }.sheet(isPresented: self.$show) {
+//            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
 }
 
 
@@ -72,6 +102,58 @@ struct MessagesView_Previews: PreviewProvider {
     }
 }
 
+    
+struct MainView: View {
+    
+    @EnvironmentObject var datas : MainObservable
+    @State var show = false
+    @State var chat = false
+    @State var uid = ""
+    @State var name = ""
+    @State var pic = ""
+    @State var location = ""
+    
+    var body: some View {
+        
+        ZStack{
+            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
+                Text("")}
+                
+            Spacer()
+                
+            VStack{
+                Spacer()
+                if self.datas.recents.count == 0 {
+                    if self.datas.norecetns{
+                        Text("No Chat History")
+                    }
+                }
+                else {
+                    Spacer()
+                    ScrollView(.vertical, showsIndicators: false) {
+                        Text("Messages")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        VStack(spacing: 12) {
+                            ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
+                                Button(action: {
+                                    
+                                        self.uid = i.id
+                                        self.name = i.name
+                                        self.chat.toggle()
+                                }) {
+                                        
+                                RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                }
+                            }
+                        }
+                    }
+                }
+            }.sheet(isPresented: self.$show) {
+                newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
+        }
+    }
+}
 
 
 

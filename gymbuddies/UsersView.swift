@@ -23,15 +23,14 @@ struct UsersView: View {
     @ObservedObject private var userData = getUserData()
     
     var body: some View {
-        
-//        return NavigationView{
+
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    MainView(showMenu: self.$showMenu)
+//                    showMenu: self.$showMenu
+                    MainView()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .offset(x: self.showMenu ? geometry.size.width/2 : 0)
                         .disabled(self.showMenu ? true : false)
-//                        .navigationTitle("Users")
                     if self.showMenu {
                         MenuView()
                             .frame(width: geometry.size.width/2)
@@ -168,10 +167,11 @@ struct UserCellView : View {
 struct MainView: View {
     
     @ObservedObject private var userData = getUserData()
-    @Binding var showMenu: Bool
+//    @Binding var showMenu: Bool
     
-    init(showMenu: Binding<Bool>) {
-        self._showMenu = showMenu
+//    showMenu: Binding<Bool>
+    init() {
+//        self._showMenu = showMenu
         userData.getData()
     }
     
