@@ -25,27 +25,17 @@ struct CreatePreferencesView: View {
         VStack() {
             Spacer()
             
-//            Group {
                 FieldView(fieldName: "Name", fieldString: "Michelle Obama", stateVar: self.$name)
                 FieldView(fieldName: "Age", fieldString: "25", stateVar: self.$age)
                 FieldView(fieldName: "Location", fieldString: "Seattle, WA", stateVar: self.$location)
                 FieldView(fieldName: "Pronouns", fieldString: "she/her", stateVar: self.$pronouns).autocapitalization(.none)
 
             Spacer().frame(height: 75)
-//            }
-//                Form {
-//
-//                        Section(header: Text("Demographic Information")) {
-//                            TextField("Name", text: $name)
-//                            TextField("Age", text: $age)
-//                            TextField("Location", text: $location)
-////                            TextField("Pronouns", text: $pronouns)
-//                        }
 
                 }.navigationBarTitle("First Tell Me Your...")
                 
                 NavigationLink(
-                    destination: UsersView(),
+                    destination: CreateWorkoutPreferencesView(),
                     isActive: self.$isprofileValid) {
                         Text("Continue")
                             .font(.title)
@@ -60,7 +50,8 @@ struct CreatePreferencesView: View {
                                     "name": self.name,
                                     "age": self.age,
                                     "location": self.location,
-                                    "email": user?.email!
+                                    "pronouns": self.pronouns
+//                                    "email": user?.email!
                                 ]
                                 let docRef = Firestore.firestore().document("users/\(user!.uid)")
                                 docRef.setData(userDictionary as [String : Any]){ (error) in
@@ -68,7 +59,7 @@ struct CreatePreferencesView: View {
                                             print("error = \(error)")
                                             self.isprofileValid = false
                                         } else {
-                                            print("it ran")
+                                            print("profile updated")
                                             self.isprofileValid = true
                                         }
                                     }
@@ -78,8 +69,8 @@ struct CreatePreferencesView: View {
                 
 //            }
     .alert(isPresented: $shouldShowProfileAlert) {
-                Alert(title: Text("Error Creating Profile"))}
-            .navigationBarBackButtonHidden(true)
+    Alert(title: Text("Error Creating Profile"))}
+//    .navigationBarBackButtonHidden(true)
         }
 }
 

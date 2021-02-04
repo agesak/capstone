@@ -31,14 +31,15 @@ struct CreateWorkoutPreferencesView: View {
     var body: some View {
         
         VStack{
-            Spacer().frame(height: 150)
+            Spacer().frame(height: 75)
             Form{
                 Section() {
                         Picker(selection: $timesIndex, label: Text("Time of Day")) {
                             ForEach(0 ..< times.count) {
                                 Text(self.times[$0])
                             }
-                        }}
+                        }
+                    }
                 
                 
                 Section {
@@ -56,14 +57,14 @@ struct CreateWorkoutPreferencesView: View {
                             Text(self.frequency[$0])
                         }
                     }
-                }.padding()
+                }
             }
             .foregroundColor(Color.black)
 //            .background(Color.yellow)
-            .navigationBarTitle("How Do You Like to Workout?")
+            .navigationBarTitle("Workout Style?")
             
             NavigationLink(
-                destination: UsersView(),
+                destination: SelectIconPhoto(),
                 isActive: self.$isprofileValid) {
                     Text("Continue")
                         .font(.title)
@@ -77,11 +78,11 @@ struct CreateWorkoutPreferencesView: View {
                             let userDictionary = [
                                 "times": self.times[self.timesIndex],
                                 "style": self.style[self.styleIndex],
-                                "frequency": self.frequency[self.frequencyIndex],
-                                "email": user?.email!
+                                "frequency": self.frequency[self.frequencyIndex]
+//                                "email": user?.email!
                             ]
                             let docRef = Firestore.firestore().document("users/\(user!.uid)")
-                            docRef.setData(userDictionary as [String : Any]){ (error) in
+                            docRef.updateData(userDictionary as [String : Any]){ (error) in
                                     if let error = error {
                                         print("error = \(error)")
                                         self.isprofileValid = false
@@ -95,7 +96,7 @@ struct CreateWorkoutPreferencesView: View {
             Spacer()
         }.alert(isPresented: $shouldShowProfileAlert) {
             Alert(title: Text("Error Creating Profile"))}
-        .navigationBarBackButtonHidden(true)
+//        .navigationBarBackButtonHidden(true)
     }
 }
 
