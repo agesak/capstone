@@ -55,41 +55,14 @@ struct UsersView: View {
 
 class getUserData: ObservableObject {
     @Published var users = [User]()
-//    @Published var currentUser = [User]()
-
-//    func getCurrentUser() -> String {
-//        let currentUserData = Auth.auth().currentUser
-//        print("current user's email: \(currentUserData!.email!)")
-//        return currentUserData!.email!
-//    }
-//
     func getData(){
         let db = Firestore.firestore()
-//        let currentUserEmail = getCurrentUser()
         
         db.collection("users").addSnapshotListener( {querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
                 print("error fetching documents: \(error!)")
                 return
             }
-//            print(documents)
-
-//            for document in documents {
-//                let data = document.data()
-//                let id = document.documentID
-//                let name = data["name"] as? String ?? ""
-//                let age = data["age"] as? String ?? ""
-//                let location = data["location"] as? String ?? ""
-//                let email = data["email"] as? String ?? ""
-//                let newUser = User(id: id, age: age, name: name, location: location, email: email)
-//                print(email)
-//                if email != currentUserEmail {
-//                    self.users.append(newUser)
-//                }
-//
-//            }
-            
-     
             let allUsers = documents.map { (queryDocumentSnapshot) -> User in
                 let data = queryDocumentSnapshot.data()
                 let id = queryDocumentSnapshot.documentID
@@ -102,12 +75,8 @@ class getUserData: ObservableObject {
             }
             
             self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
-//            self.users = allUsers.filter{user in return user.email != currentUserEmail}
-//            self.currentUser = allUsers.filter{user in return user.email == currentUserEmail}
         })
-        
     }
-    
 }
 
 

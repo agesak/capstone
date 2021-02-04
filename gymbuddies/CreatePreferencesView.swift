@@ -74,7 +74,7 @@ struct CreatePreferencesView: View {
                 
                 NavigationLink(
 //                    will likely go to photo upload view
-                    destination: UserView(),
+                    destination: UsersView(),
                     isActive: self.$isprofileValid) {
                         Text("Continue")
                             .font(.title)

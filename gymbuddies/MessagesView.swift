@@ -22,11 +22,8 @@ struct MessagesView: View {
     
     
     var body: some View {
-        
-        
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-//                    showMenu: self.$showMenu
                 MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, location: self.$location)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
@@ -46,54 +43,6 @@ struct MessagesView: View {
                              label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
         .sheet(isPresented: self.$show) {
             newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
-        
-//        .navigationBarBackButtonHidden(true)
-//        .navigationBarTitle("Messages")
-//        .navigationBarItems(
-//            trailing: Button(action: {self.show.toggle()},
-//                             label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
-//            )
-//        ZStack{
-//            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
-//
-//                Text("")}
-//
-//            Spacer()
-//
-//                VStack{
-//                    Spacer()
-//                    if self.datas.recents.count == 0 {
-////                        Indicator()
-//                        if self.datas.norecetns{
-//                            Text("No Chat History")
-//                        }
-//                    }
-//                    else {
-//                        Spacer()
-//                        ScrollView(.vertical, showsIndicators: false) {
-//                            VStack(spacing: 12) {
-//                                ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
-//                                    Button(action: {
-//
-//                                            self.uid = i.id
-//                                            self.name = i.name
-//                                            self.chat.toggle()
-//                                    }) {
-//
-//                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }.navigationBarBackButtonHidden(true)
-//                .navigationBarTitle("Messages")
-//                .navigationBarItems(
-//                    trailing: Button(action: {self.show.toggle()},
-//                                     label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)})
-//                )
-//        }.sheet(isPresented: self.$show) {
-//            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
 }
 
 
@@ -422,11 +371,11 @@ struct ChatView : View {
                         Text("Send")
                     }
                 }.navigationBarTitle("\(name)", displayMode: .inline)
-                .navigationBarItems(leading: Button(action: {
-                        self.chat.toggle()
-                    }, label: {
-                        Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
-                    }))
+//                .navigationBarItems(leading: Button(action: {
+//                        self.chat.toggle()
+//                    }, label: {
+//                        Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
+//                    }))
             
             }.onAppear {
                 self.getMsgs()

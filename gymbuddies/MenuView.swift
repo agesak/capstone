@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import Firebase
 
 
 struct MenuView: View {
+    
+    @State var isLinkActive = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             NavigationLink(
@@ -47,13 +51,46 @@ struct MenuView: View {
                             .font(.headline)
                     }.padding(.top, 30)
                     })
-            Spacer()
+            NavigationLink(
+                destination: HomeView(),
+                isActive: self.$isLinkActive) {
+                HStack {
+                    Image(systemName: "hand.wave")
+                        .foregroundColor(.gray)
+                        .imageScale(.large)
+                    Text("Sign Out")
+                        .foregroundColor(.gray)
+                        .font(.headline)
+                }.padding(.top, 30)
+                .onTapGesture {
+                    self.isLinkActive = true
+                    signOut()
+                }
+            }
+//            .navigationBarBackButtonHidden(true)
+
+        Spacer()
         }.padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 32/255, green: 32/255, blue: 32/255))
         .edgesIgnoringSafeArea(.all)
-            }
+    }
+    
+    func signOut(){
+        do {
+            try Auth.auth().signOut()
+            print("signed out")
+//            print(Auth.auth().currentUser!)
+//            self.session = nil
+//            self.users = []
+//            self.messages = [Message]()
+//            self.messagesDictionary = [String:Message]()
+        } catch {
+            print("Error signing out")
+            print(Auth.auth().currentUser!)
         }
+    }
+}
 
 
 struct MenuView_Previews: PreviewProvider {
@@ -61,5 +98,3 @@ struct MenuView_Previews: PreviewProvider {
         MenuView()
     }
 }
-
-

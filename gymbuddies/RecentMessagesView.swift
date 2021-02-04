@@ -9,37 +9,8 @@ import SwiftUI
 import Firebase
 
 struct RecentMessagesView: View {
-    
-//    @State var showMenu = false
-    
     var body: some View {
-        
         MessagesView().environmentObject(MainObservable())
-        
-//        GeometryReader { geometry in
-//            ZStack(alignment: .leading) {
-//                MessagesView().environmentObject(MainObservable())
-//                    .frame(width: geometry.size.width, height: geometry.size.height)
-//                    .offset(x: self.showMenu ? geometry.size.width/2 : 0)
-//                    .disabled(self.showMenu ? true : false)
-//                if self.showMenu {
-//                    MenuView()
-//                        .frame(width: geometry.size.width/2)
-//                        .transition(.move(edge: .leading))
-//                }
-//            }
-//        }
-////            .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(
-//
-//            leading: (Button(
-//            action: {withAnimation {self.showMenu.toggle()}
-//            }) {Image(systemName: "line.horizontal.3")
-//            .imageScale(.large)}))
-        
-//        VStack {
-//            MessagesView().environmentObject(MainObservable())
-//        }
     }
 }
 
