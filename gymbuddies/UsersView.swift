@@ -22,30 +22,48 @@ struct UsersView: View {
     @ObservedObject private var userData = getUserData()
     var body: some View {
         
-        VStack{
-//            Text("hello world")
-                List(userData.users) { user in
-                    VStack(alignment: .leading) {
-                        NavigationLink(
-                            destination : OtherUserView(toUser: user)) {
-                            HStack {
-                                Image(systemName: "person")
-                                Text(user.name).font(.title)
-                                //                        Text(user.age).font(.subheadline)
-                                }
-                            }
-            
-//            NavigationView{
-//                MessagesView().environmentObject(MainObservable())
+        ScrollView(.vertical, showsIndicators: false){
+            VStack{
+//                for otherUser in userData.users {
+//                    NavigationLink(
+//                        destination : OtherUserView(toUser: otherUser)) {
+//                        UserCellView(user: otherUser)
+//                        }
+//                }
                 
-//            }
-                        
-//                        MessagesView().environmentObject(MainObservable())
-
-                    }
-                }.onAppear() {
-                    self.userData.getData()}
-        }
+                ForEach(userData.users){otherUser in
+                    NavigationLink(
+                        destination : OtherUserView(toUser: otherUser)) {
+                        UserCellView(user: otherUser)
+                        }
+                }
+                
+            }.onAppear() {
+                self.userData.getData()}
+            
+        }.navigationBarBackButtonHidden(true)
+        .navigationTitle("Users")
+        
+//        VStack{
+////            Text("hello world")
+//                List(userData.users) { user in
+//                    VStack(alignment: .leading) {
+//                        NavigationLink(
+//                            destination : OtherUserView(toUser: user)) {
+//                            UserCellView(user: user)
+//                            }
+//
+////            NavigationView{
+////                MessagesView().environmentObject(MainObservable())
+//
+////            }
+//
+////                        MessagesView().environmentObject(MainObservable())
+//
+//                    }
+//                }.onAppear() {
+//                    self.userData.getData()}
+//        }.navigationBarBackButtonHidden(true)
     }
 //            }
 //        }
@@ -114,6 +132,53 @@ class getUserData: ObservableObject {
 struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
         UsersView()
+    }
+}
+
+
+struct UserCellView : View {
+    var user : User
+//    var name : String
+//    var time : String
+//    var date : String
+//    var lastmsg : String
+    
+    var body : some View {
+        
+        HStack{
+            
+            Image(systemName: "person")
+//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
+//
+            VStack{
+                
+                HStack{
+                    
+                    VStack(alignment: .leading, spacing: 6) {
+                        
+                        Text(user.name).foregroundColor(.black)
+                        Text(user.location).foregroundColor(.gray)
+                        
+                        HStack{
+    //                        ideally user.style, frequency, number of people?
+                            Text(user.email)
+                            Text(user.age)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+//                    VStack(alignment: .leading, spacing: 6) {
+//
+//                         Text(date).foregroundColor(.gray)
+//                         Text(time).foregroundColor(.gray)
+//                    }
+                }
+                
+                Divider()
+            }
+        }
+        
     }
 }
 
