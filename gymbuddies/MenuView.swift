@@ -11,30 +11,42 @@ import SwiftUI
 struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Image(systemName: "person")
-                    .foregroundColor(.gray)
-                    .imageScale(.large)
-                Text("Profile")
-                    .foregroundColor(.gray)
-                    .font(.headline)
-            }.padding(.top, 100)
-            HStack {
-                Image(systemName: "envelope")
-                    .foregroundColor(.gray)
-                    .imageScale(.large)
-                Text("Messages")
-                    .foregroundColor(.gray)
-                    .font(.headline)
-            }.padding(.top, 30)
-            HStack {
-                Image(systemName: "person.2")
-                    .foregroundColor(.gray)
-                    .imageScale(.large)
-                Text("Browse Users")
-                    .foregroundColor(.gray)
-                    .font(.headline)
-            }.padding(.top, 30)
+            NavigationLink(
+                destination: UserView(),
+                label: {
+                    HStack {
+                        Image(systemName: "person")
+                            .foregroundColor(.gray)
+                            .imageScale(.large)
+                        Text("Profile")
+                            .foregroundColor(.gray)
+                            .font(.headline)
+                    }.padding(.top, 100)
+                    })
+            NavigationLink(
+                destination: RecentMessagesView(),
+                label: {
+                    HStack {
+                        Image(systemName: "envelope")
+                            .foregroundColor(.gray)
+                            .imageScale(.large)
+                        Text("Messages")
+                            .foregroundColor(.gray)
+                            .font(.headline)
+                    }.padding(.top, 30)
+                    })
+            NavigationLink(
+                destination: UsersView(),
+                label: {
+                    HStack {
+                        Image(systemName: "person.2")
+                            .foregroundColor(.gray)
+                            .imageScale(.large)
+                        Text("Browse Users")
+                            .foregroundColor(.gray)
+                            .font(.headline)
+                    }.padding(.top, 30)
+                    })
             Spacer()
         }.padding()
         .frame(maxWidth: .infinity, alignment: .leading)
