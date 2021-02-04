@@ -44,6 +44,8 @@ struct MessagesView: View {
             .imageScale(.large)}),
             trailing: Button(action: {self.show.toggle()},
                              label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
+        .sheet(isPresented: self.$show) {
+            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
         
 //        .navigationBarBackButtonHidden(true)
 //        .navigationBarTitle("Messages")
@@ -149,8 +151,9 @@ struct MainView: View {
                         }
                     }
                 }
-            }.sheet(isPresented: self.$show) {
-                newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
+            }
+//            .sheet(isPresented: self.$show) {
+//                newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
         }
     }
 }

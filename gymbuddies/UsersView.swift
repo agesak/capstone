@@ -38,6 +38,7 @@ struct UsersView: View {
                     }
                 }
             }.navigationBarBackButtonHidden(true)
+//            .navigationBarTitle("Users", displayMode: .inline)
             .navigationBarItems(leading: (Button(
                 action: {withAnimation {self.showMenu.toggle()}
                 }) {Image(systemName: "line.horizontal.3")
