@@ -19,54 +19,37 @@ struct User: Identifiable{
 
 struct UsersView: View {
     
+    @State var showMenu = false
     @ObservedObject private var userData = getUserData()
+    
     var body: some View {
         
-        ScrollView(.vertical, showsIndicators: false){
-            VStack{
-//                for otherUser in userData.users {
-//                    NavigationLink(
-//                        destination : OtherUserView(toUser: otherUser)) {
-//                        UserCellView(user: otherUser)
-//                        }
-//                }
-                
-                ForEach(userData.users){otherUser in
-                    NavigationLink(
-                        destination : OtherUserView(toUser: otherUser)) {
-                        UserCellView(user: otherUser)
-                        }
+//        return NavigationView{
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    MainView(showMenu: self.$showMenu)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .offset(x: self.showMenu ? geometry.size.width/2 : 0)
+                        .disabled(self.showMenu ? true : false)
+//                        .navigationTitle("Users")
+                    if self.showMenu {
+                        MenuView()
+                            .frame(width: geometry.size.width/2)
+                            .transition(.move(edge: .leading))
+                    }
                 }
-                
-            }.onAppear() {
-                self.userData.getData()}
-            
-        }.navigationBarBackButtonHidden(true)
-        .navigationTitle("Users")
-        
-//        VStack{
-////            Text("hello world")
-//                List(userData.users) { user in
-//                    VStack(alignment: .leading) {
-//                        NavigationLink(
-//                            destination : OtherUserView(toUser: user)) {
-//                            UserCellView(user: user)
-//                            }
-//
-////            NavigationView{
-////                MessagesView().environmentObject(MainObservable())
-//
-////            }
-//
-////                        MessagesView().environmentObject(MainObservable())
-//
-//                    }
-//                }.onAppear() {
-//                    self.userData.getData()}
-//        }.navigationBarBackButtonHidden(true)
-    }
-//            }
+            }.navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: (Button(
+                action: {withAnimation {self.showMenu.toggle()}
+                }) {Image(systemName: "line.horizontal.3")
+                .imageScale(.large)}))
 //        }
+        
+//        ScrollView(.vertical, showsIndicators: false){
+//            MainView()
+//        }.navigationBarBackButtonHidden(true)
+        
+    }
 }
 
 
@@ -268,3 +251,40 @@ struct UserCellView : View {
 //    var date : String
 //    var stamp : Date
 //}
+
+struct MainView: View {
+    
+    @ObservedObject private var userData = getUserData()
+    @Binding var showMenu: Bool
+    
+    init(showMenu: Binding<Bool>) {
+        self._showMenu = showMenu
+        userData.getData()
+    }
+    
+    var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            Text("Users")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.leading)
+            VStack{
+                //                for otherUser in userData.users {
+                //                    NavigationLink(
+                //                        destination : OtherUserView(toUser: otherUser)) {
+                //                        UserCellView(user: otherUser)
+                //                        }
+                //                }
+                
+
+                
+                ForEach(userData.users){otherUser in
+                    NavigationLink(
+                        destination : OtherUserView(toUser: otherUser)) {
+                        UserCellView(user: otherUser)
+                    }
+                }
+            }
+        }
+    }
+}
