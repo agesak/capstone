@@ -169,10 +169,6 @@ struct newChatView : View {
                         
                         Text("No Users Found")
                     }
-//                    else{
-//
-//                        Indicator()
-//                    }
                     
                 }
                 else{
@@ -212,7 +208,6 @@ struct newChatView : View {
     
 }
 
-
 class getAllUsers : ObservableObject{
     @Published var users = [User]()
     @Published var empty = false
@@ -239,13 +234,18 @@ class getAllUsers : ObservableObject{
                 let name = i.get("name") as! String
                 let age = i.get("age") as! String
                 let location = i.get("location") as! String
-                let email = i.get("email") as! String
+                let pronouns = i.get("pronouns") as! String
+                let frequency = i.get("frequency") as! String
+                let style = i.get("style") as! String
+                let times = i.get("times") as! String
+                let pic = i.get("pic") as! String
+//                let email = i.get("email") as! String
                 
                 
 //                MARK - maybe this breaks?
                 if id != self.user?.uid {
                     
-                    self.users.append(User(id: id, age: age, name: name, location: location, email: email))
+                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
 
                 }
                 
@@ -256,16 +256,6 @@ class getAllUsers : ObservableObject{
     }
     
 }
-
-
-
-//struct User: Identifiable{
-//    var id: String = UUID().uuidString
-//    var age:String
-//    var name:String
-//    var location:String
-//    var email:String
-//}
 
 
 struct UserCellView : View {
@@ -311,6 +301,31 @@ struct ChatView : View {
     @State var msgs = [Msg]()
     @State var txt = ""
     @State var nomsgs = false
+    
+    @ObservedObject var userData = getCurrentUser()
+    
+    init(name: String, uid: String, chat: Binding<Bool>){
+        self._chat = chat
+        self.name = name
+        self.uid = uid
+        userData.getUser()
+//        print(userData.user.pic)
+    }
+    
+    
+//    struct AmountView : View {
+//        @Binding var amount: Double
+//
+//        private var includeDecimal = false
+//
+//        init(amount: Binding<Double>) {
+//
+//            // self.$amount = amount // beta 3
+//            self._amount = amount // beta 4
+//
+//            self.includeDecimal = round(self.amount)-self.amount > 0
+//        }
+//    }
     
     var body : some View{
         
@@ -365,7 +380,7 @@ struct ChatView : View {
                 HStack{
                     TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt)
+                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name)
                         self.txt = ""
                     }) {
                         Text("Send")
@@ -433,6 +448,7 @@ struct Msg : Identifiable {
 struct ChatBubble : Shape {
     
     var mymsg : Bool
+    //    from UserView
     
     func path(in rect: CGRect) -> Path {
             
@@ -443,7 +459,7 @@ struct ChatBubble : Shape {
 }
 
 
-func sendMsg(user: String, uid: String, date: Date, msg: String){
+func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String){
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
@@ -455,12 +471,12 @@ func sendMsg(user: String, uid: String, date: Date, msg: String){
             print((err?.localizedDescription)!)
             // if there is no recents records....
             
-            setRecents(user: user, uid: uid, msg: msg, date: date)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
             return
         }
         
         if !snap!.exists{
-            setRecents(user: user, uid: uid, msg: msg, date: date)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
         } else {
             updateRecents(uid: uid, lastmsg: msg, date: date)
         }
@@ -469,18 +485,14 @@ func sendMsg(user: String, uid: String, date: Date, msg: String){
     updateDB(uid: uid, msg: msg, date: date)
 }
 
-func setRecents(user: String, uid: String, msg: String, date: Date){
-    
+
+func setRecents(user: String, uid: String, msg: String, date: Date, myName: String){
     
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
     
-    
-//    MARK - this should prbly be name
-    let name = Auth.auth().currentUser?.email
-    
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":name!, "lastmsg":msg, "date":date]) { (err) in
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)

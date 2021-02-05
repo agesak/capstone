@@ -19,12 +19,6 @@ struct CreateAccountView: View {
     
     var body: some View {
             VStack{
-//                    Text("Gym Buddies")
-//                        .font(.headline)
-//                        .fontWeight(.heavy)
-//                        idk why this doesn't work
-//                        .multilineTextAlignment(.leading)
-                
                 Spacer().frame(height: 150)
                 
                 VStack(alignment: .leading){
@@ -59,17 +53,15 @@ struct CreateAccountView: View {
                                 
                                 Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
                                          if let error = error {
-                                             print(error.localizedDescription)
+                                            print(error.localizedDescription)
                                             self.isLoginValid = false
                                             self.shouldShowLoginAlert = true
                                          } else {
-                                             print("it worked!!!!")
-                                            print(self.email)
-                                             self.email = ""
-                                             self.password = ""
+                                            print("profile created")
+                                            self.email = ""
+                                            self.password = ""
                                             self.isLoginValid = true
                                             self.shouldShowLoginAlert = false
-//                                            print(self.isLoginValid)
                                          }
                                      })
                             }
