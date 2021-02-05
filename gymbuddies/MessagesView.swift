@@ -485,103 +485,12 @@ func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String)
     updateDB(uid: uid, msg: msg, date: date)
 }
 
-//private func getDocument() {
-//    //Get specific document from current user
-//    let docRef = Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "")
-//
-//    // Get data
-//    docRef.getDocument { (document, error) in
-//        if let document = document, document.exists {
-//            let dataDescription = document.data()
-//            print(dataDescription?["name"] ?? "")
-//        } else {
-//            print("Document does not exist")
-//        }
-//    }
-//}
-
-//func getDocument(uid: String, _ completion: @escaping (_ data: [String: Any]?) -> Void ) {
-//    let userRef = Firestore.firestore().collection("users").document(uid)
-////    let userDocRef = userRef.document(uid)
-//
-//    userRef.getDocument { (document, error) in
-//        guard let document = document, document.exists else {
-//            print("document does not exist")
-//            completion(nil)
-//            return
-//        }
-//        completion(document.data())
-//    }
-//}
-
-
 
 func setRecents(user: String, uid: String, msg: String, date: Date, myName: String){
     
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
-    
-//    getDocument(uid: myuid ?? "") { (data) in
-//        if let data = data {
-//            print("k")
-//        } else {
-//            print("l")
-//        }
-//    }
-    
-//    from usersview
-//    let currentUserData = getCurrentUser()
-    
-//    print("huh")
-//    let k = currentUserData.getUser()
-//
-////    print(currentUserData.getUser())
-//    print("back in messages view: \(k)")
-//    print("\(type(of: k))")
-//    print("\(type(of: 34))")
-//    print("hello")
-//
-//    if currentUserData.getUser() != (){
-//        print("hello again")
-//        let z = currentUserData.getUser()
-//        print(z)
-//    }
-    
-//    db.document("users/\(Auth.auth().currentUser!.uid)")
-//    .addSnapshotListener({ documentSnapshot, error in
-//        guard let document = documentSnapshot else {
-//        print("Error fetching document: \(error!)")
-//        return
-//      }
-//        let data = document.data()
-//        print(data!)
-//        print(document)
-//        print(document.documentID)
-//        self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
-//        print(self.user.pic)
-//        print(self.user.name)
-//      })
-//
-//
-//    db.document("users/\(Auth.auth().currentUser!.uid)").getDocument { (document, error) in
-//        if let document = document, document.exists {
-//            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-//            print("Document data: \(dataDescription)")
-//            $nam
-//        } else {
-//            print("Document does not exist")
-//        }
-//    }
-    
-//    before this was email? which was prbly wrong. idk if it should actually be uid tho
-//    let name = currentUserData.user.name
-//    print(getDocument())
-    
-    print(myName)
-    
-    let name = Auth.auth().currentUser?.email
-    
     
     db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date]) { (err) in
         if err != nil{
