@@ -423,6 +423,7 @@ struct Msg : Identifiable {
 struct ChatBubble : Shape {
     
     var mymsg : Bool
+    //    from UserView
     
     func path(in rect: CGRect) -> Path {
             
@@ -466,11 +467,14 @@ func setRecents(user: String, uid: String, msg: String, date: Date){
     
     let myuid = Auth.auth().currentUser?.uid
     
+//    from usersview
+    let currentUserData = getCurrentUser()
     
-//    MARK - this should prbly be name
-    let email = Auth.auth().currentUser?.email
+//    before this was email? which was prbly wrong. idk if it should actually be uid tho
+    let name = currentUserData.user.name
     
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":email!, "lastmsg":msg, "date":date]) { (err) in
+    
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":name, "lastmsg":msg, "date":date]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)

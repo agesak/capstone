@@ -14,6 +14,7 @@ struct UserView: View {
     
     @State var showMenu = false
     private var db = Firestore.firestore()
+    @ObservedObject var userData = getCurrentUser()
     
     var body: some View {
         
@@ -51,32 +52,21 @@ struct UserView_Previews: PreviewProvider {
 
 class getCurrentUser : ObservableObject{
     @Published var user = User()
-    
-//    init(){
-//
-//    }
-    
+
     func getUser(){
         let db = Firestore.firestore()
         print("in getUser")
         
         db.document("users/\(Auth.auth().currentUser!.uid)")
-        .addSnapshotListener { documentSnapshot, error in
+        .addSnapshotListener({ documentSnapshot, error in
             guard let document = documentSnapshot else {
             print("Error fetching document: \(error!)")
             return
           }
             let data = document.data()
             self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
-//            print(self.user?.name ?? "")
-            print(self.user)
-//          guard let data = document.data() else {
-//            print("Document data was empty.")
-//            return
-          }
-            
-//            self.user =
-//        }
+            print(self.user.pic)
+          })
     }
 }
 
@@ -88,18 +78,27 @@ struct MainUserView: View {
     
     init(){
         userData.getUser()
-        print("got user")
-        print(userData.user.name)
-//        print(userData.user?.name ?? "")
+        print(userData.user.pic)
     }
     
     
     var body: some View {
         VStack {
-            
-//            Text("hello world")
+        
+//           I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
+            if URL(string: userData.user.pic) != nil {
+                URLImage(url: URL(string: userData.user.pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 100.0, height: 100.0)
+            } else {
+                Text("idk it was nil?")
+            }
             
             Text(userData.user.name)
+            
+            
             
 
             

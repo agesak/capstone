@@ -77,10 +77,12 @@ class getUserData: ObservableObject {
                 let style = data["style"] as? String ?? ""
                 let times = data["times"] as? String ?? ""
                 let pic = data["pic"] as? String ?? ""
+//                print(name)
                 return User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic)
             }
             
             self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
+//            print(self.users)
         })
     }
 }
@@ -161,11 +163,15 @@ struct MainView: View {
                 .fontWeight(.bold)
 //                this doesn't work?
                 .multilineTextAlignment(.leading)
+            if userData.users.count == 0 {
+                Text("No Users")
+            } else {
             VStack{
                 ForEach(userData.users){otherUser in
                     NavigationLink(
                         destination : OtherUserView(toUser: otherUser)) {
                         UserCellView(user: otherUser)
+                        }
                     }
                 }
             }
