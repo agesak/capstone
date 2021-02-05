@@ -10,34 +10,45 @@ import Firebase
 
 struct CreateAccountView: View {
     
-//    @ObservedObject var users = getUsersData()
-//    @State var username : String = ""
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @State var password : String = ""
     @State var email : String = ""
     @State private var isLoginValid: Bool = false
     @State private var shouldShowLoginAlert: Bool = false
     
     var body: some View {
+        
+        ZStack {
+            
+            if colorScheme == .dark {
+//                "barbell_2nd_lighter"
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            } else {
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            }
+            
+
             VStack{
-                Spacer().frame(height: 150)
+                Spacer().frame(height: 250)
+                
                 
                 VStack(alignment: .leading){
                     VStack(alignment: .leading){
-                        Text("Email").font(.headline).fontWeight(.light)
+                        Text("Email").font(.headline).fontWeight(.light).foregroundColor(Color.black)
                         TextField("Enter your Email Address", text: $email)
+                            .background(Color.clear)
                         .autocapitalization(.none)
                         Divider()
                     }
                     VStack(alignment: .leading){
-                        Text("Password").font(.headline).fontWeight(.light)
+                        Text("Password").font(.headline).fontWeight(.light).foregroundColor(Color.black)
                         SecureField("Enter your Password", text: $password)
                         .autocapitalization(.none)
                         Divider()
                     }
                 }.padding(.horizontal, 6)
-                
                 Spacer()
- 
                 NavigationLink(
                     destination: Welcome(),
                     isActive: self.$isLoginValid) {
@@ -47,10 +58,9 @@ struct CreateAccountView: View {
                             .foregroundColor(.white)
                             .padding()
                             .frame(width: 250, height: 50)
-                            .background(Color.purple)
+                            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
                             .cornerRadius(10.0)
                             .onTapGesture {
-                                
                                 Auth.auth().createUser(withEmail: self.email, password: self.password, completion: { (result, error) in
                                          if let error = error {
                                             print(error.localizedDescription)
@@ -67,70 +77,17 @@ struct CreateAccountView: View {
                             }
                     }
                 Spacer()
-            }.navigationBarTitle("Sign Up")
-            .alert(isPresented: $shouldShowLoginAlert) {
-            Alert(title: Text("Email/Password invalid"))
-        }
+            }
+        }.navigationBarTitle("Sign Up")
+        .alert(isPresented: $shouldShowLoginAlert) {
+        Alert(title: Text("Email/Password invalid"))}
     }
 }
 
 struct CreateAccount_Previews: PreviewProvider {
     static var previews: some View {
         CreateAccountView()
+            .preferredColorScheme(.light)
             
     }
 }
-
-//struct Home : View {
-//
-//
-//
-//    var body : some View{
-//
-//        VStack{
-//
-//            Text("Sign Up")
-//                .font(.largeTitle)
-//            TextField("Username", text: $username)
-//
-////            List(users.data){i in
-////
-////                Text(i.username)
-////
-////
-////            }
-//        }
-//    }
-//}
-
-//displaying the data
-//class getUsersData : ObservableObject {
-//    @Published var data = [user]()
-//    
-//    init() {
-//        let db = Firestore.firestore()
-//        
-//        db.collection("users").addSnapshotListener { (snap, err) in
-//            if err != nil {
-//                print((err?.localizedDescription)!)
-//                return
-//            }
-//            for i in snap!.documentChanges{
-//                let id = i.document.documentID
-//                let username = i.document.get("username") as! String
-//                let password = i.document.get("password") as! String
-//                let email = i.document.get("email") as! String
-//                
-//                self.data.append(user(id: id, username: username, email: email, password: password))
-//            }
-//        }
-//    }
-//}
-//
-//struct user : Identifiable {
-//    
-//    var id : String
-//    var username : String
-//    var email : String
-//    var password : String
-//}
