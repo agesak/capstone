@@ -302,6 +302,31 @@ struct ChatView : View {
     @State var txt = ""
     @State var nomsgs = false
     
+    @ObservedObject var userData = getCurrentUser()
+    
+    init(name: String, uid: String, chat: Binding<Bool>){
+        self._chat = chat
+        self.name = name
+        self.uid = uid
+        userData.getUser()
+//        print(userData.user.pic)
+    }
+    
+    
+//    struct AmountView : View {
+//        @Binding var amount: Double
+//
+//        private var includeDecimal = false
+//
+//        init(amount: Binding<Double>) {
+//
+//            // self.$amount = amount // beta 3
+//            self._amount = amount // beta 4
+//
+//            self.includeDecimal = round(self.amount)-self.amount > 0
+//        }
+//    }
+    
     var body : some View{
         
         VStack{
@@ -355,7 +380,7 @@ struct ChatView : View {
                 HStack{
                     TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt)
+                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name)
                         self.txt = ""
                     }) {
                         Text("Send")
@@ -434,7 +459,7 @@ struct ChatBubble : Shape {
 }
 
 
-func sendMsg(user: String, uid: String, date: Date, msg: String){
+func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String){
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
@@ -446,12 +471,12 @@ func sendMsg(user: String, uid: String, date: Date, msg: String){
             print((err?.localizedDescription)!)
             // if there is no recents records....
             
-            setRecents(user: user, uid: uid, msg: msg, date: date)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
             return
         }
         
         if !snap!.exists{
-            setRecents(user: user, uid: uid, msg: msg, date: date)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
         } else {
             updateRecents(uid: uid, lastmsg: msg, date: date)
         }
@@ -460,21 +485,105 @@ func sendMsg(user: String, uid: String, date: Date, msg: String){
     updateDB(uid: uid, msg: msg, date: date)
 }
 
-func setRecents(user: String, uid: String, msg: String, date: Date){
-    
+//private func getDocument() {
+//    //Get specific document from current user
+//    let docRef = Firestore.firestore().collection("users").document(Auth.auth().currentUser?.uid ?? "")
+//
+//    // Get data
+//    docRef.getDocument { (document, error) in
+//        if let document = document, document.exists {
+//            let dataDescription = document.data()
+//            print(dataDescription?["name"] ?? "")
+//        } else {
+//            print("Document does not exist")
+//        }
+//    }
+//}
+
+//func getDocument(uid: String, _ completion: @escaping (_ data: [String: Any]?) -> Void ) {
+//    let userRef = Firestore.firestore().collection("users").document(uid)
+////    let userDocRef = userRef.document(uid)
+//
+//    userRef.getDocument { (document, error) in
+//        guard let document = document, document.exists else {
+//            print("document does not exist")
+//            completion(nil)
+//            return
+//        }
+//        completion(document.data())
+//    }
+//}
+
+
+
+func setRecents(user: String, uid: String, msg: String, date: Date, myName: String){
     
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
     
+//    getDocument(uid: myuid ?? "") { (data) in
+//        if let data = data {
+//            print("k")
+//        } else {
+//            print("l")
+//        }
+//    }
+    
 //    from usersview
-    let currentUserData = getCurrentUser()
+//    let currentUserData = getCurrentUser()
+    
+//    print("huh")
+//    let k = currentUserData.getUser()
+//
+////    print(currentUserData.getUser())
+//    print("back in messages view: \(k)")
+//    print("\(type(of: k))")
+//    print("\(type(of: 34))")
+//    print("hello")
+//
+//    if currentUserData.getUser() != (){
+//        print("hello again")
+//        let z = currentUserData.getUser()
+//        print(z)
+//    }
+    
+//    db.document("users/\(Auth.auth().currentUser!.uid)")
+//    .addSnapshotListener({ documentSnapshot, error in
+//        guard let document = documentSnapshot else {
+//        print("Error fetching document: \(error!)")
+//        return
+//      }
+//        let data = document.data()
+//        print(data!)
+//        print(document)
+//        print(document.documentID)
+//        self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
+//        print(self.user.pic)
+//        print(self.user.name)
+//      })
+//
+//
+//    db.document("users/\(Auth.auth().currentUser!.uid)").getDocument { (document, error) in
+//        if let document = document, document.exists {
+//            let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//            print("Document data: \(dataDescription)")
+//            $nam
+//        } else {
+//            print("Document does not exist")
+//        }
+//    }
     
 //    before this was email? which was prbly wrong. idk if it should actually be uid tho
-    let name = currentUserData.user.name
+//    let name = currentUserData.user.name
+//    print(getDocument())
+    
+    print(myName)
+    
+    let name = Auth.auth().currentUser?.email
     
     
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":name, "lastmsg":msg, "date":date]) { (err) in
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)

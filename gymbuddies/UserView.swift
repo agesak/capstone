@@ -55,7 +55,6 @@ class getCurrentUser : ObservableObject{
 
     func getUser(){
         let db = Firestore.firestore()
-        print("in getUser")
         
         db.document("users/\(Auth.auth().currentUser!.uid)")
         .addSnapshotListener({ documentSnapshot, error in
@@ -65,7 +64,6 @@ class getCurrentUser : ObservableObject{
           }
             let data = document.data()
             self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
-            print(self.user.pic)
           })
     }
 }
