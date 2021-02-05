@@ -8,6 +8,7 @@
 //current user's profile
 import SwiftUI
 import Firebase
+import URLImage
 
 struct UserView: View {
     
@@ -48,44 +49,89 @@ struct UserView_Previews: PreviewProvider {
     }
 }
 
+class getCurrentUser : ObservableObject{
+    @Published var user = User()
+    
+//    init(){
+//
+//    }
+    
+    func getUser(){
+        let db = Firestore.firestore()
+        print("in getUser")
+        
+        db.document("users/\(Auth.auth().currentUser!.uid)")
+        .addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+            print("Error fetching document: \(error!)")
+            return
+          }
+            let data = document.data()
+            self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
+//            print(self.user?.name ?? "")
+            print(self.user)
+//          guard let data = document.data() else {
+//            print("Document data was empty.")
+//            return
+          }
+            
+//            self.user =
+//        }
+    }
+}
 
 struct MainUserView: View {
     
-    let user = Auth.auth().currentUser
+    
     @State var name : String = ""
+    @ObservedObject var userData = getCurrentUser()
+    
+    init(){
+        userData.getUser()
+        print("got user")
+        print(userData.user.name)
+//        print(userData.user?.name ?? "")
+    }
+    
     
     var body: some View {
         VStack {
             
-            Text("hello world")
+//            Text("hello world")
             
-            if user != nil {
-                Text(user!.email!)
-                Text(user!.uid)
-                Text("Profile Information")
-                VStack(alignment: .leading){
-                    Text("Name").font(.headline).fontWeight(.light)
-                    TextField("Enter your Name", text: $name)
-                    .autocapitalization(.none)
-                    Divider()
-                }
+            Text(userData.user.name)
+            
 
-                Button(action: {
-                    let userDictionary = [
-                        "name": self.name,
-                    ]
-
-                    let docRef = Firestore.firestore().document("users/\(user!.uid)")
-                        print("setting data")
-                        docRef.setData(userDictionary){ (error) in
-                            if let error = error {
-                                print("error = \(error)")
-                            } else {
-                                self.name = ""
-                            }
-                        }
-                }) { Text("Update Profile")}
-            }
+            
+//            if user != nil {
+//                Text(user.)
+//                Text(user!.uid)
+//                Text("Profile Information")
+//                VStack(alignment: .leading){
+//                    Text("Name").font(.headline).fontWeight(.light)
+//                    TextField("Enter your Name", text: $name)
+//                    .autocapitalization(.none)
+//                    Divider()
+//                }
+//
+//                Button(action: {
+//                    let userDictionary = [
+//                        "name": self.name,
+//                    ]
+//
+//                    let docRef = Firestore.firestore().document("users/\(user!.uid)")
+//                        print("setting data")
+//                        docRef.setData(userDictionary){ (error) in
+//                            if let error = error {
+//                                print("error = \(error)")
+//                            } else {
+//                                self.name = ""
+//                            }
+//                        }
+//                }) { Text("Update Profile")}
+//            }
         }
     }
 }
+
+

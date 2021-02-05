@@ -11,14 +11,14 @@ import URLImage
 
 struct User: Identifiable{
     var id: String = UUID().uuidString
-    var age:String
-    var name:String
-    var location:String
-    var pronouns:String
-    var frequency:String
-    var style:String
-    var times:String
-    var pic:String
+    var age:String = ""
+    var name:String = ""
+    var location:String = ""
+    var pronouns:String = ""
+    var frequency:String = ""
+    var style:String = ""
+    var times:String = ""
+    var pic:String = ""
 }
 
 struct UsersView: View {
