@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct Welcome: View {
+    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     var body: some View {
         
+        ZStack{
+            if colorScheme == .dark {
+//                "barbell_2nd_lighter"
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            } else {
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            }
+        
         VStack {
-            Spacer().frame(height: 200)
+            Spacer().frame(height: 250)
             
             HStack{
                 Image(systemName: "hand.wave")
+                    .imageScale(.large)
                 Text("Welcome")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
@@ -32,11 +44,12 @@ struct Welcome: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(width: 250, height: 50)
-                        .background(Color.purple)
+                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
                         .cornerRadius(10.0)
                     })
             Spacer()
-            }.navigationBarBackButtonHidden(true)
+            }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
