@@ -104,11 +104,14 @@ struct UserCellView : View {
         
         HStack{
             
-            URLImage(url: URL(string: user.pic)!) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }.frame(width: 100.0, height: 100.0)
+            if URL(string: user.pic) != nil {
+                
+                URLImage(url: URL(string: user.pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 100.0, height: 100.0)
+            }
             
 //            Image(systemName: "person")
 //            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
