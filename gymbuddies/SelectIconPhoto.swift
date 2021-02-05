@@ -10,74 +10,48 @@ import SwiftUI
 import Firebase
 import URLImage
 
-//class ImageLoader: ObservableObject {
-//    var didChange = PassthroughSubject<Data, Never>()
-//    var data = Data() {
-//        didSet {
-//            didChange.send(data)
-//        }
-//    }
-//
-//    init(urlString:String) {
-//        guard let url = URL(string: urlString) else { return }
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            guard let data = data else { return }
-//            DispatchQueue.main.async {
-//                self.data = data
-//            }
-//        }
-//        task.resume()
-//    }
-//}
-//
-//struct ImageView: View {
-//
-//    @ObservedObject var imageLoader:ImageLoader
-//    @State var image:UIImage = UIImage()
-//
-//    init(withURL url:String) {
-//        imageLoader = ImageLoader(urlString:url)
-//    }
-//
-//    var body: some View {
-//
-//            Image(uiImage: image)
-//                .resizable()
-//                .scaledToFit()
-////                .aspectRatio(contentMode: .fit)
-//                .frame(width:100, height:100)
-//                .onReceive(imageLoader.didChange) { data in
-//                self.image = UIImage(data: data) ?? UIImage()
-//        }
-//    }
-//}
-
 
 
 struct SelectIconPhoto: View {
     
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
+    @State var selectedPhoto : String = ""
     
     let user = Auth.auth().currentUser
+    let catUrl = "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/cat.png"
+    let pengiunUrl = "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"
     
+    func setPhotoUrl(url: String) {
+        self.selectedPhoto = url
+    }
+    
+ 
     var body: some View {
         VStack{
             
             VStack{
-//                ImageView(withURL: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/cat.png")
-//                AsyncImage(url: URL(string: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/cat.png")!,
-//                               placeholder: { Text("") },
-//                               image: { Image(uiImage: $0).resizable() })
-                URLImage(url: URL(string: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/cat.png")!) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
-                       .frame(idealHeight: UIScreen.main.bounds.width / 2 * 3)
-                Image("cat").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
-                Image("pengiun").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
-            }.navigationBarTitle("Select Icon")
+                
+                Button(action: {setPhotoUrl(url: catUrl)}) {
+                    URLImage(url: URL(string: catUrl)!) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }.frame(width: 100.0, height: 100.0)
+                }.background(self.selectedPhoto == catUrl ? Color.blue : Color.white)
+                
+                
+                Button(action: {setPhotoUrl(url: pengiunUrl)}) {
+                    URLImage(url: URL(string: pengiunUrl)!) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }.frame(width: 100.0, height: 100.0)
+                }.background(self.selectedPhoto == pengiunUrl ? Color.blue : Color.white)
+                
+//                Image("cat").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
+//                Image("pengiun").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
+            }.navigationBarTitle("Select Profile Icon")
             NavigationLink(
                 destination: UserView(),
                 isActive: self.$isprofileValid) {
@@ -91,18 +65,18 @@ struct SelectIconPhoto: View {
                         .cornerRadius(10.0)
                         .onTapGesture {
                             let userDictionary = [
-                                "pic": "will be a link to their pic"
+                                "pic": self.selectedPhoto
                             ]
-//                            let docRef = Firestore.firestore().document("users/\(user!.uid)")
-//                            docRef.setData(userDictionary as [String : Any]){ (error) in
-//                                    if let error = error {
-//                                        print("error = \(error)")
-//                                        self.isprofileValid = false
-//                                    } else {
-//                                        print("profile updated")
-//                                        self.isprofileValid = true
-//                                    }
-//                                }
+                            let docRef = Firestore.firestore().document("users/\(user!.uid)")
+                            docRef.updateData(userDictionary as [String : Any]){ (error) in
+                                    if let error = error {
+                                        print("error = \(error)")
+                                        self.isprofileValid = false
+                                    } else {
+                                        print("profile updated")
+                                        self.isprofileValid = true
+                                    }
+                                }
                         }
                 }
         }

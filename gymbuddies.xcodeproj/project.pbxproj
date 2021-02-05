@@ -29,7 +29,6 @@
 		3CA73C8525CBD5250054326F /* ThisUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73C8425CBD5250054326F /* ThisUserView.swift */; };
 		3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */; };
 		3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF025CC98130054326F /* SelectIconPhoto.swift */; };
-		3CA73CF425CCA59F0054326F /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF325CCA59F0054326F /* AsyncImage.swift */; };
 		3CA73CF825CCA84D0054326F /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3CA73CF725CCA84D0054326F /* URLImage */; };
 		3CA73D1D25CCA9960054326F /* TestIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73D1C25CCA9960054326F /* TestIconView.swift */; };
 /* End PBXBuildFile section */
@@ -58,7 +57,6 @@
 		3CA73C8425CBD5250054326F /* ThisUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisUserView.swift; sourceTree = "<group>"; };
 		3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutPreferencesView.swift; sourceTree = "<group>"; };
 		3CA73CF025CC98130054326F /* SelectIconPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconPhoto.swift; sourceTree = "<group>"; };
-		3CA73CF325CCA59F0054326F /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		3CA73D1C25CCA9960054326F /* TestIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIconView.swift; sourceTree = "<group>"; };
 		7A083767A6E893C2AB5E0245 /* Pods-gymbuddies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gymbuddies.release.xcconfig"; path = "Target Support Files/Pods-gymbuddies/Pods-gymbuddies.release.xcconfig"; sourceTree = "<group>"; };
 		BA462D4552A5170699F0CF19 /* Pods_gymbuddies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gymbuddies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,7 +114,6 @@
 				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
-				3CA73CF325CCA59F0054326F /* AsyncImage.swift */,
 				3CA73CF025CC98130054326F /* SelectIconPhoto.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
 				3C2B83E725CA27DE00DE443B /* MessagesView.swift */,
@@ -302,7 +299,6 @@
 				3C2B840C25CA639B00DE443B /* Welcome.swift in Sources */,
 				3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */,
 				3CA73C8525CBD5250054326F /* ThisUserView.swift in Sources */,
-				3CA73CF425CCA59F0054326F /* AsyncImage.swift in Sources */,
 				3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */,
 				3C128A2925C4B99200621EB1 /* UsersView.swift in Sources */,
 				3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */,
