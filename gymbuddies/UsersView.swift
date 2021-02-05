@@ -7,14 +7,18 @@
 
 import SwiftUI
 import Firebase
-//import Foundation
+import URLImage
 
 struct User: Identifiable{
     var id: String = UUID().uuidString
     var age:String
     var name:String
     var location:String
-    var email:String
+    var pronouns:String
+    var frequency:String
+    var style:String
+    var times:String
+    var pic:String
 }
 
 struct UsersView: View {
@@ -52,7 +56,6 @@ struct UsersView: View {
     }
 }
 
-
 class getUserData: ObservableObject {
     @Published var users = [User]()
     func getData(){
@@ -69,9 +72,12 @@ class getUserData: ObservableObject {
                 let name = data["name"] as? String ?? ""
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
-                let email = data["email"] as? String ?? ""
-                print(email)
-                return User(id: id, age: age, name: name, location: location, email: email)
+                let pronouns = data["pronouns"] as? String ?? ""
+                let frequency = data["frequency"] as? String ?? ""
+                let style = data["style"] as? String ?? ""
+                let times = data["times"] as? String ?? ""
+                let pic = data["pic"] as? String ?? ""
+                return User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic)
             }
             
             self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
@@ -89,17 +95,20 @@ struct UsersView_Previews: PreviewProvider {
 
 
 struct UserCellView : View {
+    
     var user : User
-//    var name : String
-//    var time : String
-//    var date : String
-//    var lastmsg : String
     
     var body : some View {
         
         HStack{
             
-            Image(systemName: "person")
+            URLImage(url: URL(string: user.pic)!) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }.frame(width: 100.0, height: 100.0)
+            
+//            Image(systemName: "person")
 //            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
 //
             VStack{
@@ -113,8 +122,8 @@ struct UserCellView : View {
                         
                         HStack{
     //                        ideally user.style, frequency, number of people?
-                            Text(user.email)
-                            Text(user.age)
+                            Text(user.style)
+                            Text(user.frequency)
                         }
                     }
                     

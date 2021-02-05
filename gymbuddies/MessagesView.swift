@@ -169,10 +169,6 @@ struct newChatView : View {
                         
                         Text("No Users Found")
                     }
-//                    else{
-//
-//                        Indicator()
-//                    }
                     
                 }
                 else{
@@ -212,7 +208,6 @@ struct newChatView : View {
     
 }
 
-
 class getAllUsers : ObservableObject{
     @Published var users = [User]()
     @Published var empty = false
@@ -239,13 +234,18 @@ class getAllUsers : ObservableObject{
                 let name = i.get("name") as! String
                 let age = i.get("age") as! String
                 let location = i.get("location") as! String
-                let email = i.get("email") as! String
+                let pronouns = i.get("pronouns") as! String
+                let frequency = i.get("frequency") as! String
+                let style = i.get("style") as! String
+                let times = i.get("times") as! String
+                let pic = i.get("pic") as! String
+//                let email = i.get("email") as! String
                 
                 
 //                MARK - maybe this breaks?
                 if id != self.user?.uid {
                     
-                    self.users.append(User(id: id, age: age, name: name, location: location, email: email))
+                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
 
                 }
                 
@@ -256,16 +256,6 @@ class getAllUsers : ObservableObject{
     }
     
 }
-
-
-
-//struct User: Identifiable{
-//    var id: String = UUID().uuidString
-//    var age:String
-//    var name:String
-//    var location:String
-//    var email:String
-//}
 
 
 struct UserCellView : View {
@@ -478,9 +468,9 @@ func setRecents(user: String, uid: String, msg: String, date: Date){
     
     
 //    MARK - this should prbly be name
-    let name = Auth.auth().currentUser?.email
+    let email = Auth.auth().currentUser?.email
     
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":name!, "lastmsg":msg, "date":date]) { (err) in
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":email!, "lastmsg":msg, "date":date]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)
