@@ -14,6 +14,8 @@ import URLImage
 
 struct SelectIconPhoto: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
     @State var selectedPhoto : String = ""
@@ -28,57 +30,71 @@ struct SelectIconPhoto: View {
     
  
     var body: some View {
-        VStack{
+        
+        ZStack{
             
-            VStack{
+            if colorScheme == .dark {
+//                "barbell_2nd_lighter"
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            } else {
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+            }
+            
+            VStack {
                 
-                Button(action: {setPhotoUrl(url: catUrl)}) {
-                    URLImage(url: URL(string: catUrl)!) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }.frame(width: 100.0, height: 100.0)
-                }.background(self.selectedPhoto == catUrl ? Color.blue : Color.white)
-                
-                
-                Button(action: {setPhotoUrl(url: pengiunUrl)}) {
-                    URLImage(url: URL(string: pengiunUrl)!) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }.frame(width: 100.0, height: 100.0)
-                }.background(self.selectedPhoto == pengiunUrl ? Color.blue : Color.white)
-                
-//                Image("cat").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
-//                Image("pengiun").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
-            }.navigationBarTitle("Select Profile Icon")
-            NavigationLink(
-                destination: UserView(),
-                isActive: self.$isprofileValid) {
-                    Text("Finish!")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 250, height: 50)
-                        .background(Color.purple)
-                        .cornerRadius(10.0)
-                        .onTapGesture {
-                            let userDictionary = [
-                                "pic": self.selectedPhoto
-                            ]
-                            let docRef = Firestore.firestore().document("users/\(user!.uid)")
-                            docRef.updateData(userDictionary as [String : Any]){ (error) in
-                                    if let error = error {
-                                        print("error = \(error)")
-                                        self.isprofileValid = false
-                                    } else {
-                                        print("profile updated")
-                                        self.isprofileValid = true
-                                    }
-                                }
-                        }
+                VStack{
+                    
+                    Button(action: {setPhotoUrl(url: catUrl)}) {
+                        URLImage(url: URL(string: catUrl)!) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }.frame(width: 100.0, height: 100.0)
+                    }.background(self.selectedPhoto == catUrl ? Color.blue : Color.clear)
+                    
+                    
+                    Button(action: {setPhotoUrl(url: pengiunUrl)}) {
+                        URLImage(url: URL(string: pengiunUrl)!) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }.frame(width: 100.0, height: 100.0)
+                    }.background(self.selectedPhoto == pengiunUrl ? Color.gray : Color.clear)
+                    
+    //                Image("cat").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
+    //                Image("pengiun").resizable().scaledToFit().frame(width: 100.0, height: 100.0)
                 }
+                
+                Spacer().frame(height: 90)
+                
+                NavigationLink(
+                    destination: UserView(),
+                    isActive: self.$isprofileValid) {
+                        Text("Finish!")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 250, height: 50)
+                            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                            .cornerRadius(10.0)
+                            .onTapGesture {
+                                let userDictionary = [
+                                    "pic": self.selectedPhoto
+                                ]
+                                let docRef = Firestore.firestore().document("users/\(user!.uid)")
+                                docRef.updateData(userDictionary as [String : Any]){ (error) in
+                                        if let error = error {
+                                            print("error = \(error)")
+                                            self.isprofileValid = false
+                                        } else {
+                                            print("profile updated")
+                                            self.isprofileValid = true
+                                        }
+                                    }
+                            }
+                    }
+            }.navigationBarTitle("Select Profile Icon")
         }
     }
 }
