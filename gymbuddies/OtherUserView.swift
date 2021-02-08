@@ -50,7 +50,6 @@ struct OtherUserView: View {
 //struct OtherUserView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        OtherUserView()
-//            
 //    }
 //}
 

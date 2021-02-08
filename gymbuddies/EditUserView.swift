@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-
-
-
+import Firebase
 
 struct EditUserView: View {
     
@@ -19,6 +17,8 @@ struct EditUserView: View {
     @State var style : String = ""
     @State var frequency : String = ""
     @State var times : String = ""
+    
+    @State var shouldShowUpdateAlert = false
     
     init(currentUser: User){
         self.currentUser = currentUser
@@ -34,20 +34,43 @@ struct EditUserView: View {
             EditFieldView(fieldName: "Preferred Frequency:", user: currentUser, stateVar: self.$frequency, defaultVal: currentUser.frequency)
             EditFieldView(fieldName: "Preferred Time:", user: currentUser, stateVar: self.$times, defaultVal: currentUser.times)
             
-//            HStack {
-//            Text("Name").font(.headline).fontWeight(.bold)
-//            TextField("", text: $name)
-//                .onAppear {self.name = currentUser.name}
-//            }
-//            .padding(.leading)
-//            Divider()
-//                .padding(.horizontal)
 
             
 //            to do- icon
             
             
-        }
+            Button(action: {
+                let userDictionary = [
+                                    "name": self.name,
+                                    "pronouns": self.pronouns,
+                                    "style": self.style,
+                                    "frequency": self.frequency,
+                                    "times": self.times
+                                    ]
+
+                let docRef = Firestore.firestore().document("users/\(currentUser.id)")
+                docRef.updateData(userDictionary as [String : Any]){ (error) in
+                        if let error = error {
+                            print("error = \(error)")
+                        } else {
+                            print("updated profile")
+                            self.shouldShowUpdateAlert = true
+                        }
+                    }
+            }) {
+                Text("Update")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .padding()
+                .frame(width: 250, height: 50)
+                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                .cornerRadius(10.0)
+                }
+            
+            
+        }.alert(isPresented: $shouldShowUpdateAlert) {
+            Alert(title: Text("Profile Updated"))}
     }
 }
 

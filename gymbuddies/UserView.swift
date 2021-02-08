@@ -77,10 +77,8 @@ struct MainUserView: View {
     @State var name : String = ""
     @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
     @ObservedObject var userData = getCurrentUser()
-    
-//    showEditPage: Binding<Bool>
+
     init(){
-//        self._showEditPage = showEditPage
         userData.getUser()
     }
     
@@ -245,7 +243,7 @@ struct MainUserView: View {
             
             Spacer().frame(height: 60)
             
-            
+
             Button(action: {
                 self.showEditPage.toggle()
                     }) {
