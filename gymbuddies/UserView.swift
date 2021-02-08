@@ -13,8 +13,8 @@ import URLImage
 struct UserView: View {
     
     @State var showMenu = false
-    @State var show = true
-    @State var chat = true
+//    @State var show = true
+//    @State var chat = true
     private var db = Firestore.firestore()
     @ObservedObject var userData = getCurrentUser()
 
@@ -23,7 +23,8 @@ struct UserView: View {
         
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                MainUserView(chat: self.$chat, show: self.$show)
+//                MainUserView(chat: self.$chat, show: self.$show)
+                MainUserView()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
                     .disabled(self.showMenu ? true : false)
@@ -72,15 +73,21 @@ class getCurrentUser : ObservableObject{
 
 struct MainUserView: View {
     
-    @Binding var show : Bool
-    @Binding var chat : Bool
+//    @Binding var show : Bool
+//    @Binding var chat : Bool
     @State var name : String = ""
     @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
     @ObservedObject var userData = getCurrentUser()
     
-    init(chat: Binding<Bool>, show: Binding<Bool>){
-        self._chat = chat
-        self._show = show
+//    init(chat: Binding<Bool>, show: Binding<Bool>){
+//        self._chat = chat
+//        self._show = show
+//        userData.getUser()
+//
+//        print(userData.user.pic)
+//    }
+    
+    init(){
         userData.getUser()
         
         print(userData.user.pic)
@@ -90,21 +97,6 @@ struct MainUserView: View {
     var body: some View {
         
         VStack {
-            
-//                       I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
-//        if URL(string: userData.user.pic) != nil {
-//            URLImage(url: URL(string: userData.user.pic)!) { image in
-//                image
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//            }.frame(width: 100.0, height: 100.0)
-//        } else {
-//            Text("idk it was nil?")
-//        }
-
-        Text(userData.user.name)
-            
-
             Image("barbell-header")
                 .resizable()
                 .frame(height: sizeOfImage)
@@ -134,40 +126,10 @@ struct MainUserView: View {
                         Text("(she/her)")
                             .fontWeight(.bold)
                     }
-                    
-                    
                     Text("Seattle, WA")
-                        
                 }
-                
                 Spacer()
-                
-                
             }
-            
-//            Spacer()
-            
-//            HStack{
-//                Spacer()
-//                
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//                
-//                Spacer()
-//                
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//                
-//                Spacer()
-//                
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//                
-//                Spacer()
-//            }
             
             VStack(alignment: .leading){
             Text("About Me")
@@ -181,18 +143,6 @@ struct MainUserView: View {
                     .padding([.leading, .bottom])
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            
-            //                .alignmentGuide(.leading) { dimension in
-            //                    dimension[.top]
-            //                }
-            
-            ////                .scaledToFill()
-            //            , alignment: .top
-            //
-            //                .aspectRatio(contentMode: .fit)
-            //                .frame(width: 200, height: 200, alignment: .top)
-            //                .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            //                    sizeOfImage = UIScreen.main.bounds.height/2  }
             
             VStack(alignment: .leading){
                 HStack(){
@@ -211,12 +161,44 @@ struct MainUserView: View {
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     Text("\(userData.user.frequency)")
                 }
-            }
-//            .padding(.leading)
+            }.padding(.leading)
+//            NavigationLink(destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.$chat), isActive: self.$show) {
+//                Text("Message")}
             
-            NavigationLink(destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.$chat), isActive: self.$show) {
-                Text("")}
+            Spacer()
+        }
+    }
+}
+
+
+
+
+//            Spacer()
             
+//            HStack{
+//                Spacer()
+//
+//                Image("barbell-icon")
+//                    .resizable()
+//                    .frame(width: 30.0, height: 30.0)
+//
+//                Spacer()
+//
+//                Image("barbell-icon")
+//                    .resizable()
+//                    .frame(width: 30.0, height: 30.0)
+//
+//                Spacer()
+//
+//                Image("barbell-icon")
+//                    .resizable()
+//                    .frame(width: 30.0, height: 30.0)
+//
+//                Spacer()
+//            }
+
+
+
 //            NavigationLink({
 //                Text("Message")
 //                    .font(.title)
@@ -246,11 +228,3 @@ struct MainUserView: View {
             //               })
             
 //            selection:
-            Spacer()
-            
-            
-        }
-    }
-}
-
-
