@@ -22,9 +22,9 @@
 		3C28749925C291DE002708DE /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749825C291DE002708DE /* UserView.swift */; };
 		3C28749C25C291FB002708DE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C28749B25C291FB002708DE /* MenuView.swift */; };
 		3C2B819625C79E8900DE443B /* OtherUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B819525C79E8900DE443B /* OtherUserView.swift */; };
-		3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B821025C8BD0C00DE443B /* MessageView.swift */; };
 		3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B83E725CA27DE00DE443B /* MessagesView.swift */; };
 		3C2B840C25CA639B00DE443B /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B840B25CA639B00DE443B /* Welcome.swift */; };
+		3C44AFCE25D1C5A800C5B3C7 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */; };
 		3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54AD7225CB415100C3095C /* RecentMessagesView.swift */; };
 		3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */; };
 		3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF025CC98130054326F /* SelectIconPhoto.swift */; };
@@ -49,9 +49,9 @@
 		3C28749825C291DE002708DE /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		3C28749B25C291FB002708DE /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		3C2B819525C79E8900DE443B /* OtherUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserView.swift; sourceTree = "<group>"; };
-		3C2B821025C8BD0C00DE443B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		3C2B83E725CA27DE00DE443B /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		3C2B840B25CA639B00DE443B /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
+		3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		3C54AD7225CB415100C3095C /* RecentMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessagesView.swift; sourceTree = "<group>"; };
 		3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutPreferencesView.swift; sourceTree = "<group>"; };
 		3CA73CF025CC98130054326F /* SelectIconPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconPhoto.swift; sourceTree = "<group>"; };
@@ -112,11 +112,11 @@
 				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
+				3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */,
 				3CA73CF025CC98130054326F /* SelectIconPhoto.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
 				3C2B83E725CA27DE00DE443B /* MessagesView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
-				3C2B821025C8BD0C00DE443B /* MessageView.swift */,
 				3C1289D725C3556F00621EB1 /* SignInView.swift */,
 				3C128A2825C4B99200621EB1 /* UsersView.swift */,
 				3C54AD7225CB415100C3095C /* RecentMessagesView.swift */,
@@ -294,8 +294,8 @@
 				3C28744525C28C3B002708DE /* SceneDelegate.swift in Sources */,
 				3C28749925C291DE002708DE /* UserView.swift in Sources */,
 				3C2B840C25CA639B00DE443B /* Welcome.swift in Sources */,
+				3C44AFCE25D1C5A800C5B3C7 /* EditUserView.swift in Sources */,
 				3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */,
-				3C2B821125C8BD0C00DE443B /* MessageView.swift in Sources */,
 				3C128A2925C4B99200621EB1 /* UsersView.swift in Sources */,
 				3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */,
 				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
