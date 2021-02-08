@@ -5,7 +5,6 @@
 //  Created by Kareha on 1/27/21.
 //
 
-//current user's profile
 import SwiftUI
 import Firebase
 import URLImage
@@ -13,8 +12,7 @@ import URLImage
 struct UserView: View {
     
     @State var showMenu = false
-//    @State var show = true
-//    @State var chat = true
+    
     private var db = Firestore.firestore()
     @ObservedObject var userData = getCurrentUser()
 
@@ -23,7 +21,7 @@ struct UserView: View {
         
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-//                MainUserView(chat: self.$chat, show: self.$show)
+//                MainUserView(showEditPage: self.$showEditPage)
                 MainUserView()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
@@ -75,24 +73,15 @@ class getCurrentUser : ObservableObject{
 
 struct MainUserView: View {
     
-//    @Binding var show : Bool
-//    @Binding var chat : Bool
+    @State var showEditPage = false
     @State var name : String = ""
     @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
     @ObservedObject var userData = getCurrentUser()
     
-//    init(chat: Binding<Bool>, show: Binding<Bool>){
-//        self._chat = chat
-//        self._show = show
-//        userData.getUser()
-//
-//        print(userData.user.pic)
-//    }
-    
+//    showEditPage: Binding<Bool>
     init(){
+//        self._showEditPage = showEditPage
         userData.getUser()
-
-        print(userData.user.pic)
     }
     
     
@@ -256,15 +245,24 @@ struct MainUserView: View {
             
             Spacer().frame(height: 60)
             
-            Text("Edit")
-            .font(.title)
-            .fontWeight(.bold)
-            .foregroundColor(.white)
-            .padding()
-            .frame(width: 250, height: 50)
-            //                for custom divide rbg by 255
-            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-            .cornerRadius(10.0)
+            
+            Button(action: {
+                self.showEditPage.toggle()
+                    }) {
+                        Text("Edit")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 250, height: 50)
+                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                        .cornerRadius(10.0)
+                    }.sheet(isPresented: $showEditPage) {
+                        EditUserView(currentUser: userData.user)
+//                        , name: userData.user.name
+                    }
+            
+
 
             
             Spacer().frame(height: 200)

@@ -47,12 +47,12 @@ struct OtherUserView: View {
     }
 }
 
-struct OtherUserView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserView()
-            
-    }
-}
+//struct OtherUserView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OtherUserView()
+//            
+//    }
+//}
 
 
 struct MainOtherUserView: View {
