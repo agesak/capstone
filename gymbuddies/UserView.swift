@@ -135,14 +135,14 @@ struct MainUserView: View {
                         
                         VStack(alignment: .leading) {
                             HStack(){
-                                Text("Michelle Obama")
+                                Text("\(userData.user.name)")
                                     .font(.title2)
                                     .fontWeight(.bold)
-                                Text("(she/her)")
+                                Text("\(userData.user.pronouns)")
                                     .fontWeight(.bold)
                             }
 //                            Text("30")
-                            Text("Seattle, WA")
+                            Text("\(userData.user.location)")
                         }
                         Spacer()
                     }
