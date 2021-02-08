@@ -16,7 +16,7 @@ struct UserView: View {
 //    @State var show = true
 //    @State var chat = true
     private var db = Firestore.firestore()
-    @ObservedObject var userData = getCurrentUser()
+//    @ObservedObject var userData = getCurrentUser()
 
     
     var body: some View {
@@ -36,10 +36,12 @@ struct UserView: View {
             }.navigationBarItems(leading: (Button(
                                             action: {withAnimation {self.showMenu.toggle()}
                                             }) {Image(systemName: "line.horizontal.3")
-                                            .imageScale(.large)}),
-                                trailing: (Button(
-                                            action: {print("will do this")}
-                                            ) {Text("Edit")}))
+                                            .imageScale(.large)})
+//                                 ,
+//                                trailing: (Button(
+//                                            action: {print("will do this")}
+//                                            ) {Text("Edit")})
+            )
             .navigationBarBackButtonHidden(true)
         }
         
@@ -77,7 +79,7 @@ struct MainUserView: View {
 //    @Binding var chat : Bool
     @State var name : String = ""
     @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
-    @ObservedObject var userData = getCurrentUser()
+//    @ObservedObject var userData = getCurrentUser()
     
 //    init(chat: Binding<Bool>, show: Binding<Bool>){
 //        self._chat = chat
@@ -88,58 +90,133 @@ struct MainUserView: View {
 //    }
     
     init(){
-        userData.getUser()
+//        userData.getUser()
         
-        print(userData.user.pic)
+//        print(userData.user.pic)
     }
     
     
     var body: some View {
         
         VStack {
-            Image("barbell-header")
-                .resizable()
-                .frame(height: sizeOfImage)
-                .opacity(0.1)
-                .ignoresSafeArea()
             
-            HStack{
-            
-//                I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
-                if URL(string: userData.user.pic) != nil {
-                    URLImage(url: URL(string: userData.user.pic)!) { image in
-                        image
+            ZStack{
+                Image("barbell-header")
+                    .resizable()
+                    .frame(height: sizeOfImage)
+                    .opacity(0.1)
+                    .ignoresSafeArea()
+                
+//                Spacer().frame(height: 150)
+                
+                
+                VStack{
+                    Spacer().frame(height: 90)
+                    HStack{
+                        
+                        
+                        Image("cat")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                    }.frame(width: 100.0, height: 100.0)
-                } else {
-                    Image(systemName: "photo")
-                }
-                    
-                Spacer()
-                
-                VStack(alignment: .leading) {
-                    HStack(){
-                        Text("Michelle Obama")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        Text("(she/her)")
-                            .fontWeight(.bold)
+                            .frame(width: 100.0, height: 100.0)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading) {
+                            HStack(){
+                                Text("Michelle Obama")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                Text("(she/her)")
+                                    .fontWeight(.bold)
+                            }
+//                            Text("30")
+                            Text("Seattle, WA")
+                        }
+                        Spacer()
                     }
-                    Text("Seattle, WA")
+                
                 }
+                
+//
+//                VStack{
+//                    Spacer().frame(height: 90)
+//                Image("cat")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 100.0, height: 100.0)
+//                }
+            }
+            
+//            HStack{
+            
+//                I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
+//                if URL(string: userData.user.pic) != nil {
+//                    URLImage(url: URL(string: userData.user.pic)!) { image in
+//                        image
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                    }.frame(width: 100.0, height: 100.0)
+//                } else {
+//                    Image(systemName: "photo")
+//                }
+                
+//                Image("cat")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 100.0, height: 100.0)
+                    
+//                Spacer()
+//
+//                VStack(alignment: .leading) {
+//                    HStack(){
+//                        Text("Michelle Obama")
+//                            .font(.title2)
+//                            .fontWeight(.bold)
+//                        Text("(she/her)")
+//                            .fontWeight(.bold)
+//                    }
+//                    Text("Seattle, WA")
+//                }
+//                Spacer()
+//            }
+            
+            Spacer().frame(height: 30)
+            
+            HStack{
+                Spacer()
+
+                Image("barbell-icon")
+                    .resizable()
+                    .frame(width: 30.0, height: 30.0)
+
+                Spacer()
+
+                Image("barbell-icon")
+                    .resizable()
+                    .frame(width: 30.0, height: 30.0)
+
+                Spacer()
+
+                Image("barbell-icon")
+                    .resizable()
+                    .frame(width: 30.0, height: 30.0)
+
                 Spacer()
             }
             
             VStack(alignment: .leading){
             Text("About Me")
                 .font(.title)
-                .fontWeight(.medium)
+                .fontWeight(.semibold)
                 .padding([.top, .leading])
                 .frame(maxWidth: .infinity, alignment: .leading)
 //                . multilineTextAlignment(.leading)
                 
+                Spacer().frame(height: 10)
+                
                 Text("I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.")
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .bottom])
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -149,53 +226,51 @@ struct MainUserView: View {
                     Text("Workout Style:")
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
 //                        .frame(alignment: .leading)
-                    Text("\(userData.user.style)")
+//                    Text("\(userData.user.style)")
+                    Text("Crossfit")
                     Spacer()
                 }
                 HStack(){
                     Text("Preferred Time:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("\(userData.user.times)")
+                    Text("Afternoon")
+//                    Text("\(userData.user.times)")
                 }
                 
                 HStack(){
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("\(userData.user.frequency)")
+                    Text("4x/week")
+//                    Text("\(userData.user.frequency)")
                 }
             }.padding(.leading)
-//            NavigationLink(destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.$chat), isActive: self.$show) {
-//                Text("Message")}
             
-            Spacer()
+            Spacer().frame(height: 60)
+            
+            Text("Edit")
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .padding()
+            .frame(width: 250, height: 50)
+            //                for custom divide rbg by 255
+            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+            .cornerRadius(10.0)
+
+            
+            Spacer().frame(height: 200)
+//            Spacer()
+//                .frame(height: 200)
         }
     }
 }
 
 
 
+//            NavigationLink(destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.$chat), isActive: self.$show) {
+//                Text("Message")}
 
 //            Spacer()
             
-//            HStack{
-//                Spacer()
-//
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//
-//                Spacer()
-//
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//
-//                Spacer()
-//
-//                Image("barbell-icon")
-//                    .resizable()
-//                    .frame(width: 30.0, height: 30.0)
-//
-//                Spacer()
-//            }
+
 
 
 
