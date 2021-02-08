@@ -16,7 +16,7 @@ struct UserView: View {
 //    @State var show = true
 //    @State var chat = true
     private var db = Firestore.firestore()
-//    @ObservedObject var userData = getCurrentUser()
+    @ObservedObject var userData = getCurrentUser()
 
     
     var body: some View {
@@ -79,7 +79,7 @@ struct MainUserView: View {
 //    @Binding var chat : Bool
     @State var name : String = ""
     @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
-//    @ObservedObject var userData = getCurrentUser()
+    @ObservedObject var userData = getCurrentUser()
     
 //    init(chat: Binding<Bool>, show: Binding<Bool>){
 //        self._chat = chat
@@ -90,9 +90,9 @@ struct MainUserView: View {
 //    }
     
     init(){
-//        userData.getUser()
-        
-//        print(userData.user.pic)
+        userData.getUser()
+
+        print(userData.user.pic)
     }
     
     
@@ -115,11 +115,22 @@ struct MainUserView: View {
                     HStack{
                         
                         
-                        Image("cat")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100.0, height: 100.0)
+//                        I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
+                       if URL(string: userData.user.pic) != nil {
+                           URLImage(url: URL(string: userData.user.pic)!) { image in
+                               image
+                                   .resizable()
+                                   .aspectRatio(contentMode: .fit)
+                           }.frame(width: 100.0, height: 100.0)
+                       } else {
+                           Image(systemName: "photo")
+                       }
                         
+//                        Image("cat")
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 100.0, height: 100.0)
+//
                         Spacer()
                         
                         VStack(alignment: .leading) {
@@ -226,20 +237,20 @@ struct MainUserView: View {
                     Text("Workout Style:")
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
 //                        .frame(alignment: .leading)
-//                    Text("\(userData.user.style)")
-                    Text("Crossfit")
+                    Text("\(userData.user.style)")
+//                    Text("Crossfit")
                     Spacer()
                 }
                 HStack(){
                     Text("Preferred Time:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("Afternoon")
-//                    Text("\(userData.user.times)")
+//                    Text("Afternoon")
+                    Text("\(userData.user.times)")
                 }
                 
                 HStack(){
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("4x/week")
-//                    Text("\(userData.user.frequency)")
+//                    Text("4x/week")
+                    Text("\(userData.user.frequency)")
                 }
             }.padding(.leading)
             
