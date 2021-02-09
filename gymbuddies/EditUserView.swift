@@ -12,6 +12,7 @@ import URLImage
 struct EditUserView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var currentUser : User
     @State var name : String = ""
@@ -49,8 +50,15 @@ struct EditUserView: View {
         
         NavigationView{
             
+            ZStack{
+                if colorScheme == .dark {
+                    Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+                } else {
+                    Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+                }
             
             VStack{
+                
                 Text("Edit Profile")
                     .font(.largeTitle)
                 VStack {
@@ -74,14 +82,14 @@ struct EditUserView: View {
                                     .background(Color.black)
                         })
                     }
-                }
+                }.padding(.bottom, 20)
 
                 EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
                 EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
                 
                 PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
                 PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes).padding(.bottom)
+                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
                 
 //                Spacer()
 
@@ -115,13 +123,10 @@ struct EditUserView: View {
                     .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
                     .cornerRadius(10.0)
                 }
-                .padding(.top)
-                
-                
+                .padding(.top, 30)
                 Spacer().frame(height: 150)
+                }
             }
-//            .alert(isPresented: $shouldShowUpdateAlert) {
-//                Alert(title: Text("Profile Updated"))}
         }
     }
 }
@@ -179,8 +184,7 @@ struct EditFieldView : View {
         }.padding(.leading)
         
         Divider().padding(.horizontal)
-        
-//        Spacer()
+
     }
 }
 
