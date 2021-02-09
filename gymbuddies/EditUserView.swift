@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import URLImage
 
 struct EditUserView: View {
     
@@ -14,7 +15,7 @@ struct EditUserView: View {
     @State var name : String = ""
     @State var pronouns : String = ""
 //    @State var about_me : String = ""
-//    @State var style : String = ""
+    
     @State var frequency : String = ""
     @State var times : String = ""
     
@@ -39,8 +40,69 @@ struct EditUserView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading){
+        NavigationView{
+        VStack{
             
+            
+            VStack {
+                ZStack(alignment: .bottom) {
+                    if URL(string: currentUser.pic) != nil {
+                        URLImage(url: URL(string: currentUser.pic)!) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }.frame(width: 100.0, height: 100.0)
+                    } else {
+                        Image(systemName: "photo")
+                    }
+
+                    NavigationLink(
+                        destination: SelectIconPhoto(),
+                        label: {
+                            Text("Change Icon")
+                                .foregroundColor(.white)
+                                .frame(width: 100, height: 30)
+                                .background(Color.black)
+                            })
+                }
+            }
+        
+            
+            
+//            ZStack{
+//
+//                if URL(string: currentUser.pic) != nil {
+//                    URLImage(url: URL(string: currentUser.pic)!) { image in
+//                        image
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                    }.frame(width: 100.0, height: 100.0)
+//                } else {
+//                    Image(systemName: "photo")
+//                }
+//                Spacer()
+//
+//                VStack{
+//
+////                    Spacer()
+//
+//                    NavigationLink(
+//                        destination: SelectIconPhoto(),
+//                        label: {
+//                            Text("Change Icon")
+//    //                            .font(.title)
+//    //                            .fontWeight(.bold)
+//                                .foregroundColor(.black)
+//    //                            .padding()
+//                                .frame(width: 100, height: 30)
+//                                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+//    //                            .cornerRadius(10.0)
+//                            })
+//
+//                }
+//            }
+            
+
             
             EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
             EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns)
@@ -51,6 +113,8 @@ struct EditUserView: View {
             PickerView(fieldName: "Preferred Frequency", stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
             PickerView(fieldName: "Preferred Time", stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
 
+            
+            
             
 
             
@@ -85,12 +149,10 @@ struct EditUserView: View {
                 .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
                 .cornerRadius(10.0)
                 }
-//            }
-            
-            
         }.alert(isPresented: $shouldShowUpdateAlert) {
             Alert(title: Text("Profile Updated"))}
     }
+}
 }
 
 
@@ -149,7 +211,7 @@ struct EditFieldView : View {
 
 struct EditUserView_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: ""))
+        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
     }
 }
 
