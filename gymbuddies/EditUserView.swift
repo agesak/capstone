@@ -17,6 +17,7 @@ struct EditUserView: View {
     var currentUser : User
     @State var name : String = ""
     @State var pronouns : String = ""
+    @State var age : String = ""
 //    @State var about_me : String = ""
     
     @State var frequency : String = ""
@@ -86,6 +87,7 @@ struct EditUserView: View {
 
                 EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
                 EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
+                EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
                 
                 PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
                 PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
@@ -98,6 +100,7 @@ struct EditUserView: View {
                     let userDictionary = [
                                         "name": self.name,
                                         "pronouns": self.pronouns,
+                                        "age": self.age,
                                         "style":  self.style,
                                         "frequency": self.frequency,
                                         "times": self.times
@@ -124,7 +127,7 @@ struct EditUserView: View {
                     .cornerRadius(10.0)
                 }
                 .padding(.top, 30)
-                Spacer().frame(height: 150)
+                Spacer().frame(height: 100)
                 }
             }
         }

@@ -70,7 +70,7 @@ struct MainUserView: View {
     
     @State var showEditPage = false
     @State var name : String = ""
-    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2
+    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2.5
     @ObservedObject var userData = getCurrentUser()
 
     init(){
@@ -89,15 +89,8 @@ struct MainUserView: View {
                     .opacity(0.1)
                     .ignoresSafeArea()
                 
-//                Spacer().frame(height: 150)
-                
-                
                 VStack{
-//                    Spacer().frame(height: 90)
                     HStack{
-                        
-                        
-//                        I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
                        if URL(string: userData.user.pic) != nil {
                            URLImage(url: URL(string: userData.user.pic)!) { image in
                                image
@@ -107,12 +100,7 @@ struct MainUserView: View {
                        } else {
                            Image(systemName: "photo")
                        }
-                        
-//                        Image("cat")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 100.0, height: 100.0)
-//
+                    
                         Spacer()
                         
                         VStack(alignment: .leading) {
@@ -121,60 +109,16 @@ struct MainUserView: View {
                                     .font(.title2)
                                     .fontWeight(.bold)
                                 Text("\(userData.user.pronouns)")
-                                    .fontWeight(.bold)
+                                    .font(.title2)
                             }
 //                            Text("30")
                             Text("\(userData.user.location)")
-                        }
+                        }.padding(.trailing, 40)
                         Spacer()
                     }
-                
                 }
-                
-//
-//                VStack{
-//                    Spacer().frame(height: 90)
-//                Image("cat")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 100.0, height: 100.0)
-//                }
-            }
-            
-//            HStack{
-            
-//                I HAVE NO IDEA WHY THIS IF STATEMENT IS NECESSARY BUT WITHOUT IT EVERYTHING BREAKS
-//                if URL(string: userData.user.pic) != nil {
-//                    URLImage(url: URL(string: userData.user.pic)!) { image in
-//                        image
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                    }.frame(width: 100.0, height: 100.0)
-//                } else {
-//                    Image(systemName: "photo")
-//                }
-                
-//                Image("cat")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 100.0, height: 100.0)
-                    
-//                Spacer()
-//
-//                VStack(alignment: .leading) {
-//                    HStack(){
-//                        Text("Michelle Obama")
-//                            .font(.title2)
-//                            .fontWeight(.bold)
-//                        Text("(she/her)")
-//                            .fontWeight(.bold)
-//                    }
-//                    Text("Seattle, WA")
-//                }
-//                Spacer()
-//            }
-            
-            Spacer().frame(height: 30)
+            }.padding(.bottom, 10)
+//            Spacer().frame(height: 30)
             
             HStack{
                 Spacer()
@@ -202,32 +146,42 @@ struct MainUserView: View {
             Text("About Me")
                 .font(.title)
                 .fontWeight(.semibold)
-                .padding([.top, .leading])
+                .padding(.leading)
+//                .padding([.top, .leading])
                 .frame(maxWidth: .infinity, alignment: .leading)
-//                . multilineTextAlignment(.leading)
                 
                 Spacer().frame(height: 10)
                 
                 Text("I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .bottom])
+                    .padding(.top, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-            }
+                    .overlay(
+                        RoundedCorner(radius: 10.0, corners: [.allCorners])
+                             .stroke(Color.secondary)
+                             .shadow(color: .secondary, radius: 3, x: 0, y: 0))
+            }.padding(.horizontal)
             
             VStack(alignment: .leading){
                 HStack(){
+                    Text("Age:")
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(userData.user.age)")
+                    Spacer()
+                }
+                Spacer().frame(height: 10)
+                
+                HStack(){
                     Text("Workout Style:")
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-//                        .frame(alignment: .leading)
                     Text("\(userData.user.style)")
-//                    Text("Crossfit")
                     Spacer()
                 }
                 Spacer().frame(height: 10)
                 
                 HStack(){
                     Text("Preferred Time:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-//                    Text("Afternoon")
                     Text("\(userData.user.times)")
                 }
                 Spacer().frame(height: 10)
@@ -240,8 +194,9 @@ struct MainUserView: View {
                 Spacer().frame(height: 10)
                 
             }.padding(.leading)
+            .padding(.top, 10)
             
-            Spacer().frame(height: 30)
+            Spacer().frame(height: 10)
             
 
             Button(action: {
@@ -257,56 +212,29 @@ struct MainUserView: View {
                         .cornerRadius(10.0)
                     }.sheet(isPresented: $showEditPage) {
                         EditUserView(currentUser: userData.user)
-//                        , name: userData.user.name
                     }
             
 
 
             
             Spacer().frame(height: 200)
-//            Spacer()
-//                .frame(height: 200)
         }
     }
 }
 
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect,
+            byRoundingCorners: corners, cornerRadii: CGSize(width:
+            radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
 
-
-//            NavigationLink(destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.$chat), isActive: self.$show) {
-//                Text("Message")}
-
-//            Spacer()
-            
-
-
-
-
-//            NavigationLink({
-//                Text("Message")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(.white)
-//                    .padding()
-//                    .frame(width: 250, height: 50)
-//                    //                for custom divide rbg by 255
-//                    .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-//                    .cornerRadius(10.0)
-//
-//            }, destination: ChatView(name: userData.user.name, uid: userData.user.id, chat: self.chat), tag: self.show
-            
-            
-            //            NavigationLink(
-            //               destination: SignInView(),
-            //               label: {
-            //                   Text("Message")
-            //                   .font(.title)
-            //                   .fontWeight(.bold)
-            //                   .foregroundColor(.white)
-            //                   .padding()
-            //                 .frame(width: 250, height: 50)
-            //   //                for custom divide rbg by 255
-            //                   .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-            //                 .cornerRadius(10.0)
-            //               })
-            
-//            selection:
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
+     }
+}
