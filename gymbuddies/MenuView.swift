@@ -66,8 +66,7 @@ struct MenuView: View {
                     self.isLinkActive = true
                     signOut()
                 }
-            }
-//            .navigationBarBackButtonHidden(true)
+            }.navigationBarBackButtonHidden(true)
 
         Spacer()
         }.padding()
@@ -87,7 +86,6 @@ struct MenuView: View {
 //            self.messagesDictionary = [String:Message]()
         } catch {
             print("Error signing out")
-            print(Auth.auth().currentUser!)
         }
     }
 }

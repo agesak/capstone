@@ -1,0 +1,194 @@
+//
+//  EditUserView.swift
+//  gymbuddies
+//
+//  Created by Kareha on 2/8/21.
+//
+
+import SwiftUI
+import Firebase
+import URLImage
+
+struct EditUserView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    var currentUser : User
+    @State var name : String = ""
+    @State var pronouns : String = ""
+//    @State var about_me : String = ""
+    
+    @State var frequency : String = ""
+    @State var times : String = ""
+    
+    @State var styleChoices = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State var style = ""
+    @State private var styleIndex = 0
+    
+    @State var timesChoices = ["Morning", "Afternoon", "Evening"]
+    @State private var timesIndex = 0
+    
+    @State var frequencyChoices = ["1x/week", "2x/week", "3x/week", "4x/week", "5-6x/week"]
+    @State private var frequencyIndex = 0
+    
+    @State var shouldShowUpdateAlert = false
+    
+    @State var selectStyle = false
+    @State var styleChanged = false
+    @State var selectTimes = false
+    @State var selectFrequency = false
+    
+    init(currentUser: User){
+        self.currentUser = currentUser
+        self._style = State(initialValue: currentUser.style)
+        self._frequency = State(initialValue: currentUser.frequency)
+        self._times = State(initialValue: currentUser.times)
+    }
+
+    var body: some View {
+        
+        NavigationView{
+            
+            
+            VStack{
+                Text("Edit Profile")
+                    .font(.largeTitle)
+                VStack {
+                    ZStack(alignment: .bottom) {
+                        if URL(string: currentUser.pic) != nil {
+                            URLImage(url: URL(string: currentUser.pic)!) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }.frame(width: 100.0, height: 100.0)
+                        } else {
+                            Image(systemName: "photo")
+                        }
+
+                        NavigationLink(
+                            destination: SelectIconPhoto(),
+                            label: {
+                                Text("Change Icon")
+                                    .foregroundColor(.white)
+                                    .frame(width: 100, height: 30)
+                                    .background(Color.black)
+                        })
+                    }
+                }
+
+                EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
+                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
+                
+                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+                PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes).padding(.bottom)
+                
+//                Spacer()
+
+                Button(action: {
+
+                    let userDictionary = [
+                                        "name": self.name,
+                                        "pronouns": self.pronouns,
+                                        "style":  self.style,
+                                        "frequency": self.frequency,
+                                        "times": self.times
+                                        ]
+                    
+                    let docRef = Firestore.firestore().document("users/\(currentUser.id)")
+                    docRef.updateData(userDictionary as [String : Any]){ (error) in
+                            if let error = error {
+                                print("error = \(error)")
+                            } else {
+                                print("updated profile")
+                                self.shouldShowUpdateAlert = true
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                }) {
+                    Text("Update")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 250, height: 50)
+                    .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                    .cornerRadius(10.0)
+                }
+                .padding(.top)
+                
+                
+                Spacer().frame(height: 150)
+            }
+//            .alert(isPresented: $shouldShowUpdateAlert) {
+//                Alert(title: Text("Profile Updated"))}
+        }
+    }
+}
+
+
+struct PickerView: View {
+
+    var fieldName : String
+    var currentVarDefault : String
+    @Binding var currentVar : String
+    @Binding var stateListVar: [String]
+    @Binding var stateIndexVar: Int
+    @Binding var pickingVar : Bool
+
+    var body: some View {
+        HStack{
+            Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
+            Spacer()
+            Text(currentVar)
+            Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+                self.pickingVar.toggle()
+            }
+        }
+        if Bool(pickingVar){
+            
+            Section {
+                Picker(selection: self.$stateIndexVar, label: Text("")) {
+                    ForEach(0 ..< stateListVar.count) {
+                        Text(self.stateListVar[$0])
+                    }
+                }
+                .onTapGesture {
+                    currentVar = self.stateListVar[self.stateIndexVar]
+                }
+            }
+        }
+        Divider().padding(.horizontal)
+    }
+}
+
+struct EditFieldView : View {
+    
+    var fieldName: String
+    var user : User
+    @Binding var stateVar: String
+    var defaultVal: String
+    
+    var body: some View {
+        
+        HStack {
+            Text(fieldName).font(.title2).fontWeight(.bold)
+            TextField("", text: $stateVar)
+                .onAppear {stateVar = defaultVal}
+                .font(/*@START_MENU_TOKEN@*/.title3/*@END_MENU_TOKEN@*/)
+        }.padding(.leading)
+        
+        Divider().padding(.horizontal)
+        
+//        Spacer()
+    }
+}
+
+
+struct EditUserView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
+    }
+}
+
+
