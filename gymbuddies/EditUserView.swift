@@ -14,11 +14,24 @@ struct EditUserView: View {
     @State var name : String = ""
     @State var pronouns : String = ""
 //    @State var about_me : String = ""
-    @State var style : String = ""
+//    @State var style : String = ""
     @State var frequency : String = ""
     @State var times : String = ""
     
+    @State var styleChoices = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State private var styleIndex = 0
+    
+    @State var timesChoices = ["Morning", "Afternoon", "Evening"]
+    @State private var timesIndex = 0
+    
+    @State var frequencyChoices = ["1x/week", "2x/week", "3x/week", "4x/week", "5-6x/week"]
+    @State private var frequencyIndex = 0
+    
     @State var shouldShowUpdateAlert = false
+    
+    @State var selectStyle = false
+    @State var selectTimes = false
+    @State var selectFrequency = false
     
     init(currentUser: User){
         self.currentUser = currentUser
@@ -28,11 +41,16 @@ struct EditUserView: View {
         
         VStack(alignment: .leading){
             
+            
             EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
             EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns)
-            EditFieldView(fieldName: "Workout Style:", user: currentUser, stateVar: self.$style, defaultVal: currentUser.style)
-            EditFieldView(fieldName: "Preferred Frequency:", user: currentUser, stateVar: self.$frequency, defaultVal: currentUser.frequency)
-            EditFieldView(fieldName: "Preferred Time:", user: currentUser, stateVar: self.$times, defaultVal: currentUser.times)
+            
+
+            
+            PickerView(fieldName: "Workout Style", stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+            PickerView(fieldName: "Preferred Frequency", stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+            PickerView(fieldName: "Preferred Time", stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
+
             
 
             
@@ -43,9 +61,9 @@ struct EditUserView: View {
                 let userDictionary = [
                                     "name": self.name,
                                     "pronouns": self.pronouns,
-                                    "style": self.style,
-                                    "frequency": self.frequency,
-                                    "times": self.times
+                                    "style":  self.styleChoices[self.styleIndex],
+                                    "frequency": self.frequencyChoices[self.frequencyIndex],
+                                    "times": self.timesChoices[self.timesIndex]
                                     ]
 
                 let docRef = Firestore.firestore().document("users/\(currentUser.id)")
@@ -67,10 +85,42 @@ struct EditUserView: View {
                 .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
                 .cornerRadius(10.0)
                 }
+//            }
             
             
         }.alert(isPresented: $shouldShowUpdateAlert) {
             Alert(title: Text("Profile Updated"))}
+    }
+}
+
+
+struct PickerView: View {
+
+    var fieldName : String
+    @Binding var stateListVar: [String]
+    @Binding var stateIndexVar: Int
+    @Binding var pickingVar : Bool
+
+    var body: some View {
+
+        HStack{
+            Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
+            Spacer()
+            Text("Select")
+            Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+                self.pickingVar.toggle()
+            }
+        }
+        if Bool(pickingVar){
+            Section {
+                Picker(selection: $stateIndexVar, label: Text("")) {
+                    ForEach(0 ..< stateListVar.count) {
+                        Text(self.stateListVar[$0])
+                    }
+                }
+            }
+        }
+        Divider().padding(.horizontal)
     }
 }
 
