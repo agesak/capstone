@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import SDWebImageSwiftUI
+import URLImage
 
 struct MessagesView: View {
     
@@ -24,7 +25,7 @@ struct MessagesView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, location: self.$location)
+                MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, pic: self.$pic, location: self.$location)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
                     .disabled(self.showMenu ? true : false)
@@ -42,7 +43,7 @@ struct MessagesView: View {
             trailing: Button(action: {self.show.toggle()},
                              label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
         .sheet(isPresented: self.$show) {
-            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
+            newChatView(name: self.$name, uid: self.$uid, location: self.$location, pic: self.$pic, show: self.$show, chat: self.$chat)}
 }
 
 
@@ -61,7 +62,7 @@ struct MainView: View {
     @Binding var chat : Bool
     @Binding var uid : String
     @Binding var name : String
-//    @Binding var pic :String
+    @Binding var pic :String
     @Binding var location : String
     
     var body: some View {
@@ -94,7 +95,7 @@ struct MainView: View {
                                         self.chat.toggle()
                                 }) {
                                         
-                                RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
                                 }
                             }
                         }
@@ -110,11 +111,11 @@ struct MainView: View {
 
 
 struct RecentCellView : View {
-//    var url : String
     var name : String
     var time : String
     var date : String
     var lastmsg : String
+//    var pic : String
     
     var body : some View {
         
@@ -156,6 +157,7 @@ struct newChatView : View {
     @Binding var name : String
     @Binding var uid : String
     @Binding var location : String
+    @Binding var pic : String
     @Binding var show : Bool
     @Binding var chat : Bool
     
@@ -186,13 +188,14 @@ struct newChatView : View {
                                     self.uid = i.id
                                     self.name = i.name
                                     self.location = i.location
+                                    self.pic = i.pic
                                     self.show.toggle()
                                     self.chat.toggle()
                                     
                                     
                                 }) {
                                     
-                                    UserCellView(name: i.name, location: i.location)
+                                    UserCellView(name: i.name, location: i.location, pic: i.pic)
                                 }
                                 
                                 
@@ -259,16 +262,26 @@ class getAllUsers : ObservableObject{
 
 
 struct UserCellView : View {
-    
-//    var url : String
+
     var name : String
     var location : String
+    var pic : String
     
     var body : some View{
             
         HStack{
             
-            Image(systemName: "person")
+            if URL(string: pic) != nil {
+             URLImage(url: URL(string: pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 55.0, height: 55.0)
+            } else {
+                Image(systemName: "person")
+            }
+            
+//            Image(systemName: "person")
 //            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
             
             VStack{

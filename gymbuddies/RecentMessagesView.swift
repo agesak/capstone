@@ -49,7 +49,7 @@ class MainObservable : ObservableObject{
                 if i.type == .added{
                     let id = i.document.documentID
                     let name = i.document.get("name") as! String
-    //                let pic = i.document.get("pic") as! String
+//                    let pic = i.document.get("pic") as! String
                     let lastmsg = i.document.get("lastmsg") as! String
                     let stamp = i.document.get("date") as! Timestamp
                     
