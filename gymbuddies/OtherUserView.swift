@@ -9,11 +9,9 @@ import SwiftUI
 import Firebase
 import URLImage
 
-
-
 struct OtherUserView: View {
     
-    var toUser:User
+    var toUser : User
     @State var showMenu = false
     @State var show = false
     @State var chat = true
@@ -36,10 +34,6 @@ struct OtherUserView: View {
                                             action: {withAnimation {self.showMenu.toggle()}
                                             }) {Image(systemName: "line.horizontal.3")
                                             .imageScale(.large)})
-//                                 ,
-//                                trailing: (Button(
-//                                            action: {print("will do this")}
-//                                            ) {Text("Edit")})
             )
             .navigationBarBackButtonHidden(true)
         }
@@ -47,11 +41,11 @@ struct OtherUserView: View {
     }
 }
 
-//struct OtherUserView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OtherUserView()
-//    }
-//}
+struct OtherUserView_Previews: PreviewProvider {
+    static var previews: some View {
+        OtherUserView(toUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
+    }
+}
 
 
 struct MainOtherUserView: View {
@@ -59,7 +53,7 @@ struct MainOtherUserView: View {
     var toUser:User
     @Binding var show : Bool
     @Binding var chat : Bool
-    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2
+    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2.5
     
     init(toUser: User, chat: Binding<Bool>, show: Binding<Bool>){
         self._chat = chat
@@ -79,7 +73,6 @@ struct MainOtherUserView: View {
                     .ignoresSafeArea()
                 
                 VStack{
-//                    Spacer().frame(height: 90)
                     HStack{
                        if URL(string: toUser.pic) != nil {
                         URLImage(url: URL(string: toUser.pic)!) { image in
@@ -98,15 +91,14 @@ struct MainOtherUserView: View {
                                     .font(.title2)
                                     .fontWeight(.bold)
                                 Text("\(toUser.pronouns)")
-                                    .fontWeight(.bold)
+                                    .font(.title2)
                             }
                             Text("\(toUser.location)")
                         }
                         Spacer()
                     }
                 }
-            }
-            Spacer().frame(height: 30)
+            }.padding(.bottom, 10)
             
             HStack{
                 Spacer()
@@ -134,7 +126,7 @@ struct MainOtherUserView: View {
             Text("About Me")
                 .font(.title)
                 .fontWeight(.semibold)
-                .padding([.top, .leading])
+                .padding(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Spacer().frame(height: 10)
@@ -142,10 +134,23 @@ struct MainOtherUserView: View {
                 Text("I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .bottom])
+                    .padding(.top, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
-            }
+                    .overlay(
+                        RoundedCorner(radius: 10.0, corners: [.allCorners])
+                             .stroke(Color.secondary)
+                             .shadow(color: .secondary, radius: 3, x: 0, y: 0))
+            }.padding(.horizontal)
             
             VStack(alignment: .leading){
+                HStack(){
+                    Text("Age:")
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("\(toUser.age)")
+                    Spacer()
+                }
+                Spacer().frame(height: 10)
+                
                 HStack(){
                     Text("Workout Style:")
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
@@ -167,7 +172,7 @@ struct MainOtherUserView: View {
                 Spacer().frame(height: 10)
             }.padding(.leading)
             
-            Spacer().frame(height: 30)
+            Spacer().frame(height: 10)
             
             NavigationLink(destination: ChatView(name: toUser.name, uid: toUser.id, chat: self.$chat), isActive: self.$show) {
                             Text("Message")

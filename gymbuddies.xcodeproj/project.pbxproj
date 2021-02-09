@@ -27,6 +27,7 @@
 		3C44AFCE25D1C5A800C5B3C7 /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */; };
 		3C44B01F25D31F3200C5B3C7 /* scratch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B01E25D31F3200C5B3C7 /* scratch.swift */; };
 		3C44B02225D320D500C5B3C7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C44B02125D320D400C5B3C7 /* Colors.xcassets */; };
+		3C44B02525D346FF00C5B3C7 /* RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B02425D346FE00C5B3C7 /* RoundedCorners.swift */; };
 		3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54AD7225CB415100C3095C /* RecentMessagesView.swift */; };
 		3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */; };
 		3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF025CC98130054326F /* SelectIconPhoto.swift */; };
@@ -56,6 +57,7 @@
 		3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 		3C44B01E25D31F3200C5B3C7 /* scratch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scratch.swift; sourceTree = "<group>"; };
 		3C44B02125D320D400C5B3C7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3C44B02425D346FE00C5B3C7 /* RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorners.swift; sourceTree = "<group>"; };
 		3C54AD7225CB415100C3095C /* RecentMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessagesView.swift; sourceTree = "<group>"; };
 		3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutPreferencesView.swift; sourceTree = "<group>"; };
 		3CA73CF025CC98130054326F /* SelectIconPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconPhoto.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */,
 				3CA73CF025CC98130054326F /* SelectIconPhoto.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
+				3C44B02425D346FE00C5B3C7 /* RoundedCorners.swift */,
 				3C2B83E725CA27DE00DE443B /* MessagesView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
 				3C44B01E25D31F3200C5B3C7 /* scratch.swift */,
@@ -308,6 +311,7 @@
 				3C2B83E825CA27DE00DE443B /* MessagesView.swift in Sources */,
 				3C28749625C291C3002708DE /* CreateAccountView.swift in Sources */,
 				3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */,
+				3C44B02525D346FF00C5B3C7 /* RoundedCorners.swift in Sources */,
 				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
 				3C1289DB25C35A2C00621EB1 /* CreatePreferencesView.swift in Sources */,
 			);
