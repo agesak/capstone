@@ -41,118 +41,76 @@ struct EditUserView: View {
     var body: some View {
         
         NavigationView{
-        VStack{
             
             
-            VStack {
-                ZStack(alignment: .bottom) {
-                    if URL(string: currentUser.pic) != nil {
-                        URLImage(url: URL(string: currentUser.pic)!) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }.frame(width: 100.0, height: 100.0)
-                    } else {
-                        Image(systemName: "photo")
-                    }
-
-                    NavigationLink(
-                        destination: SelectIconPhoto(),
-                        label: {
-                            Text("Change Icon")
-                                .foregroundColor(.white)
-                                .frame(width: 100, height: 30)
-                                .background(Color.black)
-                            })
-                }
-            }
-        
-            
-            
-//            ZStack{
-//
-//                if URL(string: currentUser.pic) != nil {
-//                    URLImage(url: URL(string: currentUser.pic)!) { image in
-//                        image
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                    }.frame(width: 100.0, height: 100.0)
-//                } else {
-//                    Image(systemName: "photo")
-//                }
-//                Spacer()
-//
-//                VStack{
-//
-////                    Spacer()
-//
-//                    NavigationLink(
-//                        destination: SelectIconPhoto(),
-//                        label: {
-//                            Text("Change Icon")
-//    //                            .font(.title)
-//    //                            .fontWeight(.bold)
-//                                .foregroundColor(.black)
-//    //                            .padding()
-//                                .frame(width: 100, height: 30)
-//                                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-//    //                            .cornerRadius(10.0)
-//                            })
-//
-//                }
-//            }
-            
-
-            
-            EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
-            EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns)
-            
-
-            
-            PickerView(fieldName: "Workout Style", stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
-            PickerView(fieldName: "Preferred Frequency", stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-            PickerView(fieldName: "Preferred Time", stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
-
-            
-            
-            
-
-            
-//            to do- icon
-            
-            
-            Button(action: {
-                let userDictionary = [
-                                    "name": self.name,
-                                    "pronouns": self.pronouns,
-                                    "style":  self.styleChoices[self.styleIndex],
-                                    "frequency": self.frequencyChoices[self.frequencyIndex],
-                                    "times": self.timesChoices[self.timesIndex]
-                                    ]
-
-                let docRef = Firestore.firestore().document("users/\(currentUser.id)")
-                docRef.updateData(userDictionary as [String : Any]){ (error) in
-                        if let error = error {
-                            print("error = \(error)")
+            VStack{
+                Text("Edit Profile")
+                    .font(.largeTitle)
+                VStack {
+                    ZStack(alignment: .bottom) {
+                        if URL(string: currentUser.pic) != nil {
+                            URLImage(url: URL(string: currentUser.pic)!) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }.frame(width: 100.0, height: 100.0)
                         } else {
-                            print("updated profile")
-                            self.shouldShowUpdateAlert = true
+                            Image(systemName: "photo")
                         }
+
+                        NavigationLink(
+                            destination: SelectIconPhoto(),
+                            label: {
+                                Text("Change Icon")
+                                    .foregroundColor(.white)
+                                    .frame(width: 100, height: 30)
+                                    .background(Color.black)
+                        })
                     }
-            }) {
-                Text("Update")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .padding()
-                .frame(width: 250, height: 50)
-                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                .cornerRadius(10.0)
                 }
-        }.alert(isPresented: $shouldShowUpdateAlert) {
-            Alert(title: Text("Profile Updated"))}
+
+                EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
+                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns)
+                
+                PickerView(fieldName: "Workout Style", stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+                PickerView(fieldName: "Preferred Frequency", stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+                PickerView(fieldName: "Preferred Time", stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes).padding(.bottom)
+
+
+                Button(action: {
+                    let userDictionary = [
+                                        "name": self.name,
+                                        "pronouns": self.pronouns,
+                                        "style":  self.styleChoices[self.styleIndex],
+                                        "frequency": self.frequencyChoices[self.frequencyIndex],
+                                        "times": self.timesChoices[self.timesIndex]
+                                        ]
+
+                    let docRef = Firestore.firestore().document("users/\(currentUser.id)")
+                    docRef.updateData(userDictionary as [String : Any]){ (error) in
+                            if let error = error {
+                                print("error = \(error)")
+                            } else {
+                                print("updated profile")
+                                self.shouldShowUpdateAlert = true
+                            }
+                        }
+                }) {
+                    Text("Update")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(width: 250, height: 50)
+                    .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                    .cornerRadius(10.0)
+                    }
+                
+                Spacer().frame(height: 150)
+            }.alert(isPresented: $shouldShowUpdateAlert) {
+                Alert(title: Text("Profile Updated"))}
+        }
     }
-}
 }
 
 
