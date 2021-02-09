@@ -61,7 +61,9 @@ struct EditUserView: View {
     
     init(currentUser: User){
         self.currentUser = currentUser
-        self._style = State(initialValue: currentUser.style )
+        self._style = State(initialValue: currentUser.style)
+        self._frequency = State(initialValue: currentUser.frequency)
+        self._times = State(initialValue: currentUser.times)
     }
 //    init(todoList: TodoList) {
 //            self.todoList = todoList
@@ -112,36 +114,36 @@ struct EditUserView: View {
 //                }
 //
                 
-                HStack{
-                    Text("Workout Style").font(.title2).fontWeight(.bold).padding(.leading)
-                    Spacer()
-                    Text(self.style)
-//                    Text("\(self.style == "" ? currentUser.style : styleChoices[self.pickerModal.indexVal])")
-                    Image(systemName: self.selectStyle ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
-                        self.selectStyle.toggle()
-                    }
-                }
-                if self.selectStyle{
-                    Section {
-                        Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
-                            ForEach(0 ..< self.styleChoices.count) {
-                                Text(self.styleChoices[$0])
-                            }
-                        }.onTapGesture {
-                            self.style = self.styleChoices[self.pickerModal.indexVal]
-                            self.styleChanged.toggle()
-//                            self.$styleIndex = self.pickerModal.indexVal
-                        }
-                    }
-                }
+//                HStack{
+//                    Text("Workout Style").font(.title2).fontWeight(.bold).padding(.leading)
+//                    Spacer()
+//                    Text(self.style)
+////                    Text("\(self.style == "" ? currentUser.style : styleChoices[self.pickerModal.indexVal])")
+//                    Image(systemName: self.selectStyle ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+//                        self.selectStyle.toggle()
+//                    }
+//                }
+//                if self.selectStyle{
+//                    Section {
+//                        Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
+//                            ForEach(0 ..< self.styleChoices.count) {
+//                                Text(self.styleChoices[$0])
+//                            }
+//                        }.onTapGesture {
+//                            self.style = self.styleChoices[self.pickerModal.indexVal]
+////                            self.styleChanged.toggle()
+////                            self.$styleIndex = self.pickerModal.indexVal
+//                        }
+//                    }
+//                }
                 
                 
    
 //                self.pickerModal.indexVal = styleChoices.firstIndex(of: self.style) ?? 0
                 
-//                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
-//                PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-//                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
+                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+                PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
                 
                 
 //                onPickerChange(variable: self.style)
@@ -154,19 +156,19 @@ struct EditUserView: View {
 
 
                 Button(action: {
-                    if !styleChanged {
-                        self.style = currentUser.style
-                        self.styleIndex = self.styleChoices.firstIndex(of: self.style)!
-                        self.pickerModal.indexVal = self.styleIndex
-                    }
+//                    if !styleChanged {
+//                        self.style = currentUser.style
+//                        self.styleIndex = self.styleChoices.firstIndex(of: self.style)!
+//                        self.pickerModal.indexVal = self.styleIndex
+//                    }
                     let userDictionary = [
                                         "name": self.name,
                                         "pronouns": self.pronouns,
 //                        self.pickerModal.indexVal
-                        "style":  self.style
+                        "style":  self.style,
 //                        ,
-//                                        "frequency": self.frequencyChoices[self.frequencyIndex],
-//                                        "times": self.timesChoices[self.timesIndex]
+                                        "frequency": self.frequency,
+                                        "times": self.times
                                         ]
                     
                     print(self.style)
@@ -177,9 +179,9 @@ struct EditUserView: View {
                             } else {
                                 print("updated profile")
                                 self.shouldShowUpdateAlert = true
-                                print(self.style)
-                                print(self.pickerModal.indexVal)
-                                print(self.styleChoices.firstIndex(of: self.style))
+//                                print(self.style)
+//                                print(self.pickerModal.indexVal)
+//                                print(self.styleChoices.firstIndex(of: self.style))
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                         }
@@ -222,7 +224,7 @@ struct PickerView: View {
         HStack{
             Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
             Spacer()
-            Text("\(currentVar == "" ? currentVarDefault : stateListVar[self.pickerModal.indexVal])")
+            Text(currentVar)
             Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
                 self.pickingVar.toggle()
             }
@@ -230,17 +232,17 @@ struct PickerView: View {
         if Bool(pickingVar){
             
             Section {
-                Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
+                Picker(selection: self.$stateIndexVar, label: Text("")) {
                     ForEach(0 ..< stateListVar.count) {
                         Text(self.stateListVar[$0])
                     }
                 }
-//                .onTapGesture {
+                .onTapGesture {
                     
-//                    currentVar = self.stateListVar[self.pickerModal.indexVal]
+                    currentVar = self.stateListVar[self.stateIndexVar]
 //                    stateIndexVar = self.pickerModal.indexVal
 //                    print(stateIndexVar)
-//                }
+                }
             }
         }
         Divider().padding(.horizontal)
