@@ -91,25 +91,27 @@ struct EditUserView: View {
 //                }
 //
                 
-                HStack{
-                    Text("Workout Style").font(.title2).fontWeight(.bold).padding(.leading)
-                    Spacer()
-                    Text("\(self.style == "" ? currentUser.style : styleChoices[self.pickerModal.indexVal])")
-                    Image(systemName: self.selectStyle ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
-                        self.selectStyle.toggle()
-                    }
-                }
-                if self.selectStyle{
-                    Section {
-                        Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
-                            ForEach(0 ..< self.styleChoices.count) {
-                                Text(self.styleChoices[$0])
-                            }
-                        }.onTapGesture {
-                            self.style = self.styleChoices[self.pickerModal.indexVal]
-                        }
-                    }
-                }
+//                HStack{
+//                    Text("Workout Style").font(.title2).fontWeight(.bold).padding(.leading)
+//                    Spacer()
+//                    Text("\(self.style == "" ? currentUser.style : styleChoices[self.pickerModal.indexVal])")
+//                    Image(systemName: self.selectStyle ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+//                        self.selectStyle.toggle()
+//                    }
+//                }
+//                if self.selectStyle{
+//                    Section {
+//                        Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
+//                            ForEach(0 ..< self.styleChoices.count) {
+//                                Text(self.styleChoices[$0])
+//                            }
+//                        }.onTapGesture {
+//                            self.style = self.styleChoices[self.pickerModal.indexVal]
+//                        }
+//                    }
+//                }
+                
+                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, pickingVar: self.$selectStyle)
 //                onPickerChange(variable: self.style)
                 
                 
@@ -165,14 +167,32 @@ struct PickerView: View {
     @ObservedObject var pickerModal = Picker_Model()
 
     var fieldName : String
-//    var currentVarDefault : String
-//    @Binding var currentVar : String
+    var currentVarDefault : String
+    @Binding var currentVar : String
     @Binding var stateListVar: [String]
 //    @Binding var stateIndexVar: Int
-//    @Binding var pickingVar : Bool
+    @Binding var pickingVar : Bool
 
     var body: some View {
-        Text("cry")
+        HStack{
+            Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
+            Spacer()
+            Text("\(currentVar == "" ? currentVarDefault : stateListVar[self.pickerModal.indexVal])")
+            Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+                self.pickingVar.toggle()
+            }
+        }
+        if Bool(pickingVar){
+            Section {
+                Picker(selection: self.$pickerModal.indexVal, label: Text("")) {
+                    ForEach(0 ..< stateListVar.count) {
+                        Text(self.stateListVar[$0])
+                    }
+                }.onTapGesture {
+                    currentVar = self.stateListVar[self.pickerModal.indexVal]
+                }
+            }
+        }
         
         
 //        HStack{
