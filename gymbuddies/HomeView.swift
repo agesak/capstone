@@ -13,6 +13,11 @@ struct HomeView : View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    init() {
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+    }
+    
     var body : some View {
         NavigationView {
             
@@ -65,6 +70,7 @@ struct HomeView : View {
                 }
             }
         }.navigationBarBackButtonHidden(true)
+//        .navigationBarTitle("", displayMode: .inline)
     }
 }
 

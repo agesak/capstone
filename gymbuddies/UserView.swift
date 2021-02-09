@@ -34,12 +34,7 @@ struct UserView: View {
             }.navigationBarItems(leading: (Button(
                                             action: {withAnimation {self.showMenu.toggle()}
                                             }) {Image(systemName: "line.horizontal.3")
-                                            .imageScale(.large)})
-//                                 ,
-//                                trailing: (Button(
-//                                            action: {print("will do this")}
-//                                            ) {Text("Edit")})
-            )
+                                            .imageScale(.large)}))
             .navigationBarBackButtonHidden(true)
         }
         
@@ -86,15 +81,7 @@ struct MainUserView: View {
     var body: some View {
         
         VStack {
-            
-//            VStack {
-//                        ZStack (alignment: .bottom) {
-//                            Image("someImage")
-//                            Text("Awesome Title") // <- align center to the Image's bottom edge
-//                        }
-//                        Spacer()
-//                    }
-            
+        
             ZStack(alignment: .bottom){
                 Image("barbell-header")
                     .resizable()
