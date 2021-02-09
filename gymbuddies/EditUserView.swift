@@ -20,6 +20,7 @@ struct EditUserView: View {
     @State var times : String = ""
     
     @State var styleChoices = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State var style = ""
     @State private var styleIndex = 0
     
     @State var timesChoices = ["Morning", "Afternoon", "Evening"]
@@ -70,11 +71,12 @@ struct EditUserView: View {
                 }
 
                 EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
-                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns)
+                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
                 
-                PickerView(fieldName: "Workout Style", stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
-                PickerView(fieldName: "Preferred Frequency", stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-                PickerView(fieldName: "Preferred Time", stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes).padding(.bottom)
+                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style,
+                           stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+//                PickerView(fieldName: "Preferred Frequency", chosenVar: self.frequencyChoices[self.frequencyIndex], stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+//                PickerView(fieldName: "Preferred Time", chosenVar: self.timesChoices[self.timesIndex], stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes).padding(.bottom)
 
 
                 Button(action: {
@@ -117,6 +119,8 @@ struct EditUserView: View {
 struct PickerView: View {
 
     var fieldName : String
+    var currentVarDefault : String
+    @Binding var currentVar : String
     @Binding var stateListVar: [String]
     @Binding var stateIndexVar: Int
     @Binding var pickingVar : Bool
@@ -126,7 +130,7 @@ struct PickerView: View {
         HStack{
             Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
             Spacer()
-            Text("Select")
+            Text(currentVar == "" ? currentVarDefault : currentVar)
             Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
                 self.pickingVar.toggle()
             }
@@ -138,6 +142,8 @@ struct PickerView: View {
                         Text(self.stateListVar[$0])
                     }
                 }
+                }.onTapGesture {
+                    self.currentVar = self.stateListVar[self.stateIndexVar]
             }
         }
         Divider().padding(.horizontal)
