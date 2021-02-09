@@ -75,7 +75,7 @@ struct MainUserView: View {
     
     @State var showEditPage = false
     @State var name : String = ""
-    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
+    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2
     @ObservedObject var userData = getCurrentUser()
 
     init(){
@@ -87,7 +87,15 @@ struct MainUserView: View {
         
         VStack {
             
-            ZStack{
+//            VStack {
+//                        ZStack (alignment: .bottom) {
+//                            Image("someImage")
+//                            Text("Awesome Title") // <- align center to the Image's bottom edge
+//                        }
+//                        Spacer()
+//                    }
+            
+            ZStack(alignment: .bottom){
                 Image("barbell-header")
                     .resizable()
                     .frame(height: sizeOfImage)
@@ -98,7 +106,7 @@ struct MainUserView: View {
                 
                 
                 VStack{
-                    Spacer().frame(height: 90)
+//                    Spacer().frame(height: 90)
                     HStack{
                         
                         
@@ -228,20 +236,25 @@ struct MainUserView: View {
 //                    Text("Crossfit")
                     Spacer()
                 }
+                Spacer().frame(height: 10)
+                
                 HStack(){
                     Text("Preferred Time:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
 //                    Text("Afternoon")
                     Text("\(userData.user.times)")
                 }
+                Spacer().frame(height: 10)
                 
                 HStack(){
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
 //                    Text("4x/week")
                     Text("\(userData.user.frequency)")
                 }
+                Spacer().frame(height: 10)
+                
             }.padding(.leading)
             
-            Spacer().frame(height: 60)
+            Spacer().frame(height: 30)
             
 
             Button(action: {

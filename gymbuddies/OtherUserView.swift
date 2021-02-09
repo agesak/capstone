@@ -59,7 +59,7 @@ struct MainOtherUserView: View {
     var toUser:User
     @Binding var show : Bool
     @Binding var chat : Bool
-    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/3
+    @State var sizeOfImage: CGFloat = UIScreen.main.bounds.height/2
     
     init(toUser: User, chat: Binding<Bool>, show: Binding<Bool>){
         self._chat = chat
@@ -71,7 +71,7 @@ struct MainOtherUserView: View {
         
         VStack {
             
-            ZStack{
+            ZStack(alignment: .bottom){
                 Image("barbell-header")
                     .resizable()
                     .frame(height: sizeOfImage)
@@ -79,7 +79,7 @@ struct MainOtherUserView: View {
                     .ignoresSafeArea()
                 
                 VStack{
-                    Spacer().frame(height: 90)
+//                    Spacer().frame(height: 90)
                     HStack{
                        if URL(string: toUser.pic) != nil {
                         URLImage(url: URL(string: toUser.pic)!) { image in
@@ -152,18 +152,22 @@ struct MainOtherUserView: View {
                     Text("\(toUser.style)")
                     Spacer()
                 }
+                Spacer().frame(height: 10)
+                
                 HStack(){
                     Text("Preferred Time:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     Text("\(toUser.times)")
                 }
+                Spacer().frame(height: 10)
                 
                 HStack(){
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     Text("\(toUser.frequency)")
                 }
+                Spacer().frame(height: 10)
             }.padding(.leading)
             
-            Spacer().frame(height: 60)
+            Spacer().frame(height: 30)
             
             NavigationLink(destination: ChatView(name: toUser.name, uid: toUser.id, chat: self.$chat), isActive: self.$show) {
                             Text("Message")
