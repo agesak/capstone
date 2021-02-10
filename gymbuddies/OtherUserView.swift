@@ -174,7 +174,7 @@ struct MainOtherUserView: View {
             
             Spacer().frame(height: 10)
             
-            NavigationLink(destination: ChatView(name: toUser.name, uid: toUser.id, chat: self.$chat), isActive: self.$show) {
+            NavigationLink(destination: ChatView(name: toUser.name, uid: toUser.id, pic: toUser.pic, chat: self.$chat), isActive: self.$show) {
                             Text("Message")
                             .font(.title)
                             .fontWeight(.bold)

@@ -43,7 +43,7 @@ struct MessagesView: View {
             trailing: Button(action: {self.show.toggle()},
                              label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
         .sheet(isPresented: self.$show) {
-            newChatView(name: self.$name, uid: self.$uid, location: self.$location, pic: self.$pic, show: self.$show, chat: self.$chat)}
+            newChatView(name: self.$name, pic: self.$pic, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
 }
 
 
@@ -68,7 +68,7 @@ struct MainView: View {
     var body: some View {
         
         ZStack{
-            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
+            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, pic: self.pic, chat: self.$chat), isActive: self.$chat) {
                 Text("")}
                 
             Spacer()
@@ -92,18 +92,17 @@ struct MainView: View {
                                     
                                         self.uid = i.id
                                         self.name = i.name
+                                        self.pic = i.pic
                                         self.chat.toggle()
                                 }) {
                                         
-                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg, pic: i.pic)
                                 }
                             }
                         }
                     }
                 }
             }
-//            .sheet(isPresented: self.$show) {
-//                newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
         }
     }
 }
@@ -115,13 +114,24 @@ struct RecentCellView : View {
     var time : String
     var date : String
     var lastmsg : String
-//    var pic : String
+    var pic : String
     
     var body : some View {
         
         HStack{
             
-            Image(systemName: "person")
+            if URL(string: pic) != nil {
+             URLImage(url: URL(string: pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 55.0, height: 55.0)
+            } else {
+                Image(systemName: "person")
+                    .frame(width: 55.0, height: 55.0)
+            }
+            
+//            Image(systemName: "person")
 //            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
 //
             VStack{
@@ -155,9 +165,9 @@ struct newChatView : View {
     
     @ObservedObject var datas = getAllUsers()
     @Binding var name : String
+    @Binding var pic : String
     @Binding var uid : String
     @Binding var location : String
-    @Binding var pic : String
     @Binding var show : Bool
     @Binding var chat : Bool
     
@@ -279,6 +289,7 @@ struct UserCellView : View {
                 }.frame(width: 55.0, height: 55.0)
             } else {
                 Image(systemName: "person")
+                    .frame(width: 55.0, height: 55.0)
             }
             
 //            Image(systemName: "person")
@@ -310,6 +321,7 @@ struct ChatView : View {
     
     var name : String
     var uid : String
+    var pic : String
     @Binding var chat : Bool
     @State var msgs = [Msg]()
     @State var txt = ""
@@ -317,10 +329,11 @@ struct ChatView : View {
     
     @ObservedObject var userData = getCurrentUser()
     
-    init(name: String, uid: String, chat: Binding<Bool>){
+    init(name: String, uid: String, pic: String, chat: Binding<Bool>){
         self._chat = chat
         self.name = name
         self.uid = uid
+        self.pic = pic
         userData.getUser()
 //        print(userData.user.pic)
     }
@@ -393,7 +406,7 @@ struct ChatView : View {
                 HStack{
                     TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name)
+                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name, myPic: userData.user.pic, pic: self.pic)
                         self.txt = ""
                     }) {
                         Text("Send")
@@ -449,15 +462,6 @@ struct ChatView : View {
     }
 }
 
-
-struct Msg : Identifiable {
-    
-    var id : String
-    var msg : String
-    var user : String
-}
-
-
 struct ChatBubble : Shape {
     
     var mymsg : Bool
@@ -472,7 +476,7 @@ struct ChatBubble : Shape {
 }
 
 
-func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String){
+func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String, myPic: String, pic: String){
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
@@ -484,12 +488,12 @@ func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String)
             print((err?.localizedDescription)!)
             // if there is no recents records....
             
-            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName, myPic: myPic, pic: pic)
             return
         }
         
         if !snap!.exists{
-            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName, myPic: myPic, pic: pic)
         } else {
             updateRecents(uid: uid, lastmsg: msg, date: date)
         }
@@ -499,13 +503,14 @@ func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String)
 }
 
 
-func setRecents(user: String, uid: String, msg: String, date: Date, myName: String){
+func setRecents(user: String, uid: String, msg: String, date: Date, myName: String, myPic: String, pic: String){
     
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
     
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date]) { (err) in
+//    MARK - this should be mypic
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date, "pic":myPic]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)
@@ -513,7 +518,7 @@ func setRecents(user: String, uid: String, msg: String, date: Date, myName: Stri
         }
     }
     
-    db.collection("users").document(myuid!).collection("recents").document(uid).setData(["name":user, "lastmsg":msg, "date":date]) { (err) in
+    db.collection("users").document(myuid!).collection("recents").document(uid).setData(["name":user, "lastmsg":msg, "date":date, "pic":pic]) { (err) in
         
         if err != nil{
             
