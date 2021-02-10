@@ -139,10 +139,12 @@ struct UserCellView : View {
 //                Divider()
             }
         }.padding(10)
-        .background(Color(red: 220.0 / 255.0, green: 220.0 / 255.0, blue: 220.0 / 255.0).cornerRadius(25))
+        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0).cornerRadius(25))
         .padding([.leading, .bottom, .trailing])
     }
 }
+
+//red: 65.0 / 255.0, green: 105 / 255.0, blue: 225.0 / 255.0
 
 struct MainView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
