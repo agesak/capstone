@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import SDWebImageSwiftUI
+import URLImage
 
 struct MessagesView: View {
     
@@ -24,7 +25,7 @@ struct MessagesView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, location: self.$location)
+                MainView(show: self.$show, chat: self.$chat, uid: self.$uid, name: self.$name, pic: self.$pic, location: self.$location)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
                     .disabled(self.showMenu ? true : false)
@@ -35,6 +36,7 @@ struct MessagesView: View {
                 }
             }
         }.navigationBarBackButtonHidden(true)
+        .navigationBarTitle("Messages", displayMode: .inline)
         .navigationBarItems(leading: (Button(
             action: {withAnimation {self.showMenu.toggle()}
             }) {Image(systemName: "line.horizontal.3")
@@ -42,7 +44,7 @@ struct MessagesView: View {
             trailing: Button(action: {self.show.toggle()},
                              label: {Image(systemName: "square.and.pencil").resizable().frame(width: 25, height: 25)}))
         .sheet(isPresented: self.$show) {
-            newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
+            newChatView(name: self.$name, pic: self.$pic, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
 }
 
 
@@ -56,53 +58,59 @@ struct MessagesView_Previews: PreviewProvider {
     
 struct MainView: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @EnvironmentObject var datas : MainObservable
     @Binding var show : Bool
     @Binding var chat : Bool
     @Binding var uid : String
     @Binding var name : String
-//    @Binding var pic :String
+    @Binding var pic :String
     @Binding var location : String
     
     var body: some View {
         
         ZStack{
-            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, chat: self.$chat), isActive: self.$chat) {
+            
+            if colorScheme == .dark {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            } else {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            }
+            
+            NavigationLink(destination: ChatView(name: self.name, uid: self.uid, pic: self.pic, chat: self.$chat), isActive: self.$chat) {
                 Text("")}
                 
             Spacer()
                 
             VStack{
-                Spacer()
                 if self.datas.recents.count == 0 {
-                    if self.datas.norecetns{
+                    if self.datas.norecents{
+                        Spacer()
                         Text("No Chat History")
+                        Spacer()
                     }
                 }
                 else {
                     Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
-                        Text("Messages")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
                         VStack(spacing: 12) {
                             ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
                                 Button(action: {
                                     
                                         self.uid = i.id
                                         self.name = i.name
+                                        self.pic = i.pic
                                         self.chat.toggle()
                                 }) {
                                         
-                                RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg)
+                                    RecentCellView(name: i.name, time: i.time, date: i.date, lastmsg: i.lastmsg, pic: i.pic)
                                 }
                             }
                         }
-                    }
+                    }.padding(.top, 5)
                 }
             }
-//            .sheet(isPresented: self.$show) {
-//                newChatView(name: self.$name, uid: self.$uid, location: self.$location, show: self.$show, chat: self.$chat)}
         }
     }
 }
@@ -110,25 +118,30 @@ struct MainView: View {
 
 
 struct RecentCellView : View {
-//    var url : String
     var name : String
     var time : String
     var date : String
     var lastmsg : String
+    var pic : String
     
     var body : some View {
         
         HStack{
             
-            Image(systemName: "person")
-//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
-//
+            if URL(string: pic) != nil {
+             URLImage(url: URL(string: pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 55.0, height: 55.0)
+            } else {
+                Image(systemName: "person")
+                    .frame(width: 55.0, height: 55.0)
+            }
+
             VStack{
-                
                 HStack{
-                    
                     VStack(alignment: .leading, spacing: 6) {
-                        
                         Text(name).foregroundColor(.black)
                         Text(lastmsg).foregroundColor(.gray)
                     }
@@ -136,16 +149,13 @@ struct RecentCellView : View {
                     Spacer()
                     
                     VStack(alignment: .leading, spacing: 6) {
-                        
                          Text(date).foregroundColor(.gray)
                          Text(time).foregroundColor(.gray)
                     }
                 }
-                
                 Divider()
             }
         }
-        
     }
 }
 
@@ -154,6 +164,7 @@ struct newChatView : View {
     
     @ObservedObject var datas = getAllUsers()
     @Binding var name : String
+    @Binding var pic : String
     @Binding var uid : String
     @Binding var location : String
     @Binding var show : Bool
@@ -186,13 +197,14 @@ struct newChatView : View {
                                     self.uid = i.id
                                     self.name = i.name
                                     self.location = i.location
+                                    self.pic = i.pic
                                     self.show.toggle()
                                     self.chat.toggle()
                                     
                                     
                                 }) {
                                     
-                                    UserCellView(name: i.name, location: i.location)
+                                    UserCellView(name: i.name, location: i.location, pic: i.pic)
                                 }
                                 
                                 
@@ -239,56 +251,46 @@ class getAllUsers : ObservableObject{
                 let style = i.get("style") as! String
                 let times = i.get("times") as! String
                 let pic = i.get("pic") as! String
-//                let email = i.get("email") as! String
-                
-                
-//                MARK - maybe this breaks?
-                if id != self.user?.uid {
-                    
-                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
 
+                if id != self.user?.uid {
+                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
                 }
-                
             }
-            
         }
-        
     }
-    
 }
 
 
 struct UserCellView : View {
-    
-//    var url : String
     var name : String
     var location : String
-    
+    var pic : String
     var body : some View{
-            
         HStack{
-            
-            Image(systemName: "person")
-//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
+            if URL(string: pic) != nil {
+             URLImage(url: URL(string: pic)!) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }.frame(width: 55.0, height: 55.0)
+            } else {
+                Image(systemName: "person")
+                    .frame(width: 55.0, height: 55.0)
+            }
             
             VStack{
-                
                 HStack{
-                    
                     VStack(alignment: .leading, spacing: 6) {
                         
                         Text(name).foregroundColor(.black)
                         Text(location).foregroundColor(.gray)
                     }
-                    
                     Spacer()
-                    
                 }
-                
                 Divider()
             }
-            }
         }
+    }
     }
 }
 
@@ -297,6 +299,7 @@ struct ChatView : View {
     
     var name : String
     var uid : String
+    var pic : String
     @Binding var chat : Bool
     @State var msgs = [Msg]()
     @State var txt = ""
@@ -304,44 +307,20 @@ struct ChatView : View {
     
     @ObservedObject var userData = getCurrentUser()
     
-    init(name: String, uid: String, chat: Binding<Bool>){
+    init(name: String, uid: String, pic: String, chat: Binding<Bool>){
         self._chat = chat
         self.name = name
         self.uid = uid
+        self.pic = pic
         userData.getUser()
-//        print(userData.user.pic)
     }
-    
-    
-//    struct AmountView : View {
-//        @Binding var amount: Double
-//
-//        private var includeDecimal = false
-//
-//        init(amount: Binding<Double>) {
-//
-//            // self.$amount = amount // beta 3
-//            self._amount = amount // beta 4
-//
-//            self.includeDecimal = round(self.amount)-self.amount > 0
-//        }
-//    }
     
     var body : some View{
         
         VStack{
-            
-
-    //            if msgs.count == 0{
-    //                Spacer()
-    //                Indicator()
-    //                Spacer()
-    //            } else {
-            
             if msgs.count == 0{
                 if self.nomsgs{
-                    Text("Start New Conversation !!!").foregroundColor(Color.black.opacity(0.5)).padding(.top)
-                    
+                    Text("Start New Conversation").foregroundColor(Color.black.opacity(0.5)).padding(.top, 5)
                     Spacer()
                 }
             } else {
@@ -359,14 +338,16 @@ struct ChatView : View {
                                         .background(Color.blue)
                                         .clipShape(ChatBubble(mymsg: true))
                                         .foregroundColor(.white)
+                                        .padding(.trailing, 10)
                                         
                                 } else {
                                     
                                     Text(i.msg)
                                         .padding()
                                         .background(Color.green)
-                                        .clipShape(ChatBubble(mymsg: true))
+                                        .clipShape(ChatBubble(mymsg: false))
                                         .foregroundColor(.white)
+                                        .padding(.leading, 10)
                                         
                                     Spacer()
                                     
@@ -380,24 +361,18 @@ struct ChatView : View {
                 HStack{
                     TextField("Enter Message", text: self.$txt).textFieldStyle(RoundedBorderTextFieldStyle())
                     Button(action: {
-                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name)
+                        sendMsg(user: self.name, uid: self.uid, date: Date(), msg: self.txt, myName: userData.user.name, myPic: userData.user.pic, pic: self.pic)
                         self.txt = ""
                     }) {
                         Text("Send")
                     }
                 }.navigationBarTitle("\(name)", displayMode: .inline)
-//                .navigationBarItems(leading: Button(action: {
-//                        self.chat.toggle()
-//                    }, label: {
-//                        Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
-//                    }))
+                .padding([.horizontal, .bottom])
             
             }.onAppear {
                 self.getMsgs()
             }
     }
-    
-//    }
     
     func getMsgs(){
         
@@ -436,19 +411,9 @@ struct ChatView : View {
     }
 }
 
-
-struct Msg : Identifiable {
-    
-    var id : String
-    var msg : String
-    var user : String
-}
-
-
 struct ChatBubble : Shape {
     
     var mymsg : Bool
-    //    from UserView
     
     func path(in rect: CGRect) -> Path {
             
@@ -459,7 +424,7 @@ struct ChatBubble : Shape {
 }
 
 
-func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String){
+func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String, myPic: String, pic: String){
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
@@ -471,12 +436,12 @@ func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String)
             print((err?.localizedDescription)!)
             // if there is no recents records....
             
-            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName, myPic: myPic, pic: pic)
             return
         }
         
         if !snap!.exists{
-            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName)
+            setRecents(user: user, uid: uid, msg: msg, date: date, myName: myName, myPic: myPic, pic: pic)
         } else {
             updateRecents(uid: uid, lastmsg: msg, date: date)
         }
@@ -486,13 +451,14 @@ func sendMsg(user: String, uid: String, date: Date, msg: String, myName: String)
 }
 
 
-func setRecents(user: String, uid: String, msg: String, date: Date, myName: String){
+func setRecents(user: String, uid: String, msg: String, date: Date, myName: String, myPic: String, pic: String){
     
     let db = Firestore.firestore()
     
     let myuid = Auth.auth().currentUser?.uid
     
-    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date]) { (err) in
+//    MARK - this should be mypic
+    db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date, "pic":myPic]) { (err) in
         if err != nil{
             
             print((err?.localizedDescription)!)
@@ -500,7 +466,7 @@ func setRecents(user: String, uid: String, msg: String, date: Date, myName: Stri
         }
     }
     
-    db.collection("users").document(myuid!).collection("recents").document(uid).setData(["name":user, "lastmsg":msg, "date":date]) { (err) in
+    db.collection("users").document(myuid!).collection("recents").document(uid).setData(["name":user, "lastmsg":msg, "date":date, "pic":pic]) { (err) in
         
         if err != nil{
             

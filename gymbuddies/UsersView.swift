@@ -102,54 +102,50 @@ struct UserCellView : View {
     
     var body : some View {
         
+//        HStack{
+//
+//        }
+        
         HStack{
-            
             if URL(string: user.pic) != nil {
-                
                 URLImage(url: URL(string: user.pic)!) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                }.frame(width: 100.0, height: 100.0)
+                }.frame(width: 80.0, height: 80.0)
             }
-            
-//            Image(systemName: "person")
-//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
-//
+
             VStack{
-                
                 HStack{
-                    
                     VStack(alignment: .leading, spacing: 6) {
-                        
-                        Text(user.name).foregroundColor(.black)
-                        Text(user.location).foregroundColor(.gray)
-                        
+
                         HStack{
-    //                        ideally user.style, frequency, number of people?
-                            Text(user.style)
-                            Text(user.frequency)
+                            Text(user.name).fontWeight(.bold).foregroundColor(.black)
+                            Text(user.pronouns).foregroundColor(.black)
+                        }
+                        Text(user.location).foregroundColor(.gray)
+
+                        HStack{
+//                            HStack{
+//                                Text("I enjoy:").foregroundColor(.black)
+                            Text(user.style).foregroundColor(.black)
+                            Text(user.frequency).foregroundColor(.black)
+//                            }
+                            
                         }
                     }
-                    
                     Spacer()
-                    
-//                    VStack(alignment: .leading, spacing: 6) {
-//
-//                         Text(date).foregroundColor(.gray)
-//                         Text(time).foregroundColor(.gray)
-//                    }
                 }
-                
-                Divider()
+//                Divider()
             }
-        }
-        
+        }.padding(10)
+        .background(Color(red: 220.0 / 255.0, green: 220.0 / 255.0, blue: 220.0 / 255.0).cornerRadius(25))
+        .padding([.leading, .bottom, .trailing])
     }
 }
 
 struct MainView: View {
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var userData = getUserData()
 //    @Binding var showMenu: Bool
     
@@ -160,20 +156,28 @@ struct MainView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            Text("Users")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-//                this doesn't work?
-                .multilineTextAlignment(.leading)
-            if userData.users.count == 0 {
-                Text("No Users")
+        
+        ZStack{
+            
+            if colorScheme == .dark {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             } else {
-            VStack{
-                ForEach(userData.users){otherUser in
-                    NavigationLink(
-                        destination : OtherUserView(toUser: otherUser)) {
-                        UserCellView(user: otherUser)
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            }
+        
+            ScrollView(.vertical, showsIndicators: false) {
+                Text("Users")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                if userData.users.count == 0 {
+                    Text("No Users Yet :(")
+                } else {
+                VStack{
+                    ForEach(userData.users){otherUser in
+                        NavigationLink(
+                            destination : OtherUserView(toUser: otherUser)) {
+                            UserCellView(user: otherUser)
+                            }
                         }
                     }
                 }
