@@ -72,11 +72,11 @@ struct MainView: View {
         
         ZStack{
             
-//            if colorScheme == .dark {
-//                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-//            } else {
-//                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-//            }
+            if colorScheme == .dark {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            } else {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            }
             
             NavigationLink(destination: ChatView(name: self.name, uid: self.uid, pic: self.pic, chat: self.$chat), isActive: self.$chat) {
                 Text("")}
