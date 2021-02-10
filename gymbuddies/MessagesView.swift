@@ -58,6 +58,8 @@ struct MessagesView_Previews: PreviewProvider {
     
 struct MainView: View {
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @EnvironmentObject var datas : MainObservable
     @Binding var show : Bool
     @Binding var chat : Bool
@@ -69,13 +71,19 @@ struct MainView: View {
     var body: some View {
         
         ZStack{
+            
+//            if colorScheme == .dark {
+//                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+//            } else {
+//                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+//            }
+            
             NavigationLink(destination: ChatView(name: self.name, uid: self.uid, pic: self.pic, chat: self.$chat), isActive: self.$chat) {
                 Text("")}
                 
             Spacer()
                 
             VStack{
-//                Spacer()
                 if self.datas.recents.count == 0 {
                     if self.datas.norecents{
                         Spacer()

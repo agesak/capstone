@@ -145,7 +145,7 @@ struct UserCellView : View {
 }
 
 struct MainView: View {
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var userData = getUserData()
 //    @Binding var showMenu: Bool
     
@@ -156,18 +156,28 @@ struct MainView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            Text("Users")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            if userData.users.count == 0 {
-                Text("No Users Yet :(")
+        
+        ZStack{
+            
+            if colorScheme == .dark {
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             } else {
-            VStack{
-                ForEach(userData.users){otherUser in
-                    NavigationLink(
-                        destination : OtherUserView(toUser: otherUser)) {
-                        UserCellView(user: otherUser)
+                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            }
+        
+            ScrollView(.vertical, showsIndicators: false) {
+                Text("Users")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                if userData.users.count == 0 {
+                    Text("No Users Yet :(")
+                } else {
+                VStack{
+                    ForEach(userData.users){otherUser in
+                        NavigationLink(
+                            destination : OtherUserView(toUser: otherUser)) {
+                            UserCellView(user: otherUser)
+                            }
                         }
                     }
                 }
