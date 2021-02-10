@@ -36,6 +36,7 @@ struct MessagesView: View {
                 }
             }
         }.navigationBarBackButtonHidden(true)
+        .navigationBarTitle("Messages", displayMode: .inline)
         .navigationBarItems(leading: (Button(
             action: {withAnimation {self.showMenu.toggle()}
             }) {Image(systemName: "line.horizontal.3")
@@ -74,18 +75,17 @@ struct MainView: View {
             Spacer()
                 
             VStack{
-                Spacer()
+//                Spacer()
                 if self.datas.recents.count == 0 {
-                    if self.datas.norecetns{
+                    if self.datas.norecents{
+                        Spacer()
                         Text("No Chat History")
+                        Spacer()
                     }
                 }
                 else {
                     Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
-                        Text("Messages")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
                         VStack(spacing: 12) {
                             ForEach(datas.recents.sorted(by: {$0.stamp > $1.stamp})) { i in
                                 Button(action: {
@@ -100,7 +100,7 @@ struct MainView: View {
                                 }
                             }
                         }
-                    }
+                    }.padding(.top, 5)
                 }
             }
         }
@@ -130,16 +130,10 @@ struct RecentCellView : View {
                 Image(systemName: "person")
                     .frame(width: 55.0, height: 55.0)
             }
-            
-//            Image(systemName: "person")
-//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
-//
+
             VStack{
-                
                 HStack{
-                    
                     VStack(alignment: .leading, spacing: 6) {
-                        
                         Text(name).foregroundColor(.black)
                         Text(lastmsg).foregroundColor(.gray)
                     }
@@ -147,16 +141,13 @@ struct RecentCellView : View {
                     Spacer()
                     
                     VStack(alignment: .leading, spacing: 6) {
-                        
                          Text(date).foregroundColor(.gray)
                          Text(time).foregroundColor(.gray)
                     }
                 }
-                
                 Divider()
             }
         }
-        
     }
 }
 
@@ -252,35 +243,22 @@ class getAllUsers : ObservableObject{
                 let style = i.get("style") as! String
                 let times = i.get("times") as! String
                 let pic = i.get("pic") as! String
-//                let email = i.get("email") as! String
-                
-                
-//                MARK - maybe this breaks?
-                if id != self.user?.uid {
-                    
-                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
 
+                if id != self.user?.uid {
+                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
                 }
-                
             }
-            
         }
-        
     }
-    
 }
 
 
 struct UserCellView : View {
-
     var name : String
     var location : String
     var pic : String
-    
     var body : some View{
-            
         HStack{
-            
             if URL(string: pic) != nil {
              URLImage(url: URL(string: pic)!) { image in
                     image
@@ -292,27 +270,19 @@ struct UserCellView : View {
                     .frame(width: 55.0, height: 55.0)
             }
             
-//            Image(systemName: "person")
-//            AnimatedImage(url: URL(string: url)!).resizable().renderingMode(.original).frame(width: 55, height: 55).clipShape(Circle())
-            
             VStack{
-                
                 HStack{
-                    
                     VStack(alignment: .leading, spacing: 6) {
                         
                         Text(name).foregroundColor(.black)
                         Text(location).foregroundColor(.gray)
                     }
-                    
                     Spacer()
-                    
                 }
-                
                 Divider()
             }
-            }
         }
+    }
     }
 }
 
@@ -335,39 +305,14 @@ struct ChatView : View {
         self.uid = uid
         self.pic = pic
         userData.getUser()
-//        print(userData.user.pic)
     }
-    
-    
-//    struct AmountView : View {
-//        @Binding var amount: Double
-//
-//        private var includeDecimal = false
-//
-//        init(amount: Binding<Double>) {
-//
-//            // self.$amount = amount // beta 3
-//            self._amount = amount // beta 4
-//
-//            self.includeDecimal = round(self.amount)-self.amount > 0
-//        }
-//    }
     
     var body : some View{
         
         VStack{
-            
-
-    //            if msgs.count == 0{
-    //                Spacer()
-    //                Indicator()
-    //                Spacer()
-    //            } else {
-            
             if msgs.count == 0{
                 if self.nomsgs{
-                    Text("Start New Conversation !!!").foregroundColor(Color.black.opacity(0.5)).padding(.top)
-                    
+                    Text("Start New Conversation").foregroundColor(Color.black.opacity(0.5)).padding(.top, 5)
                     Spacer()
                 }
             } else {
@@ -385,14 +330,16 @@ struct ChatView : View {
                                         .background(Color.blue)
                                         .clipShape(ChatBubble(mymsg: true))
                                         .foregroundColor(.white)
+                                        .padding(.trailing, 10)
                                         
                                 } else {
                                     
                                     Text(i.msg)
                                         .padding()
                                         .background(Color.green)
-                                        .clipShape(ChatBubble(mymsg: true))
+                                        .clipShape(ChatBubble(mymsg: false))
                                         .foregroundColor(.white)
+                                        .padding(.leading, 10)
                                         
                                     Spacer()
                                     
@@ -412,18 +359,12 @@ struct ChatView : View {
                         Text("Send")
                     }
                 }.navigationBarTitle("\(name)", displayMode: .inline)
-//                .navigationBarItems(leading: Button(action: {
-//                        self.chat.toggle()
-//                    }, label: {
-//                        Image(systemName: "arrow.left").resizable().frame(width: 20, height: 15)
-//                    }))
+                .padding([.horizontal, .bottom])
             
             }.onAppear {
                 self.getMsgs()
             }
     }
-    
-//    }
     
     func getMsgs(){
         
@@ -465,7 +406,6 @@ struct ChatView : View {
 struct ChatBubble : Shape {
     
     var mymsg : Bool
-    //    from UserView
     
     func path(in rect: CGRect) -> Path {
             

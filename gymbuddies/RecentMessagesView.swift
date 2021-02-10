@@ -23,7 +23,7 @@ struct RecentMessagesView_Previews: PreviewProvider {
 class MainObservable : ObservableObject{
     
     @Published var recents = [Recent]()
-    @Published var norecetns = false
+    @Published var norecents = false
     
     init() {
         
@@ -35,13 +35,13 @@ class MainObservable : ObservableObject{
             if err != nil{
                 
                 print((err?.localizedDescription)!)
-                self.norecetns = true
+                self.norecents = true
                 return
             }
             
             if snap!.isEmpty{
                 
-                self.norecetns = true
+                self.norecents = true
             }
             
             for i in snap!.documentChanges{
