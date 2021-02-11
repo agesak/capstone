@@ -140,7 +140,25 @@ struct MainView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 if userData.users.count == 0 {
-                    Text("No Users Yet :(")
+                    VStack{
+                        Spacer().frame(height: 180)
+                        Text("No Users Yet :(")
+                            .font(.title)
+//                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        Spacer().frame(height: 80)
+                        NavigationLink(
+                            destination : UserView()){
+                            Text("Go Home")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(width: 250, height: 50)
+                                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                                .cornerRadius(10.0)
+                            }
+                        Spacer().frame(height: 100)
+                    }
                 } else {
                 VStack{
                     ForEach(userData.users){otherUser in
