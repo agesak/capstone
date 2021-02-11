@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Welcome: View {
+struct WelcomeView: View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
@@ -15,7 +15,6 @@ struct Welcome: View {
         
         ZStack{
             if colorScheme == .dark {
-//                "barbell_2nd_lighter"
                 Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
             } else {
                 Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
@@ -25,8 +24,8 @@ struct Welcome: View {
             Spacer().frame(height: 250)
             
             HStack{
-                Image(systemName: "hand.wave")
-                    .imageScale(.large)
+                Text("👋")
+                    .font(.system(size: 30))
                 Text("Welcome")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
@@ -36,16 +35,9 @@ struct Welcome: View {
             Spacer().frame(height: 90)
             
             NavigationLink(
-                destination: CreatePreferencesView(),
+                destination: DemographicInfoView(),
                 label: {
-                    Text("Let's go!")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 250, height: 50)
-                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                        .cornerRadius(10.0)
+                    ButtonView(buttonText: "Let's Go!")
                     })
             Spacer()
             }
@@ -55,6 +47,6 @@ struct Welcome: View {
 
 struct Welcome_Previews: PreviewProvider {
     static var previews: some View {
-        Welcome()
+        WelcomeView()
     }
 }

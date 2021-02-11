@@ -50,7 +50,7 @@ struct CreateAccountView: View {
                 }.padding(.horizontal, 6)
                 Spacer()
                 NavigationLink(
-                    destination: Welcome(),
+                    destination: WelcomeView(),
                     isActive: self.$isLoginValid) {
                         Text("Sign Up")
                             .font(.title)
