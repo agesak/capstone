@@ -40,15 +40,16 @@ struct AboutMeView: View {
                 Spacer()
             
 //            ScrollView {
-                Spacer().frame(height: 100)
+                Spacer().frame(height: 80)
+                
                 Text(self.aboutMe).foregroundColor(.clear).padding(8)
                 .frame(maxWidth: .infinity)
                 .overlay(
 //                    CustomTextField(text: $aboutMe, onCommit: ("Return") -> Void)
                     TextEditor(text: $aboutMe)
-//                        .frame(minHeight: 200.0)
-//                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-//                        .padding(.horizontal)
+                        .frame(minHeight: 50.0)
+                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                        .padding(.horizontal)
                         
                         
                 )
@@ -56,14 +57,16 @@ struct AboutMeView: View {
 //            }
                 
                 
-//                Spacer().frame(height: 50)
+//                Spacer().frame(height: 20)
                 
                 Spacer()
             
+//                TextField("ugh", text: $aboutMe)
                 
                 Text("Ex: I am a fun happy person who loves to do crossfit in the evenings with my great friends.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
+                    .padding(.top, 150)
 
                 
             Spacer().frame(height: 50)
@@ -98,7 +101,7 @@ struct AboutMeView: View {
                 }
                 
                 Spacer()
-//                .frame(height: 50)
+                .frame(height: 100)
             }
             
         }.navigationBarTitle("", displayMode: .inline)
