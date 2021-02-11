@@ -79,7 +79,7 @@ struct EditUserView: View {
                             }
 
                             NavigationLink(
-                                destination: SelectIconPhoto(),
+                                destination: SelectIconPhotoView(),
                                 label: {
                                     Text("Change Icon")
                                         .foregroundColor(.white)

@@ -31,6 +31,9 @@ struct AboutMeView: View {
                     .fontWeight(.bold)
                     .padding(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text("🤔")
+                    .font(.system(size: 30))
                     
                 Spacer().frame(height: 150)
                 
@@ -52,14 +55,7 @@ struct AboutMeView: View {
                 NavigationLink(
                     destination: CreateWorkoutPreferencesView(),
                     isActive: self.$isprofileValid) {
-                        Text("Continue")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 250, height: 50)
-                            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                            .cornerRadius(10.0)
+                    ButtonView(buttonText: "Continue")
                             .onTapGesture {
                                 let userDictionary = [
                                     "aboutMe": self.aboutMe
@@ -78,7 +74,7 @@ struct AboutMeView: View {
                     }
                 
                 Spacer()
-                .frame(height: 0)
+                .frame(height: 10)
             }
             
         }.navigationBarTitle("", displayMode: .inline)

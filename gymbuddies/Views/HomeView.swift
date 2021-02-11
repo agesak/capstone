@@ -8,6 +8,21 @@
 import SwiftUI
 import Firebase
 
+struct AppName: View {
+    var body: some View {
+        Text("MyGymPals")
+            .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
+            .fontWeight(.bold)
+            .foregroundColor(Color.black)
+    }
+}
+
+struct AppLogo: View {
+    var body: some View {
+        Image("barbell-icon")
+    }
+}
+
 struct HomeView : View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -60,20 +75,5 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .preferredColorScheme(.light)
-    }
-}
-
-struct AppName: View {
-    var body: some View {
-        Text("MyGymPals")
-            .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
-            .fontWeight(.bold)
-            .foregroundColor(Color.black)
-    }
-}
-
-struct AppLogo: View {
-    var body: some View {
-        Image("barbell-icon")
     }
 }

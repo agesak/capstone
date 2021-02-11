@@ -16,7 +16,7 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             NavigationLink(
-                destination: UserView(),
+                destination: CurrentUserProfileView(),
                 label: {
                     HStack {
                         Image(systemName: "person")

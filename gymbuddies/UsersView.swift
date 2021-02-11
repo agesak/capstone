@@ -146,7 +146,7 @@ struct MainView: View {
                             .font(.title)
                         Spacer().frame(height: 80)
                         NavigationLink(
-                            destination : UserView()){
+                            destination : CurrentUserProfileView()){
                             Text("Go Home")
                                 .font(.title)
                                 .fontWeight(.bold)

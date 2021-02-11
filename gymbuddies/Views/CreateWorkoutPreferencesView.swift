@@ -35,7 +35,6 @@ struct CreateWorkoutPreferencesView: View {
         ZStack{
             
             if colorScheme == .dark {
-//                "barbell_2nd_lighter"
                 Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
             } else {
                 Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
@@ -44,7 +43,6 @@ struct CreateWorkoutPreferencesView: View {
             VStack{
                 Spacer().frame(height: 130)
                 Form{
-                    
                     Section {
                         Picker(selection: $styleIndex, label: Text("Preferred Workout Style")) {
                             ForEach(0 ..< style.count) {
@@ -73,20 +71,12 @@ struct CreateWorkoutPreferencesView: View {
                     }
                 }
                 .foregroundColor(Color.black)
-    //            .background(Color.yellow)
                 .navigationBarTitle("Workout Style?")
                 
                 NavigationLink(
-                    destination: SelectIconPhoto(),
+                    destination: SelectIconPhotoView(),
                     isActive: self.$isprofileValid) {
-                        Text("Continue")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 250, height: 50)
-                            .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                            .cornerRadius(10.0)
+                    ButtonView(buttonText: "Continue")
                             .onTapGesture {
                                 let userDictionary = [
                                     "times": self.times[self.timesIndex],

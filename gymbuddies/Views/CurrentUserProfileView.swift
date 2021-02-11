@@ -9,62 +9,16 @@ import SwiftUI
 import Firebase
 import URLImage
 
-struct UserView: View {
-    
-    @State var showMenu = false
-    
-    private var db = Firestore.firestore()
-    @ObservedObject var userData = getCurrentUser()
-
-    
-    var body: some View {
-        
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                MainUserView()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .offset(x: self.showMenu ? geometry.size.width/2 : 0)
-                    .disabled(self.showMenu ? true : false)
-                if self.showMenu {
-                    MenuView()
-                        .frame(width: geometry.size.width/2)
-                        .transition(.move(edge: .leading))
-                }
-            }.navigationBarItems(leading: (Button(
-                                            action: {withAnimation {self.showMenu.toggle()}
-                                            }) {Image(systemName: "line.horizontal.3")
-                                            .imageScale(.large)}))
-            .navigationBarBackButtonHidden(true)
-        }
-        
+struct userIconView : View {
+    var imageName: String
+    var body : some View {
+        Image(imageName)
+            .resizable()
+            .frame(width: 30.0, height: 30.0)
+        Spacer()
     }
 }
-
-struct UserView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserView()
-            
-    }
-}
-
-class getCurrentUser : ObservableObject{
-    @Published var user = User()
-
-    func getUser(){
-        let db = Firestore.firestore()
-        
-        db.document("users/\(Auth.auth().currentUser!.uid)")
-        .addSnapshotListener({ documentSnapshot, error in
-            guard let document = documentSnapshot else {
-            print("Error fetching document: \(error!)")
-            return
-          }
-            let data = document.data()
-            self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, aboutMe: data!["aboutMe"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
-          })
-    }
-}
-
+g
 struct MainUserView: View {
     
     @State var showEditPage = false
@@ -121,24 +75,9 @@ struct MainUserView: View {
             
             HStack{
                 Spacer()
-
-                Image("barbell-icon")
-                    .resizable()
-                    .frame(width: 30.0, height: 30.0)
-
-                Spacer()
-
-                Image("barbell-icon")
-                    .resizable()
-                    .frame(width: 30.0, height: 30.0)
-
-                Spacer()
-
-                Image("barbell-icon")
-                    .resizable()
-                    .frame(width: 30.0, height: 30.0)
-
-                Spacer()
+                userIconView(imageName: "barbell-icon")
+                userIconView(imageName: "barbell-icon")
+                userIconView(imageName: "barbell-icon")
             }
             
             VStack(alignment: .leading){
@@ -164,7 +103,7 @@ struct MainUserView: View {
             VStack(alignment: .leading){
                 HStack(){
                     Text("Age:")
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .fontWeight(.bold)
                     Text("\(userData.user.age)")
                     Spacer()
                 }
@@ -199,14 +138,7 @@ struct MainUserView: View {
             Button(action: {
                 self.showEditPage.toggle()
                     }) {
-                        Text("Edit")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 250, height: 50)
-                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                        .cornerRadius(10.0)
+                ButtonView(buttonText: "Edit")
                     }.sheet(isPresented: $showEditPage) {
                         EditUserView(currentUser: userData.user)
                     }
@@ -215,3 +147,45 @@ struct MainUserView: View {
         }
     }
 }
+
+struct CurrentUserProfileView: View {
+    
+    @State var showMenu = false
+    
+    private var db = Firestore.firestore()
+    @ObservedObject var userData = getCurrentUser()
+
+    
+    var body: some View {
+        
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                MainUserView()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .offset(x: self.showMenu ? geometry.size.width/2 : 0)
+                    .disabled(self.showMenu ? true : false)
+                if self.showMenu {
+                    MenuView()
+                        .frame(width: geometry.size.width/2)
+                        .transition(.move(edge: .leading))
+                }
+            }.navigationBarItems(leading: (Button(
+                                            action: {withAnimation {self.showMenu.toggle()}
+                                            }) {Image(systemName: "line.horizontal.3")
+                                            .imageScale(.large)}))
+            .navigationBarBackButtonHidden(true)
+        }
+        
+    }
+}
+
+struct UserView_Previews: PreviewProvider {
+    static var previews: some View {
+        CurrentUserProfileView()
+            
+    }
+}
+
+
+
+
