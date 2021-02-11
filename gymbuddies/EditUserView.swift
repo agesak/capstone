@@ -18,7 +18,7 @@ struct EditUserView: View {
     @State var name : String = ""
     @State var pronouns : String = ""
     @State var age : String = ""
-//    @State var about_me : String = ""
+    @State var aboutMe : String = ""
     
     @State var frequency : String = ""
     @State var times : String = ""
@@ -88,12 +88,11 @@ struct EditUserView: View {
                 EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
                 EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
                 EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
+                EditFieldView(fieldName: "About Me:", user: currentUser, stateVar: self.$aboutMe, defaultVal: currentUser.aboutMe).autocapitalization(.none)
                 
                 PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
                 PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
                 PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
-                
-//                Spacer()
 
                 Button(action: {
 
@@ -101,6 +100,7 @@ struct EditUserView: View {
                                         "name": self.name,
                                         "pronouns": self.pronouns,
                                         "age": self.age,
+                                        "aboutMe": self.aboutMe,
                                         "style":  self.style,
                                         "frequency": self.frequency,
                                         "times": self.times
@@ -127,7 +127,8 @@ struct EditUserView: View {
                     .cornerRadius(10.0)
                 }
                 .padding(.top, 30)
-                Spacer().frame(height: 100)
+                
+//                Spacer().frame(height: 100)
                 }
             }
         }
@@ -194,7 +195,7 @@ struct EditFieldView : View {
 
 struct EditUserView_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
+        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", aboutMe: "I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
     }
 }
 

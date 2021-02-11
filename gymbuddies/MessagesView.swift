@@ -247,13 +247,14 @@ class getAllUsers : ObservableObject{
                 let age = i.get("age") as! String
                 let location = i.get("location") as! String
                 let pronouns = i.get("pronouns") as! String
+                let aboutMe = i.get("aboutMe") as! String
                 let frequency = i.get("frequency") as! String
                 let style = i.get("style") as! String
                 let times = i.get("times") as! String
                 let pic = i.get("pic") as! String
 
                 if id != self.user?.uid {
-                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic))
+                    self.users.append(User(id: id, age: age, name: name, location: location, pronouns: pronouns, aboutMe: aboutMe, frequency: frequency, style: style, times: times, pic: pic))
                 }
             }
         }

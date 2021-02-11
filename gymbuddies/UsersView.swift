@@ -9,18 +9,6 @@ import SwiftUI
 import Firebase
 import URLImage
 
-struct User: Identifiable{
-    var id: String = UUID().uuidString
-    var age:String = ""
-    var name:String = ""
-    var location:String = ""
-    var pronouns:String = ""
-    var frequency:String = ""
-    var style:String = ""
-    var times:String = ""
-    var pic:String = ""
-}
-
 struct UsersView: View {
     
     @State var showMenu = false
@@ -30,7 +18,6 @@ struct UsersView: View {
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-//                    showMenu: self.$showMenu
                     MainView()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .offset(x: self.showMenu ? geometry.size.width/2 : 0)
@@ -47,12 +34,6 @@ struct UsersView: View {
                 action: {withAnimation {self.showMenu.toggle()}
                 }) {Image(systemName: "line.horizontal.3")
                 .imageScale(.large)}))
-//        }
-        
-//        ScrollView(.vertical, showsIndicators: false){
-//            MainView()
-//        }.navigationBarBackButtonHidden(true)
-        
     }
 }
 
@@ -73,16 +54,15 @@ class getUserData: ObservableObject {
                 let age = data["age"] as? String ?? ""
                 let location = data["location"] as? String ?? ""
                 let pronouns = data["pronouns"] as? String ?? ""
+                let aboutMe = data["aboutMe"] as? String ?? ""
                 let frequency = data["frequency"] as? String ?? ""
                 let style = data["style"] as? String ?? ""
                 let times = data["times"] as? String ?? ""
                 let pic = data["pic"] as? String ?? ""
-//                print(name)
-                return User(id: id, age: age, name: name, location: location, pronouns: pronouns, frequency: frequency, style: style, times: times, pic: pic)
+                return User(id: id, age: age, name: name, location: location, pronouns: pronouns, aboutMe: aboutMe, frequency: frequency, style: style, times: times, pic: pic)
             }
             
             self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
-//            print(self.users)
         })
     }
 }
@@ -101,10 +81,6 @@ struct UserCellView : View {
     var user : User
     
     var body : some View {
-        
-//        HStack{
-//
-//        }
         
         HStack{
             if URL(string: user.pic) != nil {
@@ -126,17 +102,12 @@ struct UserCellView : View {
                         Text(user.location).foregroundColor(.gray)
 
                         HStack{
-//                            HStack{
-//                                Text("I enjoy:").foregroundColor(.black)
                             Text(user.style).foregroundColor(.black)
                             Text(user.frequency).foregroundColor(.black)
-//                            }
-                            
                         }
                     }
                     Spacer()
                 }
-//                Divider()
             }
         }.padding(10)
         .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0).cornerRadius(25))
@@ -149,11 +120,8 @@ struct UserCellView : View {
 struct MainView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject private var userData = getUserData()
-//    @Binding var showMenu: Bool
-    
-//    showMenu: Binding<Bool>
+
     init() {
-//        self._showMenu = showMenu
         userData.getData()
     }
     

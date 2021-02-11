@@ -49,7 +49,7 @@ struct CreatePreferencesView: View {
                 Spacer().frame(height: 75)
             }
             NavigationLink(
-                destination: CreateWorkoutPreferencesView(),
+                destination: AboutMeView(),
                 isActive: self.$isprofileValid) {
                     Text("Continue")
                         .font(.title)

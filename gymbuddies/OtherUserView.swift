@@ -43,7 +43,7 @@ struct OtherUserView: View {
 
 struct OtherUserView_Previews: PreviewProvider {
     static var previews: some View {
-        OtherUserView(toUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
+        OtherUserView(toUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", aboutMe: "I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
     }
 }
 
@@ -131,7 +131,7 @@ struct MainOtherUserView: View {
                 
                 Spacer().frame(height: 10)
                 
-                Text("I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.")
+                Text(toUser.aboutMe)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .bottom])
                     .padding(.top, 10)
