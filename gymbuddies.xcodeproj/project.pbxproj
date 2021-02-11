@@ -116,29 +116,31 @@
 		3C28744125C28C3B002708DE /* gymbuddies */ = {
 			isa = PBXGroup;
 			children = (
-				3C28744225C28C3B002708DE /* AppDelegate.swift */,
+				3C44B02725D3519900C5B3C7 /* Models */,
+				3C44B06D25D5B5DE00C5B3C7 /* Controllers */,
+				3C44B06E25D5B5E900C5B3C7 /* Views */,
+				3C28744825C28C42002708DE /* Assets.xcassets */,
+				3C44B02125D320D400C5B3C7 /* Colors.xcassets */,
 				3C28744425C28C3B002708DE /* SceneDelegate.swift */,
-				3CA73D1C25CCA9960054326F /* TestIconView.swift */,
+				3C28744225C28C3B002708DE /* AppDelegate.swift */,
 				3C28749525C291C3002708DE /* CreateAccountView.swift */,
 				3C2B840B25CA639B00DE443B /* Welcome.swift */,
 				3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */,
 				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
-				3C44B02125D320D400C5B3C7 /* Colors.xcassets */,
 				3C44AFCD25D1C5A800C5B3C7 /* EditUserView.swift */,
-				3C44B02725D3519900C5B3C7 /* Models */,
 				3CA73CF025CC98130054326F /* SelectIconPhoto.swift */,
 				3C2B819525C79E8900DE443B /* OtherUserView.swift */,
 				3C44B02425D346FE00C5B3C7 /* RoundedCorners.swift */,
 				3C2B83E725CA27DE00DE443B /* MessagesView.swift */,
 				3C28749B25C291FB002708DE /* MenuView.swift */,
-				3C44B01E25D31F3200C5B3C7 /* scratch.swift */,
 				3C1289D725C3556F00621EB1 /* SignInView.swift */,
 				3C128A2825C4B99200621EB1 /* UsersView.swift */,
 				3C54AD7225CB415100C3095C /* RecentMessagesView.swift */,
 				3C28744625C28C3B002708DE /* HomeView.swift */,
-				3C28744825C28C42002708DE /* Assets.xcassets */,
+				3C44B01E25D31F3200C5B3C7 /* scratch.swift */,
+				3CA73D1C25CCA9960054326F /* TestIconView.swift */,
 				3C28744D25C28C42002708DE /* LaunchScreen.storyboard */,
 				3C28745025C28C42002708DE /* Info.plist */,
 				3C28745725C28CA2002708DE /* GoogleService-Info.plist */,
@@ -162,6 +164,20 @@
 				3C44B05025D4A28000C5B3C7 /* Users.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3C44B06D25D5B5DE00C5B3C7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3C44B06E25D5B5E900C5B3C7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5FF2F452492E53AD565792BF /* Frameworks */ = {
