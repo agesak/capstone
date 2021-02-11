@@ -96,8 +96,10 @@ struct MainUserView: View {
                                    .resizable()
                                    .aspectRatio(contentMode: .fit)
                            }.frame(width: 100.0, height: 100.0)
+                           .padding(.leading)
                        } else {
                            Image(systemName: "photo")
+                            .padding(.leading)
                        }
                     
                         Spacer()
