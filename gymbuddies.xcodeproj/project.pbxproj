@@ -31,6 +31,7 @@
 		3C44B02925D351B500C5B3C7 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B02825D351B500C5B3C7 /* Messages.swift */; };
 		3C44B05125D4A28000C5B3C7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B05025D4A28000C5B3C7 /* Users.swift */; };
 		3C44B05425D4A57000C5B3C7 /* AboutMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */; };
+		3C44B07325D5BDFF00C5B3C7 /* ButtonStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B07225D5BDFF00C5B3C7 /* ButtonStyling.swift */; };
 		3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54AD7225CB415100C3095C /* RecentMessagesView.swift */; };
 		3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */; };
 		3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF025CC98130054326F /* SelectIconPhoto.swift */; };
@@ -64,6 +65,7 @@
 		3C44B02825D351B500C5B3C7 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		3C44B05025D4A28000C5B3C7 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeView.swift; sourceTree = "<group>"; };
+		3C44B07225D5BDFF00C5B3C7 /* ButtonStyling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyling.swift; sourceTree = "<group>"; };
 		3C54AD7225CB415100C3095C /* RecentMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessagesView.swift; sourceTree = "<group>"; };
 		3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutPreferencesView.swift; sourceTree = "<group>"; };
 		3CA73CF025CC98130054326F /* SelectIconPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconPhoto.swift; sourceTree = "<group>"; };
@@ -119,8 +121,9 @@
 				3C44B02725D3519900C5B3C7 /* Models */,
 				3C44B06D25D5B5DE00C5B3C7 /* Controllers */,
 				3C44B06E25D5B5E900C5B3C7 /* Views */,
-				3C28744825C28C42002708DE /* Assets.xcassets */,
+				3C44B07125D5BDE700C5B3C7 /* Styling */,
 				3C44B02125D320D400C5B3C7 /* Colors.xcassets */,
+				3C28744825C28C42002708DE /* Assets.xcassets */,
 				3C28744425C28C3B002708DE /* SceneDelegate.swift */,
 				3C28744225C28C3B002708DE /* AppDelegate.swift */,
 				3C28749525C291C3002708DE /* CreateAccountView.swift */,
@@ -138,7 +141,6 @@
 				3C1289D725C3556F00621EB1 /* SignInView.swift */,
 				3C128A2825C4B99200621EB1 /* UsersView.swift */,
 				3C54AD7225CB415100C3095C /* RecentMessagesView.swift */,
-				3C28744625C28C3B002708DE /* HomeView.swift */,
 				3C44B01E25D31F3200C5B3C7 /* scratch.swift */,
 				3CA73D1C25CCA9960054326F /* TestIconView.swift */,
 				3C28744D25C28C42002708DE /* LaunchScreen.storyboard */,
@@ -176,8 +178,17 @@
 		3C44B06E25D5B5E900C5B3C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3C28744625C28C3B002708DE /* HomeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3C44B07125D5BDE700C5B3C7 /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				3C44B07225D5BDFF00C5B3C7 /* ButtonStyling.swift */,
+			);
+			path = Styling;
 			sourceTree = "<group>";
 		};
 		5FF2F452492E53AD565792BF /* Frameworks */ = {
@@ -350,6 +361,7 @@
 				3C44B02925D351B500C5B3C7 /* Messages.swift in Sources */,
 				3C28744725C28C3B002708DE /* HomeView.swift in Sources */,
 				3C1289DB25C35A2C00621EB1 /* CreatePreferencesView.swift in Sources */,
+				3C44B07325D5BDFF00C5B3C7 /* ButtonStyling.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
