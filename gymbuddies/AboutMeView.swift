@@ -8,6 +8,9 @@
 import SwiftUI
 import Firebase
 
+func didPressReturn(val: String) {
+        print(val)
+    }
 
 
 struct AboutMeView: View {
@@ -15,14 +18,17 @@ struct AboutMeView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
+    @State var textHeight: CGFloat = 150
 
     let user = Auth.auth().currentUser
     @State var aboutMe : String = ""
     
+    @State private var textStyle = UIFont.TextStyle.body
+    
     var body: some View {
         ZStack{
             if colorScheme == .dark {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+                Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
             } else {
                 Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
             }
@@ -37,39 +43,44 @@ struct AboutMeView: View {
                 .padding(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
+//                Spacer()
             
 //            ScrollView {
-                Spacer().frame(height: 80)
+                Spacer().frame(height: 150)
                 
-                Text(self.aboutMe).foregroundColor(.clear).padding(8)
+//                TextView(text: $aboutMe, textStyle: $textStyle)
+                
+                Text(self.aboutMe)
+                    .foregroundColor(.clear)
+//                    .padding(8)
                 .frame(maxWidth: .infinity)
                 .overlay(
-//                    CustomTextField(text: $aboutMe, onCommit: ("Return") -> Void)
                     TextEditor(text: $aboutMe)
-                        .frame(minHeight: 50.0)
+                        .frame(minHeight: 200.0)
                         .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                         .padding(.horizontal)
-                        
-                        
+
+
                 )
+                
+                
                 
 //            }
                 
                 
 //                Spacer().frame(height: 20)
                 
-                Spacer()
+//                Spacer()
             
 //                TextField("ugh", text: $aboutMe)
                 
                 Text("Ex: I am a fun happy person who loves to do crossfit in the evenings with my great friends.")
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
-                    .padding(.top, 150)
+                    .padding(.top, 100)
 
                 
-            Spacer().frame(height: 50)
+            Spacer().frame(height: 40)
             
             
             NavigationLink(
@@ -101,7 +112,7 @@ struct AboutMeView: View {
                 }
                 
                 Spacer()
-                .frame(height: 100)
+                .frame(height: 0)
             }
             
         }.navigationBarTitle("", displayMode: .inline)
