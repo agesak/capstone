@@ -36,6 +36,7 @@ struct HomeView : View {
                     Spacer().frame(height: 80)
                 
                  NavigationLink(
+//                    SelectIconView()
                         destination: CreateAccountView(),
                         label: {
                             Text("Sign Up")

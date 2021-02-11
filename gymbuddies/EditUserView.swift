@@ -18,7 +18,7 @@ struct EditUserView: View {
     @State var name : String = ""
     @State var pronouns : String = ""
     @State var age : String = ""
-//    @State var about_me : String = ""
+    @State var aboutMe : String = ""
     
     @State var frequency : String = ""
     @State var times : String = ""
@@ -46,6 +46,7 @@ struct EditUserView: View {
         self._frequency = State(initialValue: currentUser.frequency)
         self._times = State(initialValue: currentUser.times)
     }
+    
 
     var body: some View {
         
@@ -57,77 +58,96 @@ struct EditUserView: View {
                 } else {
                     Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
                 }
-            
-            VStack{
                 
-                Text("Edit Profile")
-                    .font(.largeTitle)
-                VStack {
-                    ZStack(alignment: .bottom) {
-                        if URL(string: currentUser.pic) != nil {
-                            URLImage(url: URL(string: currentUser.pic)!) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            }.frame(width: 100.0, height: 100.0)
-                        } else {
-                            Image(systemName: "photo")
-                        }
-
-                        NavigationLink(
-                            destination: SelectIconPhoto(),
-                            label: {
-                                Text("Change Icon")
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, height: 30)
-                                    .background(Color.black)
-                        })
-                    }
-                }.padding(.bottom, 20)
-
-                EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
-                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
-                EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
+            ScrollView(.vertical, showsIndicators: true){
                 
-                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
-                PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
-                
-//                Spacer()
-
-                Button(action: {
-
-                    let userDictionary = [
-                                        "name": self.name,
-                                        "pronouns": self.pronouns,
-                                        "age": self.age,
-                                        "style":  self.style,
-                                        "frequency": self.frequency,
-                                        "times": self.times
-                                        ]
+                VStack{
+                    Text("Edit Profile")
+                        .font(.largeTitle)
+                    Group{
                     
-                    let docRef = Firestore.firestore().document("users/\(currentUser.id)")
-                    docRef.updateData(userDictionary as [String : Any]){ (error) in
-                            if let error = error {
-                                print("error = \(error)")
+                    VStack {
+                        ZStack(alignment: .bottom) {
+                            if URL(string: currentUser.pic) != nil {
+                                URLImage(url: URL(string: currentUser.pic)!) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }.frame(width: 100.0, height: 100.0)
                             } else {
-                                print("updated profile")
-                                self.shouldShowUpdateAlert = true
-                                self.presentationMode.wrappedValue.dismiss()
+                                Image(systemName: "photo")
                             }
+
+                            NavigationLink(
+                                destination: SelectIconPhoto(),
+                                label: {
+                                    Text("Change Icon")
+                                        .foregroundColor(.white)
+                                        .frame(width: 100, height: 30)
+                                        .background(Color.black)
+                            })
                         }
-                }) {
-                    Text("Update")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 250, height: 50)
-                    .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                    .cornerRadius(10.0)
+                    }.padding(.bottom, 20)
+
+                    EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
+                    EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
+                    EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
+                    
+                    HStack {
+                        Text("About Me:")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        Text(self.aboutMe)
+                            .foregroundColor(.clear)
+                            
+                            .overlay(TextEditor(text: $aboutMe)
+                                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                                        .frame(minHeight: 90.0))
+                            .onAppear {self.aboutMe = currentUser.aboutMe}
+                            .padding(.trailing)
+                    }.padding([.leading, .top, .bottom])
+                    
+                    Divider().padding(.horizontal)
+                    
+                    PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+                    PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+                    PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
+
+                    Button(action: {
+
+                        let userDictionary = [
+                                            "name": self.name,
+                                            "pronouns": self.pronouns,
+                                            "age": self.age,
+                                            "aboutMe": self.aboutMe,
+                                            "style":  self.style,
+                                            "frequency": self.frequency,
+                                            "times": self.times
+                                            ]
+                        
+                        let docRef = Firestore.firestore().document("users/\(currentUser.id)")
+                        docRef.updateData(userDictionary as [String : Any]){ (error) in
+                                if let error = error {
+                                    print("error = \(error)")
+                                } else {
+                                    print("updated profile")
+                                    self.shouldShowUpdateAlert = true
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                    }) {
+                        Text("Update")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 250, height: 50)
+                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                        .cornerRadius(10.0)
+                    }.padding(.top, 30)
                 }
-                .padding(.top, 30)
                 Spacer().frame(height: 100)
+            }
                 }
             }
         }
@@ -194,7 +214,7 @@ struct EditFieldView : View {
 
 struct EditUserView_Previews: PreviewProvider {
     static var previews: some View {
-        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
+        EditUserView(currentUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", aboutMe: "I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/pengiun.png"))
     }
 }
 

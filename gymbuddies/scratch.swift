@@ -10,16 +10,16 @@ import SwiftUI
 struct scratch: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     var body: some View {
-        
+
         ZStack{
-        
-            
+
+
             if colorScheme == .dark {
                 Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             } else {
                 Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             }
-            
+
             HStack{
                 Image("cat")
                     .resizable()
@@ -208,19 +208,3 @@ struct scratch_Previews: PreviewProvider {
     }
 }
 
-//struct RoundedCorner2: Shape {
-//    var radius: CGFloat = .infinity
-//    var corners: UIRectCorner = .allCorners
-//    func path(in rect: CGRect) -> Path {
-//        let path = UIBezierPath(roundedRect: rect,
-//            byRoundingCorners: corners, cornerRadii: CGSize(width:
-//            radius, height: radius))
-//        return Path(path.cgPath)
-//    }
-//}
-//
-//extension View {
-//    func cornerRadius2(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-//        clipShape( RoundedCorner(radius: radius, corners: corners) )
-//     }
-//}

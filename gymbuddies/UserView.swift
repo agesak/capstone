@@ -21,7 +21,6 @@ struct UserView: View {
         
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-//                MainUserView(showEditPage: self.$showEditPage)
                 MainUserView()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .offset(x: self.showMenu ? geometry.size.width/2 : 0)
@@ -61,7 +60,7 @@ class getCurrentUser : ObservableObject{
             return
           }
             let data = document.data()
-            self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
+            self.user = User(id: document.documentID, age: data!["age"] as! String, name: data!["name"] as! String, location: data!["location"] as! String, pronouns: data!["pronouns"] as! String, aboutMe: data!["aboutMe"] as! String, frequency: data!["frequency"] as! String, style: data!["style"] as! String, times: data!["times"] as! String, pic: data!["pic"] as! String)
           })
     }
 }
@@ -97,8 +96,10 @@ struct MainUserView: View {
                                    .resizable()
                                    .aspectRatio(contentMode: .fit)
                            }.frame(width: 100.0, height: 100.0)
+                           .padding(.leading)
                        } else {
                            Image(systemName: "photo")
+                            .padding(.leading)
                        }
                     
                         Spacer()
@@ -111,14 +112,12 @@ struct MainUserView: View {
                                 Text("\(userData.user.pronouns)")
                                     .font(.title2)
                             }
-//                            Text("30")
                             Text("\(userData.user.location)")
                         }.padding(.trailing, 40)
                         Spacer()
                     }
                 }
             }.padding(.bottom, 10)
-//            Spacer().frame(height: 30)
             
             HStack{
                 Spacer()
@@ -147,12 +146,11 @@ struct MainUserView: View {
                 .font(.title)
                 .fontWeight(.semibold)
                 .padding(.leading)
-//                .padding([.top, .leading])
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Spacer().frame(height: 10)
                 
-                Text("I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.")
+                Text(userData.user.aboutMe)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding([.leading, .bottom])
                     .padding(.top, 10)
@@ -188,7 +186,6 @@ struct MainUserView: View {
                 
                 HStack(){
                     Text("Preferred Frequency:").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-//                    Text("4x/week")
                     Text("\(userData.user.frequency)")
                 }
                 Spacer().frame(height: 10)
