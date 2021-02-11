@@ -46,6 +46,7 @@ struct EditUserView: View {
         self._frequency = State(initialValue: currentUser.frequency)
         self._times = State(initialValue: currentUser.times)
     }
+    
 
     var body: some View {
         
@@ -61,10 +62,9 @@ struct EditUserView: View {
             ScrollView(.vertical, showsIndicators: true){
                 
                 VStack{
-    //                Spacer().frame(height: 10)
                     Text("Edit Profile")
                         .font(.largeTitle)
-    //                Group{
+                    Group{
                     
                     VStack {
                         ZStack(alignment: .bottom) {
@@ -92,7 +92,22 @@ struct EditUserView: View {
                     EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
                     EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
                     EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
-                    EditFieldView(fieldName: "About Me:", user: currentUser, stateVar: self.$aboutMe, defaultVal: currentUser.aboutMe).autocapitalization(.none)
+                    
+                    HStack {
+                        Text("About Me:")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                        Text(self.aboutMe)
+                            .foregroundColor(.clear)
+                            
+                            .overlay(TextEditor(text: $aboutMe)
+                                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                                        .frame(minHeight: 90.0))
+                            .onAppear {self.aboutMe = currentUser.aboutMe}
+                            .padding(.trailing)
+                    }.padding([.leading, .top, .bottom])
+                    
+                    Divider().padding(.horizontal)
                     
                     PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
                     PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
@@ -132,6 +147,7 @@ struct EditUserView: View {
                     }.padding(.top, 30)
                 }
                 Spacer().frame(height: 100)
+            }
                 }
             }
         }
