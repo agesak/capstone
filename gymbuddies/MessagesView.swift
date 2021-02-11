@@ -458,7 +458,6 @@ func setRecents(user: String, uid: String, msg: String, date: Date, myName: Stri
     
     let myuid = Auth.auth().currentUser?.uid
     
-//    MARK - this should be mypic
     db.collection("users").document(uid).collection("recents").document(myuid!).setData(["name":myName, "lastmsg":msg, "date":date, "pic":myPic]) { (err) in
         if err != nil{
             

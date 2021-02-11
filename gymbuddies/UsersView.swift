@@ -135,7 +135,7 @@ struct MainView: View {
                 Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             }
         
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: true) {
                 Text("Users")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -144,7 +144,6 @@ struct MainView: View {
                         Spacer().frame(height: 180)
                         Text("No Users Yet :(")
                             .font(.title)
-//                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         Spacer().frame(height: 80)
                         NavigationLink(
                             destination : UserView()){

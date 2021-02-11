@@ -57,78 +57,81 @@ struct EditUserView: View {
                 } else {
                     Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
                 }
-            
-            VStack{
                 
-                Text("Edit Profile")
-                    .font(.largeTitle)
-                VStack {
-                    ZStack(alignment: .bottom) {
-                        if URL(string: currentUser.pic) != nil {
-                            URLImage(url: URL(string: currentUser.pic)!) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            }.frame(width: 100.0, height: 100.0)
-                        } else {
-                            Image(systemName: "photo")
-                        }
-
-                        NavigationLink(
-                            destination: SelectIconPhoto(),
-                            label: {
-                                Text("Change Icon")
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, height: 30)
-                                    .background(Color.black)
-                        })
-                    }
-                }.padding(.bottom, 20)
-
-                EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
-                EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
-                EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
-                EditFieldView(fieldName: "About Me:", user: currentUser, stateVar: self.$aboutMe, defaultVal: currentUser.aboutMe).autocapitalization(.none)
+            ScrollView(.vertical, showsIndicators: true){
                 
-                PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
-                PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
-                PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
-
-                Button(action: {
-
-                    let userDictionary = [
-                                        "name": self.name,
-                                        "pronouns": self.pronouns,
-                                        "age": self.age,
-                                        "aboutMe": self.aboutMe,
-                                        "style":  self.style,
-                                        "frequency": self.frequency,
-                                        "times": self.times
-                                        ]
+                VStack{
+    //                Spacer().frame(height: 10)
+                    Text("Edit Profile")
+                        .font(.largeTitle)
+    //                Group{
                     
-                    let docRef = Firestore.firestore().document("users/\(currentUser.id)")
-                    docRef.updateData(userDictionary as [String : Any]){ (error) in
-                            if let error = error {
-                                print("error = \(error)")
+                    VStack {
+                        ZStack(alignment: .bottom) {
+                            if URL(string: currentUser.pic) != nil {
+                                URLImage(url: URL(string: currentUser.pic)!) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }.frame(width: 100.0, height: 100.0)
                             } else {
-                                print("updated profile")
-                                self.shouldShowUpdateAlert = true
-                                self.presentationMode.wrappedValue.dismiss()
+                                Image(systemName: "photo")
                             }
+
+                            NavigationLink(
+                                destination: SelectIconPhoto(),
+                                label: {
+                                    Text("Change Icon")
+                                        .foregroundColor(.white)
+                                        .frame(width: 100, height: 30)
+                                        .background(Color.black)
+                            })
                         }
-                }) {
-                    Text("Update")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(width: 250, height: 50)
-                    .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                    .cornerRadius(10.0)
+                    }.padding(.bottom, 20)
+
+                    EditFieldView(fieldName: "Name:", user: currentUser, stateVar: self.$name, defaultVal: currentUser.name)
+                    EditFieldView(fieldName: "Pronouns:", user: currentUser, stateVar: self.$pronouns, defaultVal: currentUser.pronouns).autocapitalization(.none)
+                    EditFieldView(fieldName: "Age:", user: currentUser, stateVar: self.$age, defaultVal: currentUser.age).autocapitalization(.none)
+                    EditFieldView(fieldName: "About Me:", user: currentUser, stateVar: self.$aboutMe, defaultVal: currentUser.aboutMe).autocapitalization(.none)
+                    
+                    PickerView(fieldName: "Workout Style", currentVarDefault: currentUser.style, currentVar: self.$style, stateListVar: self.$styleChoices, stateIndexVar: self.$styleIndex, pickingVar: self.$selectStyle)
+                    PickerView(fieldName: "Preferred Frequency", currentVarDefault: currentUser.frequency, currentVar: self.$frequency, stateListVar: self.$frequencyChoices, stateIndexVar: self.$frequencyIndex, pickingVar: self.$selectFrequency)
+                    PickerView(fieldName: "Preferred Time", currentVarDefault: currentUser.times, currentVar: self.$times, stateListVar: self.$timesChoices, stateIndexVar: self.$timesIndex, pickingVar: self.$selectTimes)
+
+                    Button(action: {
+
+                        let userDictionary = [
+                                            "name": self.name,
+                                            "pronouns": self.pronouns,
+                                            "age": self.age,
+                                            "aboutMe": self.aboutMe,
+                                            "style":  self.style,
+                                            "frequency": self.frequency,
+                                            "times": self.times
+                                            ]
+                        
+                        let docRef = Firestore.firestore().document("users/\(currentUser.id)")
+                        docRef.updateData(userDictionary as [String : Any]){ (error) in
+                                if let error = error {
+                                    print("error = \(error)")
+                                } else {
+                                    print("updated profile")
+                                    self.shouldShowUpdateAlert = true
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                    }) {
+                        Text("Update")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 250, height: 50)
+                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
+                        .cornerRadius(10.0)
+                    }.padding(.top, 30)
                 }
-                .padding(.top, 30)
-                
-//                Spacer().frame(height: 100)
+                Spacer().frame(height: 100)
                 }
             }
         }

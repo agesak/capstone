@@ -31,7 +31,6 @@
 		3C44B02925D351B500C5B3C7 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B02825D351B500C5B3C7 /* Messages.swift */; };
 		3C44B05125D4A28000C5B3C7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B05025D4A28000C5B3C7 /* Users.swift */; };
 		3C44B05425D4A57000C5B3C7 /* AboutMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */; };
-		3C44B05725D4AD2C00C5B3C7 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C44B05625D4AD2C00C5B3C7 /* TextField.swift */; };
 		3C54AD7325CB415100C3095C /* RecentMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C54AD7225CB415100C3095C /* RecentMessagesView.swift */; };
 		3CA73CAA25CC80790054326F /* CreateWorkoutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */; };
 		3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA73CF025CC98130054326F /* SelectIconPhoto.swift */; };
@@ -65,7 +64,6 @@
 		3C44B02825D351B500C5B3C7 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		3C44B05025D4A28000C5B3C7 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeView.swift; sourceTree = "<group>"; };
-		3C44B05625D4AD2C00C5B3C7 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		3C54AD7225CB415100C3095C /* RecentMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessagesView.swift; sourceTree = "<group>"; };
 		3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutPreferencesView.swift; sourceTree = "<group>"; };
 		3CA73CF025CC98130054326F /* SelectIconPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIconPhoto.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 				3C28749525C291C3002708DE /* CreateAccountView.swift */,
 				3C2B840B25CA639B00DE443B /* Welcome.swift */,
 				3C44B05325D4A57000C5B3C7 /* AboutMeView.swift */,
-				3C44B05625D4AD2C00C5B3C7 /* TextField.swift */,
 				3C1289DA25C35A2C00621EB1 /* CreatePreferencesView.swift */,
 				3CA73CA925CC80790054326F /* CreateWorkoutPreferencesView.swift */,
 				3C28749825C291DE002708DE /* UserView.swift */,
@@ -317,7 +314,6 @@
 			files = (
 				3CA73CF125CC98130054326F /* SelectIconPhoto.swift in Sources */,
 				3C2B819625C79E8900DE443B /* OtherUserView.swift in Sources */,
-				3C44B05725D4AD2C00C5B3C7 /* TextField.swift in Sources */,
 				3C44B05425D4A57000C5B3C7 /* AboutMeView.swift in Sources */,
 				3CA73D1D25CCA9960054326F /* TestIconView.swift in Sources */,
 				3C28744325C28C3B002708DE /* AppDelegate.swift in Sources */,
