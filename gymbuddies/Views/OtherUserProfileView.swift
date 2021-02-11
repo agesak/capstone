@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import URLImage
 
-struct OtherUserView: View {
+struct OtherUserProfileView: View {
     
     var toUser : User
     @State var showMenu = false
@@ -43,7 +43,7 @@ struct OtherUserView: View {
 
 struct OtherUserView_Previews: PreviewProvider {
     static var previews: some View {
-        OtherUserView(toUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", aboutMe: "I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/yoga.png"))
+        OtherUserProfileView(toUser: User(id: "", age: "30", name: "Michelle Obama", location: "Seattle, WA", pronouns: "(she/her)", aboutMe: "I am your forever first lady. I started the Just Move campaign that featured a song with Beyoncé. I am missed by the reasonable American public.", frequency: "4x/week", style: "Crossfit", times: "Evening", pic: "https://gymbuddiescapstone.s3-us-west-1.amazonaws.com/yoga.png"))
     }
 }
 

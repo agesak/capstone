@@ -162,7 +162,7 @@ struct MainView: View {
                 VStack{
                     ForEach(userData.users){otherUser in
                         NavigationLink(
-                            destination : OtherUserView(toUser: otherUser)) {
+                            destination : OtherUserProfileView(toUser: otherUser)) {
                             UserCellView(user: otherUser)
                             }
                         }

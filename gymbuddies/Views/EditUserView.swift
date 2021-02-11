@@ -9,6 +9,61 @@ import SwiftUI
 import Firebase
 import URLImage
 
+struct EditFieldView : View {
+    
+    var fieldName: String
+    var user : User
+    @Binding var stateVar: String
+    var defaultVal: String
+    
+    var body: some View {
+        HStack {
+            Text(fieldName).font(.title2).fontWeight(.bold)
+            TextField("", text: $stateVar)
+                .onAppear {stateVar = defaultVal}
+                .font(/*@START_MENU_TOKEN@*/.title3/*@END_MENU_TOKEN@*/)
+        }.padding(.leading)
+        
+        Divider().padding(.horizontal)
+    }
+}
+
+struct PickerView: View {
+
+    var fieldName : String
+    var currentVarDefault : String
+    @Binding var currentVar : String
+    @Binding var stateListVar: [String]
+    @Binding var stateIndexVar: Int
+    @Binding var pickingVar : Bool
+
+    var body: some View {
+        HStack{
+            Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
+            Spacer()
+            Text(currentVar)
+            Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
+                self.pickingVar.toggle()
+            }
+        }
+        if Bool(pickingVar){
+            Section {
+                Picker(selection: self.$stateIndexVar, label: Text("")) {
+                    ForEach(0 ..< stateListVar.count) {
+                        Text(self.stateListVar[$0])
+                    }
+                }
+                .onTapGesture {
+                    currentVar = self.stateListVar[self.stateIndexVar]
+                }
+            }
+        }
+        Divider().padding(.horizontal)
+    }
+}
+
+
+
 struct EditUserView: View {
     
     @Environment(\.presentationMode) var presentationMode
@@ -36,7 +91,6 @@ struct EditUserView: View {
     @State var shouldShowUpdateAlert = false
     
     @State var selectStyle = false
-    @State var styleChanged = false
     @State var selectTimes = false
     @State var selectFrequency = false
     
@@ -99,7 +153,6 @@ struct EditUserView: View {
                             .fontWeight(.bold)
                         Text(self.aboutMe)
                             .foregroundColor(.clear)
-                            
                             .overlay(TextEditor(text: $aboutMe)
                                         .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                                         .frame(minHeight: 90.0))
@@ -136,14 +189,7 @@ struct EditUserView: View {
                                 }
                             }
                     }) {
-                        Text("Update")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 250, height: 50)
-                        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                        .cornerRadius(10.0)
+                        ButtonView(buttonText: "Update")
                     }.padding(.top, 30)
                 }
                 Spacer().frame(height: 100)
@@ -151,63 +197,6 @@ struct EditUserView: View {
                 }
             }
         }
-    }
-}
-
-
-struct PickerView: View {
-
-    var fieldName : String
-    var currentVarDefault : String
-    @Binding var currentVar : String
-    @Binding var stateListVar: [String]
-    @Binding var stateIndexVar: Int
-    @Binding var pickingVar : Bool
-
-    var body: some View {
-        HStack{
-            Text(fieldName).font(.title2).fontWeight(.bold).padding(.leading)
-            Spacer()
-            Text(currentVar)
-            Image(systemName: pickingVar ? "chevron.up" : "chevron.down").resizable().frame(width: 13, height: 6).padding(.trailing).onTapGesture {
-                self.pickingVar.toggle()
-            }
-        }
-        if Bool(pickingVar){
-            
-            Section {
-                Picker(selection: self.$stateIndexVar, label: Text("")) {
-                    ForEach(0 ..< stateListVar.count) {
-                        Text(self.stateListVar[$0])
-                    }
-                }
-                .onTapGesture {
-                    currentVar = self.stateListVar[self.stateIndexVar]
-                }
-            }
-        }
-        Divider().padding(.horizontal)
-    }
-}
-
-struct EditFieldView : View {
-    
-    var fieldName: String
-    var user : User
-    @Binding var stateVar: String
-    var defaultVal: String
-    
-    var body: some View {
-        
-        HStack {
-            Text(fieldName).font(.title2).fontWeight(.bold)
-            TextField("", text: $stateVar)
-                .onAppear {stateVar = defaultVal}
-                .font(/*@START_MENU_TOKEN@*/.title3/*@END_MENU_TOKEN@*/)
-        }.padding(.leading)
-        
-        Divider().padding(.horizontal)
-
     }
 }
 

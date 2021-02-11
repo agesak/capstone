@@ -9,16 +9,6 @@ import SwiftUI
 import Firebase
 import URLImage
 
-struct userIconView : View {
-    var imageName: String
-    var body : some View {
-        Image(imageName)
-            .resizable()
-            .frame(width: 30.0, height: 30.0)
-        Spacer()
-    }
-}
-g
 struct MainUserView: View {
     
     @State var showEditPage = false
