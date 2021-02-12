@@ -27,36 +27,6 @@ class getCurrentUser : ObservableObject{
     }
 }
 
-//class getUserData: ObservableObject {
-//    @Published var users = [User]()
-//    func getData(){
-//        let db = Firestore.firestore()
-//
-//        db.collection("users").addSnapshotListener( {querySnapshot, error in
-//            guard let documents = querySnapshot?.documents else {
-//                print("error fetching documents: \(error!)")
-//                return
-//            }
-//            let allUsers = documents.map { (queryDocumentSnapshot) -> User in
-//                let data = queryDocumentSnapshot.data()
-//                let id = queryDocumentSnapshot.documentID
-//                let name = data["name"] as? String ?? ""
-//                let age = data["age"] as? String ?? ""
-//                let location = data["location"] as? String ?? ""
-//                let pronouns = data["pronouns"] as? String ?? ""
-//                let aboutMe = data["aboutMe"] as? String ?? ""
-//                let frequency = data["frequency"] as? String ?? ""
-//                let style = data["style"] as? String ?? ""
-//                let times = data["times"] as? String ?? ""
-//                let pic = data["pic"] as? String ?? ""
-//                return User(id: id, age: age, name: name, location: location, pronouns: pronouns, aboutMe: aboutMe, frequency: frequency, style: style, times: times, pic: pic)
-//            }
-//
-//            self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
-//        })
-//    }
-//}
-
 // doesnt currently work
 class updateUser : ObservableObject {
     

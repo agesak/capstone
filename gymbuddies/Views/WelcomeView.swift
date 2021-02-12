@@ -11,6 +11,8 @@ struct WelcomeView: View {
     
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         
         ZStack{
@@ -41,7 +43,18 @@ struct WelcomeView: View {
                     })
             Spacer()
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading:
+                Button(action: goBack) {
+                    HStack {
+                        Text("Cancel")
+                    }
+                }
+            )
+    }
+    func goBack(){
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 

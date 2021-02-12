@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Firebase
-//import SDWebImageSwiftUI
 import URLImage
 
 struct RecentCellView : View {
@@ -25,10 +24,12 @@ struct RecentCellView : View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .padding(.leading)
                 }.frame(width: 55.0, height: 55.0)
             } else {
                 Image(systemName: "person")
                     .frame(width: 55.0, height: 55.0)
+                    .padding(.leading)
             }
 
             VStack{
@@ -44,8 +45,9 @@ struct RecentCellView : View {
                          Text(date).foregroundColor(.gray)
                          Text(time).foregroundColor(.gray)
                     }
-                }
+                }.padding(.trailing)
                 Divider()
+                    .padding(.trailing)
             }
         }
     }
