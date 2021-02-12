@@ -29,11 +29,13 @@ struct DemographicInfoView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     let user = Auth.auth().currentUser
+    @ObservedObject var toUpdate = updateUser(userInfo: [:])
     @State var name : String = ""
     @State var age : String = ""
     @State var location : String = ""
     @State var pronouns : String = ""
     
+//     = false
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
     
@@ -66,6 +68,13 @@ struct DemographicInfoView: View {
                 isActive: self.$isprofileValid) {
                 ButtonView(buttonText: "Continue")
                         .onTapGesture {
+//                            self.isprofileValid = toUpdate.create(userInfo: [
+//                                "name": self.name,
+//                                "age": self.age,
+//                                "location": self.location,
+//                                "pronouns": self.pronouns])
+//                            print(self.isprofileValid)
+                            
                             let userDictionary = [
                                 "name": self.name,
                                 "age": self.age,
@@ -76,7 +85,6 @@ struct DemographicInfoView: View {
                             docRef.setData(userDictionary as [String : Any]){ (error) in
                                     if let error = error {
                                         print("error = \(error)")
-                                        self.isprofileValid = false
                                     } else {
                                         print("profile updated")
                                         self.isprofileValid = true

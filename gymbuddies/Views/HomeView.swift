@@ -51,7 +51,7 @@ struct HomeView : View {
                 
                  NavigationLink(
 //                    SelectIconView()
-                        destination: CreateAccountView(),
+                        destination: SignUpView(),
                         label: {
                             ButtonView(buttonText: "Sign Up")
                         })

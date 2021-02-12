@@ -26,3 +26,33 @@ class getCurrentUser : ObservableObject{
           })
     }
 }
+
+class updateUser : ObservableObject {
+    
+    var user = Auth.auth().currentUser!
+    var userInfo : [String : Any] = [:]
+    
+    init(userInfo: [String : Any]){
+        self.userInfo = userInfo
+    }
+    
+    func create(userInfo: [String : Any]) -> Bool {
+        var valid = false
+        let docRef = Firestore.firestore().document("users/\(user.uid)")
+        docRef.setData(userInfo as [String : Any]){ (error) in
+                if let error = error {
+                    print("error = \(error)")
+                } else {
+                    print("profile updated")
+                    valid = true
+                }
+            }
+        return valid
+    }
+    
+    
+    func update(userInfo : [String]){
+        
+    }
+    
+}
