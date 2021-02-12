@@ -80,7 +80,7 @@ struct UserCellProfileView : View {
                 }
             }
         }.padding(10)
-        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0).cornerRadius(25))
+        .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0).opacity(0.4).cornerRadius(10))
         .padding([.leading, .bottom, .trailing])
     }
 }
