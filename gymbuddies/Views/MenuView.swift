@@ -16,7 +16,7 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             NavigationLink(
-                destination: UserView(),
+                destination: CurrentUserProfileView(),
                 label: {
                     HStack {
                         Image(systemName: "person")
@@ -79,11 +79,6 @@ struct MenuView: View {
         do {
             try Auth.auth().signOut()
             print("signed out")
-//            print(Auth.auth().currentUser!)
-//            self.session = nil
-//            self.users = []
-//            self.messages = [Message]()
-//            self.messagesDictionary = [String:Message]()
         } catch {
             print("Error signing out")
         }

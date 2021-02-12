@@ -18,21 +18,12 @@ struct SignInView: View {
     @State var shouldShowLoginAlert: Bool = false
     
     var body: some View {
-//        VStack {
-            
-//            Spacer()
-//
-//
-//            Spacer()
-            
             ZStack{
                 if colorScheme == .dark {
-    //                "barbell_2nd_lighter"
                     Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
                 } else {
                     Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
                 }
-//
                 VStack{
                     Spacer().frame(height: 250)
                     
@@ -56,14 +47,7 @@ struct SignInView: View {
                     NavigationLink(
                         destination: UsersView(),
                         isActive: self.$isLoginValid) {
-                            Text("Sign In")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(width: 250, height: 50)
-                                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                                .cornerRadius(10.0)
+                        ButtonView(buttonText: "Sign In")
                                 .onTapGesture {
                                     Auth.auth().signIn(withEmail: self.email, password: self.password, completion: { (result, error) in
                                              if let error = error {
@@ -88,9 +72,6 @@ struct SignInView: View {
             .alert(isPresented: $shouldShowLoginAlert) {
                 Alert(title: Text("Error Accessing Account"))}
     }
-        
-//    }
-
 }
 
 struct SignInView_Previews: PreviewProvider {
