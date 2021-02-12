@@ -12,7 +12,7 @@ import URLImage
 struct UsersView: View {
     
     @State var showMenu = false
-    @ObservedObject private var userData = getUserData()
+    @ObservedObject private var userData = getAllUsers()
     
     var body: some View {
 
@@ -37,35 +37,7 @@ struct UsersView: View {
     }
 }
 
-class getUserData: ObservableObject {
-    @Published var users = [User]()
-    func getData(){
-        let db = Firestore.firestore()
-        
-        db.collection("users").addSnapshotListener( {querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("error fetching documents: \(error!)")
-                return
-            }
-            let allUsers = documents.map { (queryDocumentSnapshot) -> User in
-                let data = queryDocumentSnapshot.data()
-                let id = queryDocumentSnapshot.documentID
-                let name = data["name"] as? String ?? ""
-                let age = data["age"] as? String ?? ""
-                let location = data["location"] as? String ?? ""
-                let pronouns = data["pronouns"] as? String ?? ""
-                let aboutMe = data["aboutMe"] as? String ?? ""
-                let frequency = data["frequency"] as? String ?? ""
-                let style = data["style"] as? String ?? ""
-                let times = data["times"] as? String ?? ""
-                let pic = data["pic"] as? String ?? ""
-                return User(id: id, age: age, name: name, location: location, pronouns: pronouns, aboutMe: aboutMe, frequency: frequency, style: style, times: times, pic: pic)
-            }
-            
-            self.users = allUsers.filter{user in return user.id != Auth.auth().currentUser!.uid}
-        })
-    }
-}
+
 
 
 
@@ -76,12 +48,11 @@ struct UsersView_Previews: PreviewProvider {
 }
 
 
-struct UserCellView : View {
+struct UserCellProfileView : View {
     
     var user : User
     
     var body : some View {
-        
         HStack{
             if URL(string: user.pic) != nil {
                 URLImage(url: URL(string: user.pic)!) { image in
@@ -90,7 +61,6 @@ struct UserCellView : View {
                         .aspectRatio(contentMode: .fit)
                 }.frame(width: 80.0, height: 80.0)
             }
-
             VStack{
                 HStack{
                     VStack(alignment: .leading, spacing: 6) {
@@ -119,27 +89,21 @@ struct UserCellView : View {
 
 struct MainView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @ObservedObject private var userData = getUserData()
+    @ObservedObject var userData = getAllUsers()
 
-    init() {
-        userData.getData()
-    }
-    
     var body: some View {
         
         ZStack{
-            
             if colorScheme == .dark {
                 Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             } else {
                 Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             }
-        
             ScrollView(.vertical, showsIndicators: true) {
                 Text("Users")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                if userData.users.count == 0 {
+                if userData.empty {
                     VStack{
                         Spacer().frame(height: 180)
                         Text("No Users Yet :(")
@@ -147,14 +111,7 @@ struct MainView: View {
                         Spacer().frame(height: 80)
                         NavigationLink(
                             destination : CurrentUserProfileView()){
-                            Text("Go Home")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(width: 250, height: 50)
-                                .background(Color(red: 135.0 / 255.0, green: 206.0 / 255.0, blue: 250.0 / 255.0))
-                                .cornerRadius(10.0)
+                            ButtonView(buttonText: "Go Home")
                             }
                         Spacer().frame(height: 100)
                     }
@@ -163,7 +120,7 @@ struct MainView: View {
                     ForEach(userData.users){otherUser in
                         NavigationLink(
                             destination : OtherUserProfileView(toUser: otherUser)) {
-                            UserCellView(user: otherUser)
+                            UserCellProfileView(user: otherUser)
                             }
                         }
                     }
