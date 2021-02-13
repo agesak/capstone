@@ -10,6 +10,8 @@ import Firebase
 import URLImage
 
 struct RecentCellView : View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     var name : String
     var time : String
     var date : String
@@ -35,14 +37,14 @@ struct RecentCellView : View {
             VStack{
                 HStack{
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(name).foregroundColor(.black)
+                        Text(name).foregroundColor(colorScheme == .dark ? .white : .black)
                         Text(lastmsg).foregroundColor(.gray)
                     }
                     
                     Spacer()
                     
                     VStack(alignment: .leading, spacing: 6) {
-                         Text(date).foregroundColor(.gray)
+                        Text(date).foregroundColor(.gray)
                          Text(time).foregroundColor(.gray)
                     }
                 }.padding(.trailing)

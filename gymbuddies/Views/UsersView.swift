@@ -88,17 +88,12 @@ struct UserCellProfileView : View {
 //red: 65.0 / 255.0, green: 105 / 255.0, blue: 225.0 / 255.0
 
 struct MainView: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @ObservedObject var userData = getAllUsers()
 
     var body: some View {
         
         ZStack{
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-            } else {
-                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-            }
+            Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
             ScrollView(.vertical, showsIndicators: true) {
                 Text("Users")
                     .font(.largeTitle)

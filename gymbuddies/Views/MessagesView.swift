@@ -12,8 +12,6 @@ import URLImage
 
 struct MainMessagesView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @EnvironmentObject var datas : MainObservable
     @Binding var show : Bool
     @Binding var chat : Bool
@@ -25,11 +23,8 @@ struct MainMessagesView: View {
     var body: some View {
         
         ZStack{
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-            } else {
-                Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-            }
+            Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
+            
             NavigationLink(destination: ChatView(name: self.name, uid: self.uid, pic: self.pic, chat: self.$chat), isActive: self.$chat) {
                 Text("")}
             Spacer()

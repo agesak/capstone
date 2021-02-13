@@ -38,8 +38,6 @@ struct IconView : View{
 
 struct SelectIconPhotoView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
     @State var selectedPhoto : String = ""
@@ -60,12 +58,8 @@ struct SelectIconPhotoView: View {
 
     var body: some View {
         
-        ZStack{
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            } else {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            }
+
+            Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
             
             VStack {
                 HStack{
@@ -141,7 +135,6 @@ struct SelectIconPhotoView: View {
                     }
             }.navigationBarTitle("Select Profile Icon")
         }
-    }
 }
 
 struct SelectIconPhoto_Previews: PreviewProvider {

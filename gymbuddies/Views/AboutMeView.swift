@@ -10,7 +10,6 @@ import Firebase
 
 struct AboutMeView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
 
@@ -19,11 +18,7 @@ struct AboutMeView: View {
     
     var body: some View {
         ZStack{
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
-            } else {
-                Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
-            }
+            Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
             
             VStack(){
                 Text("Now a Bit About You")

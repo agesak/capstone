@@ -9,11 +9,12 @@ import SwiftUI
 import Firebase
 
 struct AppName: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     var body: some View {
         Text("MyGymPals")
             .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
             .fontWeight(.bold)
-            .foregroundColor(Color.black)
+            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
     }
 }
 
@@ -37,16 +38,17 @@ struct HomeView : View {
         NavigationView {
             
             ZStack{
-                if colorScheme == .dark {
-                    Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).ignoresSafeArea().opacity(0.1)
-                } else {
-                    Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).ignoresSafeArea().opacity(0.1)
-                }
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).ignoresSafeArea().opacity(0.1)
+                
                 VStack {
                     Spacer().frame(height: 130)
                     AppName()
                     Spacer().frame(height: 120)
-                    AppLogo()
+                    if colorScheme == .dark {
+                        Image("inverted-barbell-icon")
+                    } else {
+                        Image("barbell-icon")
+                    }
                     Spacer().frame(height: 80)
                 
                  NavigationLink(

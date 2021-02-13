@@ -26,8 +26,6 @@ struct FieldView : View {
 
 struct DemographicInfoView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     let user = Auth.auth().currentUser
     @ObservedObject var toUpdate = updateUser(userInfo: [:])
     @State var name : String = ""
@@ -42,13 +40,8 @@ struct DemographicInfoView: View {
     var body: some View {
         
         ZStack{
-            
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            } else {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            }
-            
+            Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+
             VStack{
             VStack(alignment: .leading){
                 Text("First Tell Me Your...")

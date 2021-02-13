@@ -67,7 +67,6 @@ struct PickerView: View {
 struct EditUserView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var currentUser : User
     @State var name : String = ""
@@ -107,11 +106,7 @@ struct EditUserView: View {
         NavigationView{
             
             ZStack{
-                if colorScheme == .dark {
-                    Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-                } else {
-                    Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
-                }
+            Image("barbell-cropped").resizable().ignoresSafeArea().opacity(0.1)
                 
             ScrollView(.vertical, showsIndicators: true){
                 

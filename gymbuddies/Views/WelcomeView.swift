@@ -9,18 +9,12 @@ import SwiftUI
 
 struct WelcomeView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         
         ZStack{
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            } else {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            }
+        Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
         
         VStack {
             Spacer().frame(height: 250)

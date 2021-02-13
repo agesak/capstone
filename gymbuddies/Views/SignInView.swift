@@ -10,8 +10,6 @@ import Firebase
 
 struct SignInView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @State var password : String = ""
     @State var email : String = ""
     @State var isLoginValid: Bool = false
@@ -19,11 +17,7 @@ struct SignInView: View {
     
     var body: some View {
             ZStack{
-                if colorScheme == .dark {
-                    Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-                } else {
-                    Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-                }
+                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
                 VStack{
                     Spacer().frame(height: 250)
                     

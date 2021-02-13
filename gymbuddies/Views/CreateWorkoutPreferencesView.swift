@@ -10,8 +10,6 @@ import Firebase
 
 struct CreateWorkoutPreferencesView: View {
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
     @State var times = ["Morning", "Afternoon", "Evening"]
     @State private var timesIndex = 0
     
@@ -34,11 +32,7 @@ struct CreateWorkoutPreferencesView: View {
         
         ZStack{
             
-            if colorScheme == .dark {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            } else {
-                Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
-            }
+            Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
         
             VStack{
                 Spacer().frame(height: 130)
