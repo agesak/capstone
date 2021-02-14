@@ -58,8 +58,9 @@ struct SelectIconPhotoView: View {
 
     var body: some View {
         
-
-            Image("barbell-cropped").resizable().aspectRatio(contentMode: .fill).opacity(0.1).ignoresSafeArea()
+        ZStack{
+        
+            Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
             
             VStack {
                 HStack{
@@ -131,6 +132,7 @@ struct SelectIconPhotoView: View {
                                             self.isprofileValid = true
                                         }
                                     }
+                            }
                             }
                     }
             }.navigationBarTitle("Select Profile Icon")
