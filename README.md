@@ -15,6 +15,6 @@ We're in a pandemic.. Gyms are closed.. And you want to stay active. I get it. B
 - Xcode 12
 - Google Firebase (Auth and Firestore)
 
-## Resources that inspired this
+## Resources That Inspired This
 - In App Messaging: https://www.youtube.com/playlist?list=PLimqJDzPI-H827m9Mulmf1_kHCdOII62v
 - App images from: https://www.pexels.com/
