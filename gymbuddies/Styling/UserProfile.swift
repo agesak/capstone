@@ -59,7 +59,7 @@ struct MainProfilePageView : View {
                                image
                                    .resizable()
                                    .aspectRatio(contentMode: .fit)
-                           }.frame(width: 150.0, height: 150.0)
+                           }.frame(width: 120.0, height: 120.0)
                            .padding([.leading, .bottom])
                        } else {
                            Image(systemName: "photo")
@@ -69,13 +69,11 @@ struct MainProfilePageView : View {
                         Spacer()
                         
                         VStack(alignment: .leading) {
-                            HStack(){
-                                Text("\(user.name)")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                Text("\(user.pronouns)")
-                                    .font(.title2)
-                            }
+                            Text("\(user.name)")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            Text("\(user.pronouns)")
+                                .font(.title3)
                             Text("\(user.location)")
                         }.padding(.trailing, 40)
                         Spacer()

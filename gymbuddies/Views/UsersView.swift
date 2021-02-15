@@ -85,7 +85,6 @@ struct UserCellProfileView : View {
     }
 }
 
-//red: 65.0 / 255.0, green: 105 / 255.0, blue: 225.0 / 255.0
 
 struct MainView: View {
     @ObservedObject var userData = getAllUsers()
@@ -98,7 +97,7 @@ struct MainView: View {
                 Text("Users")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                if userData.empty {
+                if userData.users.count == 0 {
                     VStack{
                         Spacer().frame(height: 180)
                         Text("No Users Yet :(")
