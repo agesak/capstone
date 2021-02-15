@@ -14,6 +14,7 @@ We're in a pandemic.. Gyms are closed.. And you want to stay active. I get it. B
 - SwiftUI
 - Xcode 12
 - Google Firebase (Auth and Firestore)
+- AWS S3
 
 ## Resources That Inspired This
 - In App Messaging: https://www.youtube.com/playlist?list=PLimqJDzPI-H827m9Mulmf1_kHCdOII62v

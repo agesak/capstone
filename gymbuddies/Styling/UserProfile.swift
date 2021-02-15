@@ -59,7 +59,7 @@ struct MainProfilePageView : View {
                                image
                                    .resizable()
                                    .aspectRatio(contentMode: .fit)
-                           }.frame(width: 100.0, height: 100.0)
+                           }.frame(width: 150.0, height: 150.0)
                            .padding([.leading, .bottom])
                        } else {
                            Image(systemName: "photo")

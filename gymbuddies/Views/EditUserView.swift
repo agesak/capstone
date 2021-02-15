@@ -77,7 +77,7 @@ struct EditUserView: View {
     @State var frequency : String = ""
     @State var times : String = ""
     
-    @State var styleChoices = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State var styleChoices = ["HIIT", "Crossfit", "Running", "Yoga", "Pilates", "Powerlifting", "Bodybuilding", "Boxing", "Zumba", "Cycling"]
     @State var style = ""
     @State private var styleIndex = 0
     
@@ -122,7 +122,7 @@ struct EditUserView: View {
                                     image
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                }.frame(width: 100.0, height: 100.0)
+                                }.frame(width: 150.0, height: 150.0)
                             } else {
                                 Image(systemName: "photo")
                             }
@@ -132,7 +132,7 @@ struct EditUserView: View {
                                 label: {
                                     Text("Change Icon")
                                         .foregroundColor(.white)
-                                        .frame(width: 100, height: 30)
+                                        .frame(width: 150, height: 30)
                                         .background(Color.black)
                             })
                         }

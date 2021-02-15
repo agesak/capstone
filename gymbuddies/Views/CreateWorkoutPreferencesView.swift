@@ -46,7 +46,7 @@ struct CreateWorkoutPreferencesView: View {
     @State var times = ["Morning", "Afternoon", "Evening"]
     @State private var timesIndex = 0
     
-    @State var style = ["HIIT", "Crossfit", "Running", "Yoga"]
+    @State var style = ["HIIT", "Crossfit", "Running", "Yoga", "Pilates", "Powerlifting", "Bodybuilding", "Boxing", "Zumba", "Cycling"]
     @State private var styleIndex = 0
     
     @State var frequency = ["1x/week", "2x/week", "3x/week", "4x/week", "5-6x/week"]

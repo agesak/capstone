@@ -12,8 +12,6 @@ import URLImage
 struct IconView : View{
     
     var photoUrl : String
-//    tbh can get rid of this....
-    var heightSize: CGFloat
     @Binding var selectedPhoto : String
     
     func setPhotoUrl(url: String) {
@@ -63,6 +61,31 @@ struct SelectIconPhotoView: View {
             Image("barbell-cropped").resizable().opacity(0.1).ignoresSafeArea()
             
             VStack {
+                
+//                VStack {
+                    HStack{
+                    Text("Workout")
+                        .font(.title3)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.semibold/*@END_MENU_TOKEN@*/)
+                        .frame(alignment: .leading)
+                        .padding(.leading)
+                        
+                        Text("🥊🏐🥏")
+                            .font(.system(size: 30))
+                        
+                        Spacer()
+                    }
+                    ScrollView(.horizontal, showsIndicators: true){
+                        HStack{
+                            IconView(photoUrl: kbsUrl, selectedPhoto: self.$selectedPhoto)
+                            IconView(photoUrl: pinkKbsUrl, selectedPhoto: self.$selectedPhoto)
+                            IconView(photoUrl: rougueUrl, selectedPhoto: self.$selectedPhoto)
+                            IconView(photoUrl: glovesUrl, selectedPhoto: self.$selectedPhoto)
+                            IconView(photoUrl: yogaVibesUrl, selectedPhoto: self.$selectedPhoto)
+                        }.padding(.horizontal)
+
+                    }
+//                }
                 HStack{
                     Text("Adorable Puppies")
                     .font(/*@START_MENU_TOKEN@*/.title3/*@END_MENU_TOKEN@*/)
@@ -78,41 +101,15 @@ struct SelectIconPhotoView: View {
                 }
                 ScrollView(.horizontal, showsIndicators: true){
                     HStack{
-                        IconView(photoUrl: puppyMugUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                        IconView(photoUrl: dogSunglassesURL, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                        IconView(photoUrl: pugUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                        IconView(photoUrl: twoRetrieversUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                        IconView(photoUrl: puppyToothsUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
+                        IconView(photoUrl: puppyMugUrl, selectedPhoto: self.$selectedPhoto)
+                        IconView(photoUrl: dogSunglassesURL, selectedPhoto: self.$selectedPhoto)
+                        IconView(photoUrl: pugUrl, selectedPhoto: self.$selectedPhoto)
+                        IconView(photoUrl: puppyToothsUrl, selectedPhoto: self.$selectedPhoto)
+                        IconView(photoUrl: twoRetrieversUrl, selectedPhoto: self.$selectedPhoto)
                     }.padding(.horizontal)
-
                 }
                 
-                VStack {
-                    HStack{
-                    Text("Workout")
-                        .font(/*@START_MENU_TOKEN@*/.title3/*@END_MENU_TOKEN@*/)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.semibold/*@END_MENU_TOKEN@*/)
-                        .frame(alignment: .leading)
-                        .padding(.leading)
-                        
-                        Text("🥊🏐🥏")
-                            .font(.system(size: 30))
-                        
-                        Spacer()
-                    }
-                    ScrollView(.horizontal, showsIndicators: true){
-                        HStack{
-                            IconView(photoUrl: kbsUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                            IconView(photoUrl: pinkKbsUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                            IconView(photoUrl: rougueUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                            IconView(photoUrl: glovesUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                            IconView(photoUrl: yogaVibesUrl, heightSize: 100.0, selectedPhoto: self.$selectedPhoto)
-                        }.padding(.horizontal)
-
-                    }
-                }
-                
-                Spacer().frame(height: 90)
+                Spacer().frame(height: 60)
                 
                 NavigationLink(
                     destination: CurrentUserProfileView(),
@@ -134,6 +131,7 @@ struct SelectIconPhotoView: View {
                                     }
                             }
                             }
+                Spacer().frame(height: 30)
                     }
             }.navigationBarTitle("Select Profile Icon")
         }
