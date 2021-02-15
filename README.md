@@ -1,4 +1,4 @@
-# <img src="hhttps://github.com/agesak/capstone/blob/main/gymbuddies/Assets.xcassets/barbell-icon.imageset/barbell-icon.png" width="50" height="50"> MyGymPals
+# ![plot](./images/barbell-40.png) MyGymPals
 ### Kareha Agesa - [Ada Developers Academy](https://adadevelopersacademy.org/) Cohort 14 Capstone Project
 
 # What Is It?
@@ -6,6 +6,8 @@ We're in a pandemic.. Gyms are closed.. But you want to work out! I get it. But 
 
 ![plot](./images/homeview.png)
 ![plot](./images/userprofile.png)
+![plot](./images/users.png)
+![plot](./images/messages.png)
 
 # Set Up
 ### Tech Stack
