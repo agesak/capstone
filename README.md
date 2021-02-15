@@ -1,4 +1,4 @@
-# ![plot](./images/clean-jerk-90.png) MyGymPals
+# ![plot](./images/barbell-40.png) MyGymPals
 ### Kareha Agesa - [Ada Developers Academy](https://adadevelopersacademy.org/) Cohort 14 Capstone Project
 
 # What Is It?
