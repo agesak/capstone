@@ -48,7 +48,7 @@ struct AboutMeView: View {
                 Spacer().frame(height: 40)
 
                 NavigationLink(
-                    destination: CreateWorkoutPreferencesView(),
+                    destination: SelectIconPhotoView(),
                     isActive: self.$isprofileValid) {
                     ButtonView(buttonText: "Continue")
                             .onTapGesture {

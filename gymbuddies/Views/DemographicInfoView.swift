@@ -33,7 +33,6 @@ struct DemographicInfoView: View {
     @State var location : String = ""
     @State var pronouns : String = ""
     
-//     = false
     @State private var isprofileValid: Bool = false
     @State private var shouldShowProfileAlert: Bool = false
     
@@ -57,17 +56,10 @@ struct DemographicInfoView: View {
                 Spacer().frame(height: 75)
             }
             NavigationLink(
-                destination: AboutMeView(),
+                destination: CreateWorkoutPreferencesView(),
                 isActive: self.$isprofileValid) {
                 ButtonView(buttonText: "Continue")
                         .onTapGesture {
-//                            self.isprofileValid = toUpdate.create(userInfo: [
-//                                "name": self.name,
-//                                "age": self.age,
-//                                "location": self.location,
-//                                "pronouns": self.pronouns])
-//                            print(self.isprofileValid)
-                            
                             let userDictionary = [
                                 "name": self.name,
                                 "age": self.age,
