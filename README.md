@@ -12,16 +12,11 @@ Logo Screen         |  User Profile
 ![](./images/homeview.png)  |  ![](./images/user-profile.png)
 
 
+Messaging     |  List of Users
+:-------------------------:|:-------------------------:
+![](./images/messages.png)  |  ![](./images/users.png)
 
-
-
-
-
-### Messaging
-![plot](./images/messages.png)
-
-### List of Users
-![plot](./images/users.png)
+![](./images/users.png)
 
 # Set Up
 ### Tech Stack
