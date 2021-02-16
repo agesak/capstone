@@ -6,8 +6,8 @@ We're in a pandemic.. Gyms are closed.. And you want to stay active. I get it. B
 
 <!-- ![plot](./images/homeview-smaller.png) ![plot](./images/homeview-smaller.png) ![plot](./images/homeview-smaller.png)
 ![plot](./images/homeview-smaller.png) -->
-![plot](./images/homeview-small.png) ![plot](./images/homeview-small.png) ![plot](./images/homeview-small.png)
-![plot](./images/homeview-small.png)
+![plot](./images/homeviewsmall.png) ![plot](./images/homeviewsmall.png) ![plot](./images/homeviewsmall.png)
+![plot](./images/homeviewsmall.png)
 
 
 <!-- ![plot](./images/userprofile.png)
