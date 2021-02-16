@@ -7,11 +7,15 @@ We're in a pandemic.. Gyms are closed.. And you want to stay active. I get it. B
 <!-- ![plot](./images/homeview_small.png) ![plot](./images/homeview_small.png) ![plot](./images/homeview_small.png)
 ![plot](./images/homeview_small.png) -->
 
-### Logo Screen
-![plot](./images/homeview.png)
+### Logo Screen         |  User Profile
+:-------------------------:|:-------------------------:
+![plot](./images/homeview.png)  |  ![plot](./images/user-profile.png)
 
-### User Profile
-![plot](./images/user-profile.png)
+
+
+
+
+
 
 ### Messaging
 ![plot](./images/messages.png)
