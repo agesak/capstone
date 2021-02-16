@@ -16,7 +16,7 @@ Messaging     |  List of Users
 :-------------------------:|:-------------------------:
 ![](./images/messages.png)  |  ![](./images/users.png)
 
-![](./images/users.png)
+![](./images/users.png) ![](./images/users.png)
 
 # Set Up
 ### Tech Stack
